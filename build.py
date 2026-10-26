@@ -1,7 +1,7 @@
 """Builds The Morphin Archive for GitHub Pages.
 
-Pulls the current page sources and card data from the Apps Script web app and writes a
-standalone site to _site/. GitHub Actions runs this on every push, every 20 minutes and on demand,
+The page sources live in this repository (src/Index.html, src/Mobile.html); files in static/ (Grid Run) are
+copied as they are. Card data comes from the Apps Script web app. Writes a standalone site to _site/. GitHub Actions runs this on every push, every 20 minutes and on demand,
 so changes deployed in Apps Script show up here on their own.
 """
 import base64, hashlib, html, json, os, sys, time, urllib.request
@@ -9,7 +9,7 @@ import base64, hashlib, html, json, os, sys, time, urllib.request
 EXEC = 'https://script.google.com/macros/s/AKfycbw8lEIvVt2hWJjsAYEbs3yFH-nsOXkxEKs-UPqULYP97fgh67gty-k2UJ1KR0Y2VLTKxA/exec'
 SITE = 'https://powerrangers.volbeat.vip'
 OUT = '_site'
-VERSION = '1'          # bump to force a rebuild after editing this file
+VERSION = '2'          # bump to force a rebuild after editing this file
 
 
 ICONS = {
@@ -43,8 +43,21 @@ def one(s, old, new):
     return s.replace(old, new)
 
 
-index_src = fetch(EXEC + '?src=Index')
-mobile_src = fetch(EXEC + '?src=Mobile')
+def src(name):
+    p = os.path.join('src', name + '.html')
+    if os.path.exists(p):
+        with open(p, encoding='utf-8') as f:
+            return f.read()
+    return fetch(EXEC + '?src=' + name)
+
+
+index_src = src('Index')
+mobile_src = src('Mobile')
+STATIC = {}
+if os.path.isdir('static'):
+    for n in sorted(os.listdir('static')):
+        with open(os.path.join('static', n), 'rb') as f:
+            STATIC[n] = f.read()
 res = json.loads(fetch(EXEC, json.dumps({'fn': 'getData', 'args': ['site-build']}).encode()))
 if not res.get('ok'):
     sys.exit('build: getData failed: ' + str(res))
@@ -53,7 +66,7 @@ data.pop('liked', None)
 for k in ('cards', 'collections', 'decks', 'settings'):
     data.setdefault(k, [] if k != 'settings' else {})
 
-build_id = hashlib.sha256((VERSION + index_src + mobile_src + json.dumps(data, sort_keys=True)).encode()).hexdigest()[:16]
+build_id = hashlib.sha256((VERSION + index_src + mobile_src + json.dumps(data, sort_keys=True)).encode() + b''.join(STATIC.values())).hexdigest()[:16]
 force = os.environ.get('FORCE', 'true') == 'true'
 try:
     live = fetch(SITE + '/build.txt', tries=1).strip()
@@ -109,12 +122,12 @@ try{var pr=JSON.parse(ls.getItem('gcg-mobile')||'null');if(pr&&pr.snooze&&Date.n
 if(matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<820)location.replace('m.html'+u.search+u.hash);})();</script>
 '''
 
-index = one(index_src, '<?!= boot ?>', boot({'exec': EXEC, 'data': data}))
+index = one(index_src, '<?!= boot ?>', boot({'exec': EXEC, 'data': data, 'v': build_id[:8]}))
 index = one(index, '<meta name="viewport" content="width=device-width, initial-scale=1">',
             '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + ROUTE + HEAD)
 index = index.replace('<!--DEMO-->', '')
 
-mobile = one(mobile_src, '<?!= boot ?>', boot({'exec': EXEC, 'url': SITE + '/', 'data': data}))
+mobile = one(mobile_src, '<?!= boot ?>', boot({'exec': EXEC, 'url': SITE + '/', 'data': data, 'v': build_id[:8]}))
 mobile = one(mobile, '<meta name="theme-color" content="#0b0d13">', HEAD.rstrip('\n'))
 mobile = mobile.replace('<!--DEMO-->', '')
 
@@ -133,6 +146,9 @@ files = {'index.html': index, '404.html': index, 'm.html': mobile, 'build.txt': 
 for name, text in files.items():
     with open(os.path.join(OUT, name), 'w', encoding='utf-8') as f:
         f.write(text)
+for name, raw in STATIC.items():
+    with open(os.path.join(OUT, name), 'wb') as f:
+        f.write(raw)
 for name, b64 in ICONS.items():
     with open(os.path.join(OUT, name), 'wb') as f:
         f.write(base64.b64decode(b64))
