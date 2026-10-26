@@ -478,6 +478,80 @@ button.kindtag{cursor:pointer;background:none;color:var(--muted);border-color:va
 .rd{position:relative}
 .rd-note{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:8px 8px 8px 14px;border-radius:12px;background:#0e1016;border:1px solid rgba(255,255,255,.14);box-shadow:0 10px 30px rgba(0,0,0,.5);font-size:13.5px;font-weight:600;white-space:nowrap;z-index:2}
 .rd-note[hidden]{display:none}
+.rd-qab span{font-size:13px}
+.rd-qab[aria-pressed="true"]{background:#e8b931;color:#14161c;border-color:#e8b931}
+.rd-qa{position:absolute;z-index:3;top:51px;right:0;bottom:0;width:340px;display:flex;flex-direction:column;gap:10px;padding:12px 12px 14px;background:#0e1016;border-left:1px solid rgba(255,255,255,.1);overflow:auto;overscroll-behavior:contain}
+.rd-qa[hidden]{display:none}
+.rd.qa-on .rd-scroll{margin-right:340px}
+.qa-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.qa-h b{font-size:15px}
+.qa-who{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#a9afbf;font-weight:700}
+.qa-sel{height:36px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:#08090d;color:#fff;padding:0 8px;font-size:14px}
+.qa-pg{font-size:12px;color:#a9afbf;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-top:1px solid rgba(255,255,255,.08);padding-top:10px}
+.qa-list{display:flex;flex-direction:column;gap:8px}
+.qa-it{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:10px;background:#161922;border:1px solid rgba(255,255,255,.07)}
+.qa-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.qa-tx small{font-size:11px;color:#e8b931;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.qa-tx b{font-size:14px;line-height:1.25}
+.qa-tx span{font-size:12.5px;color:#b8bdca;line-height:1.35}
+.qa-add{flex:none;min-width:58px}
+.qa-add:not(.done){background:#e8b931;color:#14161c;border-color:#e8b931}
+.qa-add.done{color:#9fe0a8}
+.qa-none{margin:0;font-size:13px;color:#a9afbf;line-height:1.45}
+.qa-open{margin-top:auto;font-size:13px;color:#e8b931;font-weight:700;text-decoration:none;padding-top:6px}
+.rd-qad{position:absolute;z-index:2;top:8px;right:8px;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px 0 7px;border-radius:999px;border:0;background:#e8b931;color:#14161c;font-weight:800;font-size:12px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.rd-qad .i{width:14px;height:14px}
+@media (max-width:760px){
+  .rd-qa{top:auto;left:0;width:auto;height:58%;border-left:0;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;box-shadow:0 -12px 30px rgba(0,0,0,.5)}
+  .rd.qa-on .rd-scroll{margin-right:0;padding-bottom:60vh}
+  .rd-qab span{display:none}
+}
+.qa-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.qa-h b{font-size:15px}
+.qa-who{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#a9afbf;font-weight:700}
+.qa-sel{height:36px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:#08090d;color:#fff;padding:0 8px;font-size:14px}
+.qa-pg{font-size:12px;color:#a9afbf;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-top:1px solid rgba(255,255,255,.08);padding-top:10px}
+.qa-list{display:flex;flex-direction:column;gap:8px}
+.qa-it{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:10px;background:#161922;border:1px solid rgba(255,255,255,.07)}
+.qa-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.qa-tx small{font-size:11px;color:#e8b931;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.qa-tx b{font-size:14px;line-height:1.25}
+.qa-tx span{font-size:12.5px;color:#b8bdca;line-height:1.35}
+.qa-add{flex:none;min-width:58px}
+.qa-add:not(.done){background:#e8b931;color:#14161c;border-color:#e8b931}
+.qa-add.done{color:#9fe0a8}
+.qa-none{margin:0;font-size:13px;color:#a9afbf;line-height:1.45}
+.qa-open{margin-top:auto;font-size:13px;color:#e8b931;font-weight:700;text-decoration:none;padding-top:6px}
+.rd-qad{position:absolute;z-index:2;top:8px;right:8px;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px 0 7px;border-radius:999px;border:0;background:#e8b931;color:#14161c;font-weight:800;font-size:12px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.rd-qad .i{width:14px;height:14px}
+@media (max-width:760px){
+  .rd-qa{top:auto;left:0;width:auto;height:58%;border-left:0;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;box-shadow:0 -12px 30px rgba(0,0,0,.5)}
+  .rd.qa-on .rd-scroll{margin-right:0;padding-bottom:60vh}
+  .rd-qab span{display:none}
+}
+.qa-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.qa-h b{font-size:15px}
+.qa-who{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#a9afbf;font-weight:700}
+.qa-sel{height:36px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:#08090d;color:#fff;padding:0 8px;font-size:14px}
+.qa-pg{font-size:12px;color:#a9afbf;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-top:1px solid rgba(255,255,255,.08);padding-top:10px}
+.qa-list{display:flex;flex-direction:column;gap:8px}
+.qa-it{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:10px;background:#161922;border:1px solid rgba(255,255,255,.07)}
+.qa-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.qa-tx small{font-size:11px;color:#e8b931;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.qa-tx b{font-size:14px;line-height:1.25}
+.qa-tx span{font-size:12.5px;color:#b8bdca;line-height:1.35}
+.qa-add{flex:none;min-width:58px}
+.qa-add:not(.done){background:#e8b931;color:#14161c;border-color:#e8b931}
+.qa-add.done{color:#9fe0a8}
+.qa-none{margin:0;font-size:13px;color:#a9afbf;line-height:1.45}
+.qa-open{margin-top:auto;font-size:13px;color:#e8b931;font-weight:700;text-decoration:none;padding-top:6px}
+.rd-qad{position:absolute;z-index:2;top:8px;right:8px;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px 0 7px;border-radius:999px;border:0;background:#e8b931;color:#14161c;font-weight:800;font-size:12px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.rd-qad .i{width:14px;height:14px}
+@media (max-width:760px){
+  .rd-qa{top:auto;left:0;width:auto;height:58%;border-left:0;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;box-shadow:0 -12px 30px rgba(0,0,0,.5)}
+  .rd.qa-on .rd-scroll{margin-right:0;padding-bottom:60vh}
+  .rd-qab span{display:none}
+}
 
 .dhero{grid-template-columns:auto minmax(0,1fr)!important;padding-block:32px 28px!important}
 .dface{display:block;width:clamp(170px,22vw,250px);aspect-ratio:63/88;border-radius:12px;overflow:hidden;background:var(--raise);box-shadow:0 26px 50px -24px rgba(0,0,0,.85);border:1px solid var(--line2)}
@@ -3011,15 +3085,17 @@ function rdMount(host,f,opts={}){
       ${opts.onClose?`<button class="rd-b" data-rd="close" aria-label="Close">${ico('x')}</button>`:''}<b class="rd-t">${esc(f.title)}</b>
       <div class="rd-pg"><button class="rd-b" data-rd="prev" aria-label="Previous page">${ico('left')}</button><input class="rd-in" inputmode="numeric" aria-label="Page number" value="1"><span class="rd-of">of …</span><button class="rd-b" data-rd="next" aria-label="Next page">${ico('right')}</button></div>
       <div class="rd-zm"><button class="rd-b" data-rd="out" aria-label="Zoom out">−</button><button class="rd-b rd-zv" data-rd="fit" title="Fit the page width">100%</button><button class="rd-b" data-rd="in" aria-label="Zoom in">+</button></div>
+      <button class="rd-b rd-qab" data-rd="qa" hidden aria-pressed="false" title="Add things from this page to a character sheet">${ico('plus')}<span>Add to sheet</span></button>
       <a class="rd-b" href="${esc(f.download)}" target="_blank" rel="noopener" aria-label="Download the PDF" title="Download">${ico('down')}</a>
       ${opts.full!==false?`<button class="rd-b rd-fsb" data-rd="full" aria-label="Full screen" title="Full screen">⛶</button>`:''}
-    </div><div class="rd-scroll" tabindex="0"><div class="rd-pages"></div><div class="rd-msg"><div><div class="rd-spin"></div><p>Opening the book…</p></div></div></div><div class="rd-note" hidden></div></div>`;
+    </div><div class="rd-scroll" tabindex="0"><div class="rd-pages"></div><div class="rd-msg"><div><div class="rd-spin"></div><p>Opening the book…</p></div></div></div><div class="rd-note" hidden></div><aside class="rd-qa" hidden aria-label="Add to a character"></aside></div>`;
   const root=host.querySelector('.rd'), sc=root.querySelector('.rd-scroll'), box=root.querySelector('.rd-pages'), msg=root.querySelector('.rd-msg'), inp=root.querySelector('.rd-in'), of=root.querySelector('.rd-of'), zv=root.querySelector('.rd-zv'), note=root.querySelector('.rd-note');
+  const qaBox=root.querySelector('.rd-qa'), qaBtn=root.querySelector('.rd-qab');
   const pg=rdPages(f), fast=pg.some(Boolean);
   const R={doc:null, docP:null, n:0, zoom:1, fitW:800, alive:true, tasks:new Map(), cur:1, queue:[], active:0, pt:0, st:0, tg:0, tgT:0};
   const say=(t,extra)=>{ msg.hidden=false; msg.innerHTML=`<div>${t===null?'':'<div class="rd-spin"></div>'}<p>${t||''}</p>${extra||''}</div>`; };
   const fail=e=>{ if(!R.alive) return; msg.hidden=false; msg.innerHTML=`<div><p>This book could not open here${e&&e.message?`: ${esc(e.message)}`:''}.</p><p class="rd-alt"><a class="rd-b" href="${esc(f.view)}" target="_blank" rel="noopener">Open it in Google Drive</a> <a class="rd-b" href="${esc(f.download)}" target="_blank" rel="noopener">Download</a></p></div>`; };
-  const fitWidth=()=>Math.max(200,Math.min(sc.clientWidth-24,980));
+  const fitWidth=()=>Math.max(200,Math.min(sc.clientWidth-24,980));   // the scroll area already shrinks when the tray is open
   const layout=keep=>{ const anchor=keep?R.cur:0; R.fitW=fitWidth(); root.style.setProperty('--rdw',Math.round(R.fitW*R.zoom)+'px'); zv.textContent=Math.round(R.zoom*100)+'%';
     if(anchor) goto(anchor,true); soon(); };
   const dpr=()=>Math.min(2,window.devicePixelRatio||1);
@@ -3084,9 +3160,9 @@ function rdMount(host,f,opts={}){
   const remember=()=>{ clearTimeout(R.st); R.st=setTimeout(()=>{ try{ if(R.cur>1) localStorage.setItem('rd-at-'+f.id,R.cur); else localStorage.removeItem('rd-at-'+f.id); }catch(e){} },600); };
   function track(){ const s=sc.getBoundingClientRect(), mid=s.top+s.height*0.35; let best=1;
     for(const el of box.children){ const r=el.getBoundingClientRect(); if(r.top<=mid) best=+el.dataset.p; else break; }
-    if(best!==R.cur){ R.cur=best; if(document.activeElement!==inp) inp.value=best; remember(); } }
+    if(best!==R.cur){ R.cur=best; if(document.activeElement!==inp) inp.value=best; remember(); qaShow(); } }
   /* While a jump is scrolling, keep the page it is heading to (so quick taps on Next add up). */
-  function goto(i,instant){ i=Math.max(1,Math.min(R.n||1,i|0)); const el=box.children[i-1]; if(!el) return; const far=Math.abs(i-R.cur)>2; R.cur=i; inp.value=i; remember();
+  function goto(i,instant){ i=Math.max(1,Math.min(R.n||1,i|0)); const el=box.children[i-1]; if(!el) return; const far=Math.abs(i-R.cur)>2; R.cur=i; inp.value=i; remember(); qaShow();
     R.tg=i; clearTimeout(R.tgT); R.tgT=setTimeout(()=>{ R.tg=0; },instant||far?250:900);
     sc.scrollTo({top:el.offsetTop-12,behavior:instant||far?'auto':'smooth'}); soon(); }
   let raf=0; sc.addEventListener('scroll',()=>{ if(raf) return; raf=requestAnimationFrame(()=>{ raf=0; quickImgs(); if(R.tg){ clearTimeout(R.tgT); R.tgT=setTimeout(()=>{ R.tg=0; track(); },160); } else track(); soon(); }); },{passive:true});
@@ -3099,7 +3175,25 @@ function rdMount(host,f,opts={}){
   root.addEventListener('click',e=>{ const b=e.target.closest('[data-rd]'); if(!b) return; const a=b.dataset.rd;
     if(a==='close') return opts.onClose&&opts.onClose(); if(a==='prev') return goto(R.cur-1); if(a==='next') return goto(R.cur+1);
     if(a==='in') return zoomTo(R.zoom*1.25); if(a==='out') return zoomTo(R.zoom/1.25); if(a==='fit') return zoomTo(1); if(a==='full') return full();
-    if(a==='start'){ note.hidden=true; return goto(1,true); } });
+    if(a==='start'){ note.hidden=true; return goto(1,true); }
+    if(a==='qa') return qaToggle(); });
+  /* ---- quick add: the tray of things on this page that can go onto a character sheet ---- */
+  let qaItems=[];
+  function qaShow(){ if(!R.qa||typeof qaTrayHTML!=='function') return; qaItems=qaItemsFor(f.id,R.cur); qaBox.innerHTML=qaTrayHTML(f.id,R.cur); }
+  function qaToggle(on){ R.qa=on===undefined?!R.qa:on; qaBox.hidden=!R.qa; root.classList.toggle('qa-on',R.qa); qaBtn.setAttribute('aria-pressed',R.qa);
+    try{ localStorage.setItem('rd-qa',R.qa?'1':''); }catch(e){} if(R.qa) qaShow(); layout(true); }
+  function qaMark(){ if(!QA_DATA) return; const ps=qaPages(f.id); box.querySelectorAll('.rd-page').forEach(el=>{ const p=+el.dataset.p; if(!ps.has(p)||el.querySelector('.rd-qad')) return;
+      const n=qaItemsFor(f.id,p).filter(it=>it.p===p).length; if(!n) return;
+      const b=document.createElement('button'); b.className='rd-qad'; b.dataset.qp=p; b.title='Add to a character sheet'; b.innerHTML=`${ico('plus')}<span>${n} to add</span>`; el.appendChild(b); }); }
+  box.addEventListener('click',e=>{ const b=e.target.closest('.rd-qad'); if(!b) return; e.stopPropagation(); goto(+b.dataset.qp); qaToggle(true); });
+  qaBox.addEventListener('click',e=>{ const b=e.target.closest('[data-qa]'); if(!b) return; const a=b.dataset.qa;
+    if(a==='close') return qaToggle(false);
+    if(a==='add'){ const it=qaItems[+b.dataset.i]; if(!it) return; const sel=qaBox.querySelector('[data-qa="who"]');
+      const r=qaAdd(it,sel?sel.value:''); qaShow();
+      const msg=`${it.n}: ${r.said} on ${r.name}.`; if(typeof toast==='function') toast(msg); else { note.textContent=msg; note.hidden=false; setTimeout(()=>{ note.hidden=true; },3500); } } });
+  qaBox.addEventListener('change',e=>{ const s=e.target.closest('[data-qa="who"]'); if(!s) return; if(s.value) try{ localStorage.setItem('gcg-char-cur',JSON.stringify(s.value)); }catch(e){} qaShow(); });
+  if(typeof qaLoad==='function') qaLoad().then(()=>{ if(!R.alive||!qaHas(f.id)) return; qaBtn.hidden=false; qaMark();
+      let on=false; try{ on=localStorage.getItem('rd-qa')==='1'; }catch(e){} if(on&&window.innerWidth>760) qaToggle(true); }).catch(()=>{});
   inp.addEventListener('change',()=>goto(+inp.value)); inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ goto(+inp.value); inp.blur(); } });
   const key=e=>{ if(e.target&&e.target.matches&&e.target.matches('input,textarea,select')) return false;
     const k=e.key; if(k==='ArrowRight') { goto(R.cur+1); return true; } if(k==='ArrowLeft') { goto(R.cur-1); return true; }
@@ -3108,7 +3202,7 @@ function rdMount(host,f,opts={}){
   /** Lay out every page (as empty sheets of the right shape), then jump back to where this visitor stopped last time. */
   function build(n,ratioOf){ R.n=n; of.textContent='of '+n; inp.max=n;
     box.innerHTML=Array.from({length:n},(_,i)=>`<div class="rd-page" data-p="${i+1}" style="aspect-ratio:1/${ratioOf(i)}"><span>${i+1}</span></div>`).join('');
-    msg.hidden=true; layout(false); sc.focus({preventScroll:true});
+    msg.hidden=true; layout(false); sc.focus({preventScroll:true}); qaMark();
     const asked=Math.round(+opts.page||0); if(asked>=1&&asked<=n){ goto(asked,true); return; }   // opened at a given page (e.g. a scenario)
     let at=0; try{ at=+localStorage.getItem('rd-at-'+f.id)||0; }catch(e){}
     if(at>1&&at<=n){ goto(at,true); note.innerHTML=`<span>Back at page ${at}</span><button class="rd-b" data-rd="start">Start from page 1</button>`; note.hidden=false; setTimeout(()=>{ note.hidden=true; },7000); } }
@@ -3133,6 +3227,105 @@ async function rdPagePicture(doc,i){ const page=await doc.getPage(i); const v1=p
   await page.render({canvasContext:ctx,viewport:vp,intent:'print'}).promise; page.cleanup();
   const data=c.toDataURL('image/jpeg',.82); c.width=c.height=0; return {data, ratio:v1.height/v1.width}; }
 /* ===================== end of PDF reader ===================== */
+/* ===================== RPG quick add: put things from the books onto a character (shared by the full and phone sites) ===================== */
+/* The list of addable things lives in rpgadd.json next to the site: {books:{fileId:[item…]}}.
+   item: {p:first page, q:last page, k:kind, n:name, d:short summary, f:{fields to fill}} */
+let QA_DATA=null, QA_LOADING=null;
+const QA_KINDS={origin:'Origin',role:'Ranger role',influence:'Influence',hangup:'Hang-up',power:'Power',perk:'Perk',bond:'Background bond',
+  weapon:'Weapon',armor:'Armor or shield',gear:'Equipment',zord:'Zord',mega:'Megazord',zordfeat:'Zord feature',language:'Language',note:'Note'};
+function qaLoad(){ if(QA_DATA) return Promise.resolve(QA_DATA); if(QA_LOADING) return QA_LOADING;
+  const v=(typeof BOOT!=='undefined'&&BOOT.v)||Date.now().toString(36);
+  let url; try{ url=new URL('rpgadd.json?v='+v,(typeof BOOT!=='undefined'&&BOOT.url)||location.href).href; }catch(e){ url='rpgadd.json?v='+v; }
+  return QA_LOADING=fetch(url).then(r=>{ if(!r.ok) throw new Error('not found'); return r.json(); })
+    .then(d=>QA_DATA=d).catch(e=>{ QA_LOADING=null; throw e; }); }
+const qaItemsFor=(fid,page)=>((QA_DATA&&QA_DATA.books[fid])||[]).filter(it=>page>=it.p&&page<=(it.q||it.p));
+const qaHas=fid=>!!(QA_DATA&&QA_DATA.books[fid]&&QA_DATA.books[fid].length);
+/** Pages of a book that have something to add (for the page markers). */
+const qaPages=fid=>{ const s=new Set(); ((QA_DATA&&QA_DATA.books[fid])||[]).forEach(it=>{ for(let p=it.p;p<=(it.q||it.p);p++) s.add(p); }); return s; };
+
+/* ---- characters: the same list the character builder keeps in this browser ---- */
+const qaStore={ get(k,d){ try{ const v=localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } }, set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} } };
+function qaChars(){ return (qaStore.get('gcg-chars',[])||[]).filter(c=>c&&typeof c==='object'); }
+function qaBlank(){ if(typeof PRSHEET!=='undefined') return PRSHEET.blank();
+  const zsk=()=>({brawn:0,cond:0,might:0,drive:0,init:0,custom:0});
+  return {name:'',pronouns:'',origin:'',role:'',level:'1',description:'',languages:'',influences:'',hangups:'',personalPower:'',movement:'',health:'',damage:0,
+    attacks:[0,1,2,3,4].map(()=>({name:'',range:'',attack:'',effects:'',notes:''})),powers:'',perks:'',bonds:'',
+    weapons:[0,1,2].map(()=>({name:'',range:'',hands:'',traits:'',attack:'',effects:'',alt:''})),armor:[0,1,2].map(()=>({type:'',desc:'',effect:'',traits:''})),
+    zord:{name:'',str:'',spd:'',tough:'',eva:'',size:'',move:'',health:'',damage:0,skills:zsk(),customName:'',notes:'',features:'',attacks:[0,1].map(()=>({weapon:'',range:'',effects:''}))},
+    inventory:'',notes:'',mega:{name:'',str:'',spd:'',tough:'',eva:'',size:'',move:'',health:['','','','','',''],damage:0,skills:zsk(),customName:'',notes:'',features:'',
+      attacks:[0,1,2,3].map(()=>({weapon:'',range:'',effects:''})),zords:[0,1,2,3,4,5].map(()=>({name:'',ranger:'',color:'',health:'',notes:'',traits:''}))},skillMarks:'upto'}; }
+function qaFull(c){ const b=qaBlank(); const merge=(t,s)=>{ if(Array.isArray(t)) return t.map((v,i)=>s&&s[i]!==undefined?merge(v,s[i]):v);
+    if(t&&typeof t==='object'){ const o={}; Object.keys(t).forEach(k=>{ o[k]=s&&s[k]!==undefined?merge(t[k],s[k]):t[k]; }); return o; }
+    return s===undefined||s===null?t:(typeof t==='number'?(+s||0):String(s)); };
+  const o=merge(b,c||{}); o.id=(c&&c.id)||Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4); o.updated=(c&&c.updated)||Date.now(); return o; }
+const qaName=c=>(c.name||'').trim()||'Unnamed Ranger';
+function qaCurrent(){ const l=qaChars(); const id=qaStore.get('gcg-char-cur',''); return l.find(c=>c.id===id)||l[0]||null; }
+
+/* ---- what adding does to the sheet ---- */
+const qaLine=(text,line)=>{ const t=String(text||'').replace(/\s+$/,''); return t?t+'\n'+line:line; };
+const qaHasLine=(text,name)=>String(text||'').split('\n').some(l=>l.trim().toLowerCase().startsWith(name.toLowerCase()));
+/** Where an item lands: [label, already there?]. */
+function qaWhere(c,it){ const n=it.n, k=it.k;
+  if(k==='origin') return ['Origin',(c.origin||'').toLowerCase()===n.toLowerCase()];
+  if(k==='role') return ['Role',(c.role||'').toLowerCase()===n.toLowerCase()];
+  if(k==='weapon') return ['Weapons',c.weapons.some(w=>w.name.toLowerCase()===n.toLowerCase())||qaHasLine(c.inventory,n)];
+  if(k==='armor') return ['Armor',c.armor.some(a=>a.type.toLowerCase()===n.toLowerCase())||qaHasLine(c.inventory,n)];
+  if(k==='zord') return ['Zord',(c.zord.name||'').toLowerCase()===n.toLowerCase()];
+  if(k==='mega') return ['Megaform',(c.mega.name||'').toLowerCase()===n.toLowerCase()];
+  if(k==='zordfeat') return ['Zord features',qaHasLine(c.zord.features,n)];
+  const fld={influence:['influences','Influences'],hangup:['hangups','Hang-ups'],power:['powers','Powers'],perk:['perks','Perks'],bond:['bonds','Background bonds'],
+    gear:['inventory','Inventory'],language:['languages','Languages'],note:['notes','Notes']}[k]||['notes','Notes'];
+  return [fld[1],qaHasLine(c[fld[0]],n)]; }
+/** Adds the item to character c (changes c). Returns a sentence saying where it went. */
+function qaApply(c,it){ const f=it.f||{}, n=it.n, k=it.k, line=f.line||(it.d?n+': '+it.d:n);
+  const put=(o,vals)=>Object.keys(vals).forEach(key=>{ if(vals[key]!==undefined&&vals[key]!==null&&key in o) o[key]=String(vals[key]); });
+  if(k==='origin'){ c.origin=n; const bits=['set as the Origin'];
+    if(f.health&&!String(c.health).trim()){ c.health=f.health; bits.push('starting Health '+f.health); }
+    if(f.movement&&!String(c.movement).trim()){ c.movement=f.movement; bits.push('Movement '+f.movement); }
+    if(f.perk&&!qaHasLine(c.perks,f.perk.split(' (')[0])){ c.perks=qaLine(c.perks,f.perk); bits.push('its benefit added to Perks'); }
+    if(f.ess) c.notes=qaLine(c.notes,'Origin ('+n+'): '+f.ess);
+    return bits.join(', '); }
+  if(k==='influence'){ if(!qaHasLine(c.influences,n)) c.influences=qaLine(c.influences,line); if(f.hangup&&!c.hangups.includes(f.hangup)) c.hangups=qaLine(c.hangups,f.hangup);
+    return 'added to Influences'+(f.hangup?' and its hang-up to Hang-ups':''); }
+  if(k==='zordfeat'){ c.zord.features=qaLine(c.zord.features,line); return 'added to the Zord’s features'; }
+  if(k==='role'){ c.role=n; return 'set as the Role'; }
+  if(k==='weapon'){ const row=c.weapons.find(w=>!w.name.trim()); if(row){ put(row,Object.assign({name:n},f.row||{})); return 'added to Weapons'; }
+    c.inventory=qaLine(c.inventory,line); return 'added to Inventory (the three weapon rows are full)'; }
+  if(k==='armor'){ const row=c.armor.find(a=>!a.type.trim()); if(row){ put(row,Object.assign({type:n},f.row||{})); return 'added to Armor'; }
+    c.inventory=qaLine(c.inventory,line); return 'added to Inventory (the three armor rows are full)'; }
+  if(k==='zord'||k==='mega'){ const z=k==='zord'?c.zord:c.mega; const was=(z.name||'').trim();
+    put(z,Object.assign({name:n},f.stats||{}));
+    if(f.health!==undefined){ const hv=Array.isArray(f.health)?f.health:[f.health];
+      if(Array.isArray(z.health)) z.health=z.health.map((h,i)=>hv[i]!==undefined?String(hv[i]):''); else z.health=hv.join('/'); }
+    if(f.features) z.features=f.features;
+    if(f.customName!==undefined) z.customName=String(f.customName||'');
+    if(f.skills) Object.keys(f.skills).forEach(s=>{ if(s in z.skills) z.skills[s]=+f.skills[s]||0; });
+    if(f.attacks){ z.attacks=z.attacks.map((a,i)=>f.attacks[i]?Object.assign({weapon:'',range:'',effects:''},f.attacks[i]):{weapon:'',range:'',effects:''}); }
+    return (k==='zord'?'set as the Zord':'set as the Megaform')+(was&&was.toLowerCase()!==n.toLowerCase()?' (replacing '+was+')':''); }
+  const fld={influence:'influences',hangup:'hangups',power:'powers',perk:'perks',bond:'bonds',gear:'inventory',language:'languages',note:'notes'}[k]||'notes';
+  c[fld]=qaLine(c[fld],k==='language'?n:line); return 'added to '+qaWhere(c,it)[0]; }
+/** Adds it to the chosen character (or a new one) and saves. Returns {name, said}. */
+function qaAdd(it,charId){ let list=qaChars().map(qaFull); let c=list.find(x=>x.id===charId);
+  if(!c){ c=qaFull(null); list.push(c); }
+  const said=qaApply(c,it); c.updated=Date.now(); qaStore.set('gcg-chars',list); qaStore.set('gcg-char-cur',c.id);
+  if(typeof CB!=='undefined'&&CB){ CB.list=null; CB.ch=null; }      // the builder reloads from storage next time it opens
+  return {name:qaName(c), said, id:c.id}; }
+
+/* ---- the tray inside the book reader ---- */
+function qaSummary(it){ const f=it.f||{}, bits=[];
+  if(f.row){ const r=f.row; ['range','hands','traits','attack','effects','effect','desc'].forEach(k=>{ if(r[k]) bits.push((k==='desc'?'':k[0].toUpperCase()+k.slice(1)+' ')+r[k]); }); }
+  if(f.stats){ const s=f.stats, L={str:'Str',spd:'Spd',tough:'Tough',eva:'Eva',size:'Size',move:'Move'}; Object.keys(L).forEach(k=>{ if(s[k]) bits.push(L[k]+' '+s[k]); }); }
+  return bits.length?bits.join(' · '):(it.d||''); }
+function qaTrayHTML(fid,page){ const items=qaItemsFor(fid,page), list=qaChars(), cur=qaCurrent();
+  const pick=`<label class="qa-who"><span>Add to</span><select class="qa-sel" data-qa="who">${list.map(c=>`<option value="${esc(c.id)}"${cur&&c.id===cur.id?' selected':''}>${esc(qaName(c))}</option>`).join('')}<option value="">New character</option></select></label>`;
+  const c=cur?qaFull(cur):null;
+  const rows=items.map((it,i)=>{ const w=c?qaWhere(c,it):[qaWhere(qaFull(null),it)[0],false];
+    return `<div class="qa-it"><div class="qa-tx"><small>${esc(QA_KINDS[it.k]||it.k)}${it.q&&it.q!==it.p?` · pages ${it.p}–${it.q}`:''}</small><b>${esc(it.n)}</b>${qaSummary(it)?`<span>${esc(qaSummary(it))}</span>`:''}</div>
+      <button class="rd-b qa-add${w[1]?' done':''}" data-qa="add" data-i="${i}" title="${w[1]?'Already on the sheet. Add again':'Add to '+esc(w[0])}">${w[1]?'Added':'Add'}</button></div>`; }).join('');
+  return `<div class="qa-h"><b>Add to a character</b><button class="rd-b" data-qa="close" aria-label="Close">${ico('x')}</button></div>${pick}
+    <div class="qa-pg">Page ${page}</div><div class="qa-list">${rows||'<p class="qa-none">Nothing to add from this page. Turn the page, or look for the pages that describe origins, powers, gear and Zords.</p>'}</div>
+    <a class="qa-open" href="${esc((typeof BOOT!=='undefined'&&BOOT.url?BOOT.url+'?view=full&':'./?')+'t=builder')}" target="_top">Open the character builder</a>`; }
+/* ===================== end of RPG quick add ===================== */
 
 async function pdfCover(file){ const lib=await loadPdfJs(); const url=URL.createObjectURL(file);
   try{ const doc=await lib.getDocument({url,disableAutoFetch:true}).promise; const pg=await doc.getPage(1); const v1=pg.getViewport({scale:1}); const vp=pg.getViewport({scale:600/v1.width});
