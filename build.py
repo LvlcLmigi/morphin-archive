@@ -66,7 +66,8 @@ data.pop('liked', None)
 for k in ('cards', 'collections', 'decks', 'settings'):
     data.setdefault(k, [] if k != 'settings' else {})
 
-build_id = hashlib.sha256((VERSION + index_src + mobile_src + json.dumps(data, sort_keys=True)).encode() + b''.join(STATIC.values())).hexdigest()[:16]
+from wiki_build import compile_wiki, wiki_hash
+build_id = hashlib.sha256((VERSION + index_src + mobile_src + json.dumps(data, sort_keys=True)).encode() + b''.join(STATIC.values()) + wiki_hash()).hexdigest()[:16]
 force = os.environ.get('FORCE', 'true') == 'true'
 try:
     live = fetch(SITE + '/build.txt', tries=1).strip()
@@ -152,4 +153,5 @@ for name, raw in STATIC.items():
 for name, b64 in ICONS.items():
     with open(os.path.join(OUT, name), 'wb') as f:
         f.write(base64.b64decode(b64))
-print('wrote', ', '.join(sorted(list(files) + list(ICONS))), f'({len(data["cards"])} cards)')
+n_all, n_written = compile_wiki(data, out=os.path.join(OUT, 'wiki'))
+print('wrote', ', '.join(sorted(list(files) + list(ICONS))), f'({len(data["cards"])} cards, wiki {n_written} articles + {n_all - n_written} stubs)')

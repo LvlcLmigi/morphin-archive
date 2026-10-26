@@ -580,6 +580,57 @@ body.sp-on{overflow:hidden}
 
 body.nogame [data-go-sec="game"]{display:none!important}
 
+body.nogame [data-go-sec="game"]{display:none!important}
+
+/* ---- wiki screen ---- */
+.wk{max-width:1100px;margin:0 auto;padding:22px 0 40px}
+.wk-load{display:grid;place-items:center;padding:60px 0}
+.wk-head h1{margin:0;font-family:var(--f-display);text-transform:uppercase;letter-spacing:.02em;font-size:clamp(32px,5vw,58px);line-height:1}
+.wk-head p{margin:8px 0 0;color:var(--muted);max-width:64ch;line-height:1.5}
+.wk-crumb{font-size:13px;color:var(--dim);margin-bottom:10px}.wk-crumb a{color:var(--muted);font-weight:700;text-decoration:none}.wk-crumb a:hover{color:var(--accent)}
+.wk-sf{display:flex;gap:8px;margin:18px 0 20px;max-width:560px}.wk-sf .inp{flex:1}
+.wk-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.wk-cat{display:flex;flex-direction:column;gap:3px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--fg);text-decoration:none;transition:border-color .15s,transform .15s}
+.wk-cat:hover{border-color:var(--accent);transform:translateY(-2px)}
+.wk-cat b{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.04em;font-size:19px}.wk-cat span{color:var(--muted);font-size:13.5px}.wk-cat small{color:var(--dim);font-size:12px;font-weight:700;margin-top:4px}
+.wk-h2{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.04em;font-size:22px;margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.wk-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:8px}
+.wk-row{display:flex;gap:12px;align-items:center;padding:8px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--fg);text-decoration:none;min-width:0}
+.wk-row:hover{border-color:var(--accent)}
+.wk-ri{flex:none;width:54px;height:72px;border-radius:7px;overflow:hidden;background:var(--raise);display:grid;place-items:center}
+.wk-ri img{width:100%;height:100%;object-fit:cover}.wk-ri i{font-style:normal;font-family:var(--f-display);font-size:26px;color:var(--dim)}
+.wk-rt{display:flex;flex-direction:column;gap:1px;min-width:0}.wk-rt b{font-size:15px}.wk-rt small{color:var(--accent);font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.wk-rt span{color:var(--muted);font-size:13px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wk-stubs .wk-row{opacity:.85}
+.wk-note{color:var(--muted);font-size:14px;margin-top:22px}
+.wk-art{display:flow-root}
+.wk-ah small{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:12px}
+.wk-ah h1{margin:2px 0 4px;font-family:var(--f-display);text-transform:uppercase;font-size:clamp(32px,5vw,56px);line-height:1}
+.wk-aka{margin:0 0 10px;color:var(--muted)}
+.wk-box{float:right;width:300px;margin:0 0 18px 24px;border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
+.wk-box img{width:100%;display:block;background:var(--raise)}
+.wk-bt{padding:10px 14px 4px;font-family:var(--f-display);text-transform:uppercase;font-size:18px;letter-spacing:.03em}
+.wk-box dl{margin:0;padding:4px 14px 12px;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13.5px}
+.wk-box dt{color:var(--dim);font-weight:700}.wk-box dd{margin:0}
+.wk-box .btn{margin:0 14px 14px}
+.wk-stub{padding:12px 14px;border-radius:12px;border:1px dashed var(--line2);color:var(--muted);margin:14px 0;max-width:70ch}
+.wk-body{font-size:16px;line-height:1.7;max-width:74ch}
+.wk-body h2{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.03em;font-size:26px;margin:28px 0 8px;line-height:1.1}
+.wk-body h3{font-size:19px;margin:22px 0 6px}.wk-body h4{font-size:16px;margin:18px 0 4px}
+.wk-body p{margin:0 0 14px}.wk-body ul,.wk-body ol{margin:0 0 14px;padding-left:22px}.wk-body li{margin:3px 0}
+.wk-body blockquote{margin:0 0 14px;padding:4px 16px;border-left:3px solid var(--accent);color:var(--muted)}
+.wk-body hr{border:0;border-top:1px solid var(--line);margin:22px 0}
+.wk-l{color:var(--accent);text-decoration:none;font-weight:600}.wk-l:hover{text-decoration:underline}
+.wk-l.wk-new{color:#e5322f}
+.wk-tw{overflow-x:auto;margin:0 0 14px}.wk-t{border-collapse:collapse;font-size:14px}.wk-t th,.wk-t td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}.wk-t th{background:var(--raise)}
+.wk-covers{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;clear:both}
+.wk-cov{display:flex;flex-direction:column;gap:6px;color:var(--fg);text-decoration:none;font-size:13px}.wk-cov img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:6px;background:var(--raise)}
+.wk-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;clear:both}
+.wk-card{display:flex;flex-direction:column;gap:6px;border:0;background:none;padding:0;color:var(--fg);text-align:left;cursor:pointer;font-size:12.5px}
+.wk-card img{width:100%;border-radius:8px;background:var(--raise)}
+.wk-chips{display:flex;flex-wrap:wrap;gap:6px}
+@media (max-width:760px){ .wk{padding-top:12px} .wk-box{float:none;width:auto;margin:12px 0} .wk-box img{max-height:420px;object-fit:contain} .wk-list{grid-template-columns:1fr} }
+/* ---- end of wiki ---- */
 </style>
 </head>
 <body>
@@ -749,6 +800,7 @@ function render(){
   if(S.sub&&S.sub.type==='exps') return renderExps(m);
   if(S.sub&&S.sub.type==='exp') return renderExp(m,expById(S.sub.id));
   if(S.sub&&S.sub.type==='comics') return renderComicsM(m);
+  if(S.sub&&S.sub.type==='wiki') return renderWikiM(m,S.sub.id);
   if(S.sub&&S.sub.type==='cser') return renderCserM(m,crSeries(S.sub.id));
   if(S.tab==='cards') return renderCards(m);
   if(S.tab==='decks') return renderDecks(m);
@@ -1178,6 +1230,7 @@ const SECTIONS=[
   {id:'hotg', eyebrow:'Card game', name:'Heroes of the Grid', blurb:'Every Ranger, Zord, deck, enemy and expansion, plus rules, scenarios and your campaigns.', tint:'#e5322f'},
   {id:'comics', eyebrow:'Read online', name:'Comics', blurb:'Power Rangers comics by series, with a reader that remembers where you stopped.', tint:'#7a3aa3'},
   {id:'rpg', eyebrow:'Tabletop', name:'Roleplaying Game', blurb:'The rulebooks and adventures, and a character builder that fills in the official sheet.', tint:'#1b8fe0'},
+  {id:'wiki', eyebrow:'Encyclopedia', name:'Wiki', blurb:'Rangers, villains, Zords, teams, shows and every comic issue, all linked together.', tint:'#14a35a'},
   {id:'game', eyebrow:'Play now', name:'Grid Run', blurb:'A deckbuilding roguelike built from Heroes of the Grid cards and battles.', tint:'#f4bf1c'}];
 /** Grid Run shows only when the admin has turned it on in Settings, or to a signed-in admin. */
 function gameOn(){ return typeof S!=='undefined'&&!!S&&(!!(S.settings&&S.settings.showGame)||!!S.admin); }
@@ -1209,6 +1262,119 @@ function closeGame(){ if(window.GridRun) try{ window.GridRun.close(); }catch(e){
 function grRangerOrder(list){ const core=c=>/mighty morphin/i.test((c.ranger||'')+' '+(c.series||''))&&/^(red|blue|yellow|pink|black)$/i.test(c.color||'')?0:1;
   return [...list].sort((a,b)=>core(a)-core(b)||String(a.created||'').localeCompare(String(b.created||''))); }
 /* ===================== end of sections ===================== */
+/* ===================== Wiki (shared by the full and phone sites) ===================== */
+/* Articles are compiled by the site build into wiki/index.json and wiki/a/<slug>.json. A route is
+   {} (home), {t:type} (a category), {q:text} (search) or {a:slug} (an article). The host page passes
+   callbacks: nav(route), openCard(id), openComic(id), openDeck(id), openSeries(id), and admin(). */
+const WK={idx:null, loading:null, cache:{}};
+const WK_TYPES=[['character','Characters','People of every team, series and comic'],['ranger','Ranger forms','Suits, powers and Ranger designations'],['team','Teams','Ranger teams across the years'],
+  ['villain','Villains','Warlords, empresses and masterminds'],['monster','Monsters and minions','Monsters of the week and foot soldiers'],['zord','Zords','Zords, Megazords and vehicles'],
+  ['show','Shows and films','Every season and movie'],['comic-series','Comic series','Every comic run, in reading order'],['comic-issue','Comic issues','Summaries of each issue on the site'],
+  ['place','Places','Angel Grove, the Command Center, other worlds'],['item','Items and artifacts','Power Coins, Morphers, weapons'],['topic','Other topics','Everything else']];
+const WK_LABEL=Object.fromEntries(WK_TYPES.map(([k,l])=>[k,l.replace(/s$/,'').replace(/ies$/,'y')]));
+const WK_ONE={character:'Character',ranger:'Ranger form',team:'Team',villain:'Villain',monster:'Monster',zord:'Zord',show:'Show',
+  'comic-series':'Comic series','comic-issue':'Comic issue',place:'Place',item:'Item',topic:'Topic'};
+const WK_REPO='https://github.com/LvlcLmigi/morphin-archive';
+function wkUrl(p){ const v=(typeof BOOT!=='undefined'&&BOOT.v)||Date.now().toString(36);
+  try{ return new URL(p+'?v='+v,(typeof BOOT!=='undefined'&&BOOT.url)||location.href).href; }catch(e){ return p+'?v='+v; } }
+function wkLoad(){ if(WK.idx) return Promise.resolve(WK.idx); if(WK.loading) return WK.loading;
+  return WK.loading=fetch(wkUrl('wiki/index.json')).then(r=>{ if(!r.ok) throw new Error('The wiki could not load.'); return r.json(); })
+    .then(d=>{ WK.idx=d; WK.by=Object.fromEntries(d.articles.map(a=>[a.slug,a])); return d; }).catch(e=>{ WK.loading=null; throw e; }); }
+function wkGet(slug){ if(WK.cache[slug]) return Promise.resolve(WK.cache[slug]);
+  return fetch(wkUrl('wiki/a/'+encodeURIComponent(slug)+'.json')).then(r=>{ if(!r.ok) throw new Error('That page is not in the wiki yet.'); return r.json(); }).then(a=>WK.cache[slug]=a); }
+const wkSlug=s=>String(s||'').toLowerCase().replace(/&/g,' and ').replace(/[’']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'page';
+function wkFind(name){ if(!WK.idx) return null; const n=String(name).trim().toLowerCase(); const s=WK.idx.names[n]||wkSlug(name); return WK.by[s]?s:null; }
+
+/* ---- Markdown, with [[wiki links]] ---- */
+function wkInline(t){ let s=esc(t);
+  s=s.replace(/\[\[([^\]|]+?)(?:\|([^\]]+))?\]\]/g,(m,a,b)=>{ const sl=wkFind(a); const txt=b||a; return sl?`<a href="#" class="wk-l" data-wk="${sl}">${txt}</a>`:`<a href="#" class="wk-l wk-new" data-wknew="${esc(a)}" title="No page yet">${txt}</a>`; });
+  s=s.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+  s=s.replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<i>$2</i>').replace(/`([^`]+)`/g,'<code>$1</code>');
+  return s; }
+function wkMd(md){ const L=String(md||'').replace(/\r/g,'').split('\n'); let out='', i=0;
+  const para=[]; const flush=()=>{ if(para.length){ out+=`<p>${wkInline(para.join(' '))}</p>`; para.length=0; } };
+  while(i<L.length){ const l=L[i];
+    if(!l.trim()){ flush(); i++; continue; }
+    let m;
+    if((m=l.match(/^(#{2,4})\s+(.*)$/))){ flush(); const n=m[1].length; out+=`<h${n} id="wk-${wkSlug(m[2])}">${wkInline(m[2])}</h${n}>`; i++; continue; }
+    if(/^---+\s*$/.test(l)){ flush(); out+='<hr>'; i++; continue; }
+    if(/^>\s?/.test(l)){ flush(); const q=[]; while(i<L.length&&/^>\s?/.test(L[i])) q.push(L[i++].replace(/^>\s?/,'')); out+=`<blockquote>${wkMd(q.join('\n'))}</blockquote>`; continue; }
+    if(/^\s*([-*]|\d+\.)\s+/.test(l)){ flush(); const ord=/^\s*\d+\./.test(l); const it=[]; while(i<L.length&&/^\s*([-*]|\d+\.)\s+/.test(L[i])) it.push(L[i++].replace(/^\s*([-*]|\d+\.)\s+/,''));
+      out+=`<${ord?'ol':'ul'}>${it.map(x=>`<li>${wkInline(x)}</li>`).join('')}</${ord?'ol':'ul'}>`; continue; }
+    if(/^\|/.test(l)){ flush(); const rows=[]; while(i<L.length&&/^\|/.test(L[i])) rows.push(L[i++]);
+      const cells=r=>r.replace(/^\||\|\s*$/g,'').split('|').map(x=>x.trim()); const body=rows.filter(r=>!/^\|[\s:|-]+\|?\s*$/.test(r));
+      out+=`<div class="wk-tw"><table class="wk-t">${body.map((r,k)=>`<tr>${cells(r).map(c=>k===0&&rows[1]&&/^\|[\s:|-]+\|?\s*$/.test(rows[1])?`<th>${wkInline(c)}</th>`:`<td>${wkInline(c)}</td>`).join('')}</tr>`).join('')}</table></div>`; continue; }
+    para.push(l.trim()); i++; }
+  flush(); return out; }
+
+/* ---- pictures ---- */
+function wkImg(ref,w){ ref=String(ref||''); if(!ref) return '';
+  if(/^https?:\/\//.test(ref)) return ref;
+  const [k,...r]=ref.split(':'); const v=r.join(':').trim();
+  if(k==='cover'){ const c=typeof crById==='function'&&crById(v); return c?crCover(c,w||400):''; }
+  if(k==='card'){ const L=(typeof S!=='undefined'&&S.cards)||[]; const lv=v.toLowerCase();
+    const c=L.find(x=>x.type==='ranger'&&(x.character||'').toLowerCase()===lv)||L.find(x=>(x.character||'').toLowerCase()===lv)||L.find(x=>(x.title||'').toLowerCase()===lv); return c?c.thumb:''; }
+  if(k==='deck'){ const L=(typeof S!=='undefined'&&(S.deckList||S.decks))||[]; const d=Array.isArray(L)?L.find(x=>x.id===v):null; return d?(d.faceThumb||d.thumb):''; }
+  return ''; }
+function wkCards(a){ const L=(typeof S!=='undefined'&&S.cards)||[]; const names=[...(a.cards&&a.cards.length?a.cards:[a.title,...(a.aliases||[])])].map(x=>x.toLowerCase());
+  return L.filter(c=>names.includes((c.character||'').toLowerCase())); }
+
+/* ---- pages ---- */
+const wkHead=(title,sub,crumb)=>`<div class="wk-head">${crumb||''}<h1>${title}</h1>${sub?`<p>${sub}</p>`:''}</div>`;
+const wkCrumb=(a)=>`<nav class="wk-crumb"><a href="#" data-wkr="home">Wiki</a>${a?` <span>/</span> <a href="#" data-wkt="${a.type}">${esc((WK_TYPES.find(t=>t[0]===a.type)||['','Other'])[1])}</a>`:''}</nav>`;
+const wkSearchBox=q=>`<form class="wk-sf" data-wkform><input class="inp" name="q" value="${esc(q||'')}" placeholder="Search the wiki" autocomplete="off" aria-label="Search the wiki"><button class="btn primary">Search</button></form>`;
+function wkRow(a){ const im=wkImg(a.image,200);
+  return `<a href="#" class="wk-row" data-wk="${a.slug}"><span class="wk-ri">${im?`<img src="${esc(im)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:`<i>${esc(a.title.slice(0,1))}</i>`}</span>
+    <span class="wk-rt"><b>${esc(a.title)}</b><small>${esc(WK_ONE[a.type]||'Page')}${a.stub?' · stub':''}</small>${a.summary?`<span>${esc(a.summary)}</span>`:''}</span></a>`; }
+function wkHomeHTML(){ const A=WK.idx.articles, written=A.filter(a=>!a.stub);
+  const cnt=t=>A.filter(a=>a.type===t).length;
+  return wkHead('Power Rangers Wiki','Every Ranger, villain, Zord, team, show and comic, linked to the cards, comics and books on this site.')+wkSearchBox('')+
+    `<div class="wk-cats">${WK_TYPES.map(([k,l,d])=>`<a href="#" class="wk-cat" data-wkt="${k}"><b>${l}</b><span>${d}</span><small>${cnt(k)} page${cnt(k)===1?'':'s'}</small></a>`).join('')}</div>
+    ${written.length?`<h2 class="wk-h2">Written so far</h2><div class="wk-list">${written.slice(0,60).map(wkRow).join('')}</div>`:''}
+    <p class="wk-note">${A.length} pages, ${written.length} written. Pages marked “stub” have the basics from the site (cards, covers, series) and are waiting for their article.</p>`; }
+function wkCatHTML(t){ const T=WK_TYPES.find(x=>x[0]===t)||['topic','Pages','']; const A=WK.idx.articles.filter(a=>a.type===t);
+  const w=A.filter(a=>!a.stub), s=A.filter(a=>a.stub);
+  return wkCrumb()+wkHead(T[1],T[2])+wkSearchBox('')+(A.length?`${w.length?`<div class="wk-list">${w.map(wkRow).join('')}</div>`:''}${s.length?`<h2 class="wk-h2">Stubs</h2><div class="wk-list wk-stubs">${s.map(wkRow).join('')}</div>`:''}`:'<p class="wk-note">No pages here yet.</p>'); }
+function wkSearch(q){ q=q.trim().toLowerCase(); if(!q) return []; const A=WK.idx.articles;
+  const score=a=>{ const t=a.title.toLowerCase(); if(t===q) return 0; if((a.aliases||[]).some(x=>x.toLowerCase()===q)) return 1; if(t.startsWith(q)) return 2; if(t.includes(q)) return 3; if((a.aliases||[]).some(x=>x.toLowerCase().includes(q))) return 4; if((a.summary||'').toLowerCase().includes(q)) return 6; return 99; };
+  return A.map(a=>[score(a),a]).filter(x=>x[0]<99).sort((x,y)=>x[0]-y[0]||(x[1].stub-y[1].stub)||x[1].title.localeCompare(y[1].title)).map(x=>x[1]); }
+function wkSearchHTML(q){ const r=wkSearch(q); return wkCrumb()+wkHead('Search','')+wkSearchBox(q)+(r.length?`<div class="wk-list">${r.slice(0,150).map(wkRow).join('')}</div>`:`<p class="wk-note">Nothing matches “${esc(q)}”.</p>`); }
+function wkInfobox(a){ const im=wkImg(a.image,600); const rows=String(a.infobox||'').split('|').map(x=>x.split('=')).filter(x=>x.length>1&&x[0].trim());
+  const c=a.comic&&typeof crById==='function'?crById(a.comic):null;
+  if(!im&&!rows.length&&!c) return '';
+  return `<aside class="wk-box">${im?`<img src="${esc(im)}" alt="" referrerpolicy="no-referrer">`:''}<b class="wk-bt">${esc(a.title)}</b>
+    <dl>${rows.map(([k,...v])=>`<dt>${esc(k.trim())}</dt><dd>${wkInline(v.join('=').trim())}</dd>`).join('')}${c?`<dt>Published</dt><dd>${esc(c.y||'')}</dd><dt>Pages</dt><dd>${esc(c.p||'')}</dd>`:''}</dl>
+    ${c?`<button class="btn primary sm" data-wkcomic="${c.id}">Read this issue</button>`:''}</aside>`; }
+function wkArticleHTML(a,ctx){ const cards=wkCards(a);
+  const issues=a.series&&typeof crIssues==='function'?crIssues(a.series):[];
+  const edit=ctx.admin&&ctx.admin()?(a.file?`<a class="btn sm" href="${WK_REPO}/edit/main/${encodeURI(a.file)}" target="_blank" rel="noopener">Edit on GitHub</a>`:`<a class="btn sm" href="${wkNewUrl(a.title,a.type,a)}" target="_blank" rel="noopener">Write this page</a>`):'';
+  return wkCrumb(a)+`<article class="wk-art">${wkInfobox(a)}<header class="wk-ah"><small>${esc(WK_ONE[a.type]||'Page')}</small><h1>${esc(a.title)}</h1>${(a.aliases||[]).length?`<p class="wk-aka">Also known as ${a.aliases.map(esc).join(', ')}</p>`:''}${edit}</header>
+    ${a.stub&&!a.body?`<div class="wk-stub"><b>This page is a stub.</b> ${a.summary?esc(a.summary)+' ':''}Its article hasn’t been written yet${cards.length||issues.length?', but here is what the site already has':''}.</div>`:''}
+    <div class="wk-body">${wkMd(a.body)}</div>
+    ${issues.length?`<h2 class="wk-h2">Issues on the site</h2><div class="wk-covers">${issues.map(c=>{ const s=wkFindComic(c.id); return `<a href="#" class="wk-cov" ${s?`data-wk="${s}"`:`data-wkcomic="${c.id}"`}><img src="${esc(crCover(c,300))}" alt="" loading="lazy" referrerpolicy="no-referrer"><b>${esc(c.n||c.t)}</b></a>`; }).join('')}</div>`:''}
+    ${cards.length?`<h2 class="wk-h2">Heroes of the Grid cards</h2><div class="wk-cards">${cards.map(c=>`<button class="wk-card" data-wkcard="${c.id}"><img src="${esc(c.thumb)}" alt="${esc(c.title)}" loading="lazy" referrerpolicy="no-referrer"><span>${esc(c.title)}</span></button>`).join('')}</div>`:''}
+    ${(a.backlinks||[]).length?`<h2 class="wk-h2">Pages that link here</h2><div class="wk-chips">${a.backlinks.map(s=>WK.by[s]?`<a href="#" class="chip" data-wk="${s}">${esc(WK.by[s].title)}</a>`:'').join('')}</div>`:''}
+    </article>`; }
+function wkFindComic(id){ const a=WK.idx.articles.find(x=>x.comic===id); return a?a.slug:''; }
+function wkNewUrl(title,type,a){ const folder={character:'characters',ranger:'rangers',team:'teams',villain:'villains',monster:'monsters',zord:'zords',show:'shows','comic-series':'comics','comic-issue':'comics',place:'places',item:'items'}[type]||'topics';
+  const head=['---','title: '+title,'type: '+(type||'topic'),'aliases: ','image: '+((a&&a.image)||''),(a&&a.comic)?'comic: '+a.comic:'',(a&&a.series)?'series: '+a.series:'','infobox: ','---','',''].filter(x=>x!=='').join('\n')+'\n\n';
+  return `${WK_REPO}/new/main/wiki/${folder}?filename=${encodeURIComponent(wkSlug(title)+'.md')}&value=${encodeURIComponent(head)}`; }
+
+/* ---- mount: draws a route into host and handles its clicks ---- */
+function wkShow(host,route,ctx){ route=route||{}; host._wkctx=ctx;
+  host.innerHTML=`<div class="wk"><div class="wk-load"><div class="rd-spin"></div></div></div>`;
+  const box=host.firstChild;
+  wkLoad().then(()=>{
+    if(route.a) return wkGet(route.a).then(a=>{ box.innerHTML=wkArticleHTML(a,ctx); ctx.title&&ctx.title(a.title); });
+    box.innerHTML=route.t?wkCatHTML(route.t):route.q!==undefined?wkSearchHTML(route.q):wkHomeHTML(); ctx.title&&ctx.title(route.t?(WK_TYPES.find(x=>x[0]===route.t)||[0,'Wiki'])[1]:'Wiki');
+  }).catch(e=>{ box.innerHTML=`<p class="wk-note">${esc(e.message)}</p>${route.a?'<p><a href="#" data-wkr="home">Back to the wiki</a></p>':''}`; });
+  if(!host.dataset.wkw){ host.dataset.wkw='1';
+    host.addEventListener('click',e=>{ const t=e.target.closest('[data-wk],[data-wkt],[data-wkr],[data-wkcard],[data-wkcomic],[data-wknew]'); if(!t) return; e.preventDefault(); const ctx=host._wkctx;
+      if(t.dataset.wk) return ctx.nav({a:t.dataset.wk}); if(t.dataset.wkt) return ctx.nav({t:t.dataset.wkt}); if(t.dataset.wkr) return ctx.nav({});
+      if(t.dataset.wkcard) return ctx.openCard(t.dataset.wkcard); if(t.dataset.wkcomic) return ctx.openComic(t.dataset.wkcomic);
+      if(t.dataset.wknew) return ctx.nav({q:t.dataset.wknew}); });
+    host.addEventListener('submit',e=>{ const f=e.target.closest('[data-wkform]'); if(!f) return; e.preventDefault(); host._wkctx.nav({q:f.q.value}); }); } }
+/* ===================== end of wiki ===================== */
 
 /* ===================== PDF reader: streams big books a piece at a time (shared by the full and phone sites) ===================== */
 const RD_PART=2*1024*1024, RD_WHOLE=12*1024*1024;
@@ -1582,10 +1748,14 @@ function refreshList(){ const feed=$('#feed'); if(!feed) return render(); const 
 $$('.tabs button').forEach(b=>b.onclick=()=>{ NAV.length=0; if(S.tab===b.dataset.tab&&!S.sub){ window.scrollTo({top:0,behavior:'smooth'}); return; } setTab(b.dataset.tab); });
 $('#brand').onclick=()=>splashM();
 /* ---- the four sections ---- */
-function pickSectionM(sec){ NAV.length=0; if(sec==='game') return openGame(grHostM()); if(sec==='rpg') return setTab('rpg'); setTab('cards'); if(sec==='comics') openSub('comics',''); }
+function pickSectionM(sec){ NAV.length=0; if(sec==='game') return openGame(grHostM()); if(sec==='wiki'){ setTab('cards'); return openSub('wiki',{}); } if(sec==='rpg') return setTab('rpg'); setTab('cards'); if(sec==='comics') openSub('comics',''); }
 function splashM(){ closeGame(); const r=grRangerOrder(S.cards.filter(c=>ctype(c)==='ranger')).slice(0,4).map(c=>c.thumb);
   showSplash({hotg:r, comics:(S.comicSeries||[]).map(x=>crIssues(x.id)[0]).filter(Boolean).slice(0,4).map(c=>crCover(c,400)), rpg:S.files.filter(f=>areaOf(f)!=='rules').slice(0,4).map(f=>f.cover),
+    wiki:(S.decks||[]).filter(d=>d.kind==='boss'||d.kind==='nemesis').slice(0,4).map(d=>d.faceThumb||d.thumb),
     game:S.cards.filter(c=>ctype(c)==='zord').slice(0,4).map(c=>c.thumb)},pickSectionM); }
+/* ---- wiki screen ---- */
+const WKM={ nav:r=>openSub('wiki',r), openCard:id=>{ const c=S.cards.find(x=>x.id===id); if(c) openViewer([c],0); }, openComic:id=>openComicM(id), admin:()=>false };
+function renderWikiM(m,r){ m.innerHTML=`<section class="screen"><button class="back" data-back style="margin:-4px 0 4px">${ico('left')}Back</button><div id="wkHost"></div></section>`; wkShow($('#wkHost',m),r||{},WKM); }
 function grHostM(){ return { rangers:()=>grRangerOrder(S.cards.filter(c=>ctype(c)==='ranger').map(c=>({...c,colorHex:RANGER[c.color]||'#888'}))),
   decksOfKind:k=>S.decks.filter(d=>d.kind===k), deckName:id=>(deckById(id)||{}).name||'',
   loadDecks:async ids=>{ await ensureDecks(ids); const o={}; ids.forEach(id=>{ o[id]=S.deckCards[id]||[]; }); return o; },
@@ -1748,6 +1918,7 @@ window.addEventListener('resize',()=>{ placePill(); if(!$('#vw').hidden){ const 
   const bc=BOOT.comic&&crById(BOOT.comic);
   const linked=BOOT.card||BOOT.collection||BOOT.deck||BOOT.type||BOOT.file||BOOT.exp||BOOT.cseries||BOOT.comic;
   if(BOOT.type==='game') openGame(grHostM());
+  if(BOOT.type==='wiki'){ const q=new URLSearchParams(location.search); openSub('wiki',q.get('a')?{a:q.get('a')}:q.get('wt')?{t:q.get('wt')}:{}); }
   else if(!linked) splashM();
   else if(bc){ setTab('cards'); openSub('cser',bc.s); openComicM(bc.id,BOOT.page); }
   else if(BOOT.cseries&&crSeries(BOOT.cseries)){ setTab('cards'); openSub('cser',BOOT.cseries); }
