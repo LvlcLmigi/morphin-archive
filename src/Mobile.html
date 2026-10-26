@@ -481,6 +481,8 @@ body.sp-on{overflow:hidden}
 @media (prefers-reduced-motion:reduce){ .sp-slice{transition:none} }
 /* ---- end of start page ---- */
 
+body.nogame [data-go-sec="game"]{display:none!important}
+
 </style>
 </head>
 <body>
@@ -1079,11 +1081,14 @@ const SECTIONS=[
   {id:'hotg', eyebrow:'Card game', name:'Heroes of the Grid', blurb:'Every Ranger, Zord, deck, enemy and expansion, plus rules, scenarios and your campaigns.', tint:'#e5322f'},
   {id:'comics', eyebrow:'Read online', name:'Comics', blurb:'Power Rangers comics by series, with a reader that remembers where you stopped.', tint:'#7a3aa3'},
   {id:'rpg', eyebrow:'Tabletop', name:'Roleplaying Game', blurb:'The rulebooks and adventures, and a character builder that fills in the official sheet.', tint:'#1b8fe0'},
-  {id:'game', eyebrow:'Play now', name:'Grid Run', blurb:'A deckbuilding roguelike played with real Heroes of the Grid combat decks.', tint:'#f4bf1c'}];
+  {id:'game', eyebrow:'Play now', name:'Grid Run', blurb:'A deckbuilding roguelike built from Heroes of the Grid cards and battles.', tint:'#f4bf1c'}];
+/** Grid Run shows only when the admin has turned it on in Settings, or to a signed-in admin. */
+function gameOn(){ return typeof S!=='undefined'&&!!S&&(!!(S.settings&&S.settings.showGame)||!!S.admin); }
+function syncGame(){ document.body.classList.toggle('nogame',!gameOn()); }
 /** The start page: one wide slice per section. pics: {sectionId: [image urls]}. onPick(sectionId). */
 function showSplash(pics,onPick){ hideSplash(); const el=document.createElement('div'); el.id='splash'; el.className='splash'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','Choose a section');
   el.innerHTML=`<div class="sp-brand"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 36 11v18L20 38 4 29V11z" fill="none" stroke="var(--accent)" stroke-width="2.5"/><path d="M20 10 28 14.5v9L20 28l-8-4.5v-9z" fill="var(--accent)"/></svg><b>${esc((typeof S!=='undefined'&&S.settings&&S.settings.siteTitle)||'The Morphin Archive')}</b></div>
-    ${SECTIONS.map((s,k)=>{ const ps=(pics&&pics[s.id]||[]).filter(Boolean).slice(0,4);
+    ${SECTIONS.filter(s=>s.id!=='game'||gameOn()).map((s,k)=>{ const ps=(pics&&pics[s.id]||[]).filter(Boolean).slice(0,4);
       return `<button class="sp-slice" data-sec="${s.id}" style="--tint:${s.tint};--k:${k}"><span class="sp-pics">${ps.map((u,i)=>`<i style="background-image:url('${esc(u)}');--i:${i}"></i>`).join('')}</span>
         <span class="sp-tx"><small>${esc(s.eyebrow)}</small><b>${esc(s.name)}</b><span>${esc(s.blurb)}</span></span><span class="sp-go" aria-hidden="true">→</span></button>`; }).join('')}`;
   document.body.appendChild(el); document.body.classList.add('sp-on');
@@ -1096,7 +1101,7 @@ function loadGame(){ if(window.GridRun) return Promise.resolve(); if(GR_LOADING)
   const v=(typeof BOOT!=='undefined'&&BOOT.v)||Date.now().toString(36).slice(0,6);
   return GR_LOADING=new Promise((res,rej)=>{ const l=document.createElement('link'); l.rel='stylesheet'; l.href='game.css?v='+v; document.head.appendChild(l);
     const sc=document.createElement('script'); sc.src='game.js?v='+v; sc.onload=res; sc.onerror=()=>{ GR_LOADING=null; rej(new Error('Grid Run could not load.')); }; document.head.appendChild(sc); }); }
-async function openGame(host){ const el=document.createElement('div'); el.className='grv'; el.id='grv'; document.body.appendChild(el); document.body.style.overflow='hidden';
+async function openGame(host){ if(!gameOn()) return host.onExit&&host.onExit(); const el=document.createElement('div'); el.className='grv'; el.id='grv'; document.body.appendChild(el); document.body.style.overflow='hidden';
   el.innerHTML='<div class="gr" style="display:grid;place-items:center;height:100%;color:#94a0b8;background:#07090f">Opening Grid Run…</div>';
   window.GR_HOST=Object.assign({esc,ico,rich:t=>richText(t)},host,{onExit:()=>{ closeGame(); host.onExit&&host.onExit(); }});
   try{ await loadGame(); window.GridRun.open(el); }
@@ -1506,7 +1511,7 @@ function desktopLinks(){ const u=fullUrl(); const fb=$('#fullBtn'); fb.href=u; f
   if(desk&&Date.now()>snooze){ $('#dbar').hidden=false; $('#dbarGo').href=u; $('#dbarX').onclick=()=>{ store.set('gcg-desk-snooze',Date.now()+7*864e5); $('#dbar').hidden=true; }; } }
 
 /* ---------------- boot ---------------- */
-function applyData(d){ S.cards=d.cards||[]; S.collections=d.collections||[]; S.decks=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.settings=d.settings||{}; if(d.liked) S.liked=new Set(d.liked);
+function applyData(d){ S.cards=d.cards||[]; S.collections=d.collections||[]; S.decks=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.settings=d.settings||{}; if(typeof syncGame==='function') syncGame(); if(d.liked) S.liked=new Set(d.liked);
   $('#siteTitle').textContent=S.settings.siteTitle||'The Morphin Archive'; document.title=$('#siteTitle').textContent; applyAccent(S.settings.accent); }
 window.addEventListener('resize',()=>{ placePill(); if(!$('#vw').hidden){ const pg=$('#pager'); pg.scrollLeft=V.i*pg.clientWidth; } if(!$('#dv').hidden){ const pg=$('#dpager'); pg.scrollLeft=D.i*pg.clientWidth; } });
 (async()=>{

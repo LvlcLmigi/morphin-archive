@@ -998,6 +998,8 @@ body.sp-on{overflow:hidden}
 @media (prefers-reduced-motion:reduce){ .sp-slice{transition:none} }
 /* ---- end of start page ---- */
 
+body.nogame [data-go-sec="game"]{display:none!important}
+
 </style>
 <script>
 /* Phones that open the site inside a zoomed-out frame (a masked domain forward) lay the page out
@@ -2939,11 +2941,14 @@ const SECTIONS=[
   {id:'hotg', eyebrow:'Card game', name:'Heroes of the Grid', blurb:'Every Ranger, Zord, deck, enemy and expansion, plus rules, scenarios and your campaigns.', tint:'#e5322f'},
   {id:'comics', eyebrow:'Read online', name:'Comics', blurb:'Power Rangers comics by series, with a reader that remembers where you stopped.', tint:'#7a3aa3'},
   {id:'rpg', eyebrow:'Tabletop', name:'Roleplaying Game', blurb:'The rulebooks and adventures, and a character builder that fills in the official sheet.', tint:'#1b8fe0'},
-  {id:'game', eyebrow:'Play now', name:'Grid Run', blurb:'A deckbuilding roguelike played with real Heroes of the Grid combat decks.', tint:'#f4bf1c'}];
+  {id:'game', eyebrow:'Play now', name:'Grid Run', blurb:'A deckbuilding roguelike built from Heroes of the Grid cards and battles.', tint:'#f4bf1c'}];
+/** Grid Run shows only when the admin has turned it on in Settings, or to a signed-in admin. */
+function gameOn(){ return typeof S!=='undefined'&&!!S&&(!!(S.settings&&S.settings.showGame)||!!S.admin); }
+function syncGame(){ document.body.classList.toggle('nogame',!gameOn()); }
 /** The start page: one wide slice per section. pics: {sectionId: [image urls]}. onPick(sectionId). */
 function showSplash(pics,onPick){ hideSplash(); const el=document.createElement('div'); el.id='splash'; el.className='splash'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','Choose a section');
   el.innerHTML=`<div class="sp-brand"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 36 11v18L20 38 4 29V11z" fill="none" stroke="var(--accent)" stroke-width="2.5"/><path d="M20 10 28 14.5v9L20 28l-8-4.5v-9z" fill="var(--accent)"/></svg><b>${esc((typeof S!=='undefined'&&S.settings&&S.settings.siteTitle)||'The Morphin Archive')}</b></div>
-    ${SECTIONS.map((s,k)=>{ const ps=(pics&&pics[s.id]||[]).filter(Boolean).slice(0,4);
+    ${SECTIONS.filter(s=>s.id!=='game'||gameOn()).map((s,k)=>{ const ps=(pics&&pics[s.id]||[]).filter(Boolean).slice(0,4);
       return `<button class="sp-slice" data-sec="${s.id}" style="--tint:${s.tint};--k:${k}"><span class="sp-pics">${ps.map((u,i)=>`<i style="background-image:url('${esc(u)}');--i:${i}"></i>`).join('')}</span>
         <span class="sp-tx"><small>${esc(s.eyebrow)}</small><b>${esc(s.name)}</b><span>${esc(s.blurb)}</span></span><span class="sp-go" aria-hidden="true">→</span></button>`; }).join('')}`;
   document.body.appendChild(el); document.body.classList.add('sp-on');
@@ -2956,7 +2961,7 @@ function loadGame(){ if(window.GridRun) return Promise.resolve(); if(GR_LOADING)
   const v=(typeof BOOT!=='undefined'&&BOOT.v)||Date.now().toString(36).slice(0,6);
   return GR_LOADING=new Promise((res,rej)=>{ const l=document.createElement('link'); l.rel='stylesheet'; l.href='game.css?v='+v; document.head.appendChild(l);
     const sc=document.createElement('script'); sc.src='game.js?v='+v; sc.onload=res; sc.onerror=()=>{ GR_LOADING=null; rej(new Error('Grid Run could not load.')); }; document.head.appendChild(sc); }); }
-async function openGame(host){ const el=document.createElement('div'); el.className='grv'; el.id='grv'; document.body.appendChild(el); document.body.style.overflow='hidden';
+async function openGame(host){ if(!gameOn()) return host.onExit&&host.onExit(); const el=document.createElement('div'); el.className='grv'; el.id='grv'; document.body.appendChild(el); document.body.style.overflow='hidden';
   el.innerHTML='<div class="gr" style="display:grid;place-items:center;height:100%;color:#94a0b8;background:#07090f">Opening Grid Run…</div>';
   window.GR_HOST=Object.assign({esc,ico,rich:t=>richText(t)},host,{onExit:()=>{ closeGame(); host.onExit&&host.onExit(); }});
   try{ await loadGame(); window.GridRun.open(el); }
@@ -3651,6 +3656,7 @@ async function submitDeckQueue(deck){
 function refreshAdminUI(){
   $('#adminPill').hidden=!S.admin; $('#adminBtn').innerHTML=ico(S.admin?'gear':'lock'); $('#adminBtn').setAttribute('aria-label',S.admin?'Admin tools':'Admin sign in');
   if(S.admin&&!S.cmAdmin) cmAdminSync();
+  syncGame();
   const canUpload = S.admin || S.settings.allowSubmissions; $('#uploadBtn').hidden=!canUpload; $('#uploadLbl').textContent=S.admin?'Upload':'Submit a card';
 }
 async function adminCall(fn,...args){ try{ return await api(fn,...args,S.admin); }catch(e){ if(/passcode/i.test(e.message)){ S.admin=null; sess.set('gcg-pass',null); refreshAdminUI(); } toast(e.message); throw e; } }
@@ -3680,9 +3686,10 @@ async function adminTab(tab){
     <div class="fl"><label for="stA">Accent color</label><input id="stA" type="color" value="${esc(s.accent||'#E8B931')}" style="width:64px;height:36px;border:0;background:none"></div>
     <label class="toggle"><span><b>Visitor submissions</b><br><span class="lbl">Visitors can submit cards. They wait in the review queue until you approve them.</span></span><input type="checkbox" id="stS" ${s.allowSubmissions?'checked':''}></label>
     <label class="toggle"><span><b>Comments</b><br><span class="lbl">Let visitors comment on cards.</span></span><input type="checkbox" id="stC" ${s.allowComments!==false?'checked':''}></label>
+    <label class="toggle"><span><b>Grid Run</b><br><span class="lbl">Show the Grid Run game on the start page and in the menus. While it's off, only you see it when signed in.</span></span><input type="checkbox" id="stGm" ${s.showGame?'checked':''}></label>
     <div><button class="btn primary" id="stSave">Save settings</button></div>`;
     $('#stA').oninput=e=>applyAccent(e.target.value);
-    $('#stSave').onclick=async()=>{ const r=await adminCall('saveSettings',{siteTitle:$('#stT').value,tagline:$('#stG').value,accent:$('#stA').value,allowSubmissions:$('#stS').checked,allowComments:$('#stC').checked}); S.settings=r; $('#siteTitle').textContent=r.siteTitle; refreshAdminUI(); render(); toast('Settings saved'); };
+    $('#stSave').onclick=async()=>{ const r=await adminCall('saveSettings',{siteTitle:$('#stT').value,tagline:$('#stG').value,accent:$('#stA').value,allowSubmissions:$('#stS').checked,allowComments:$('#stC').checked,showGame:$('#stGm').checked}); S.settings=r; $('#siteTitle').textContent=r.siteTitle; refreshAdminUI(); render(); toast('Settings saved'); };
   }
   if(tab==='colls'){
     b.innerHTML=`<div><button class="btn primary sm" id="nc">${ico('plus')}New collection</button></div>`+(S.collections.map(c=>`<div class="prow" style="grid-template-columns:1fr auto"><div><b>${esc(c.name)}</b><div class="lbl">${cardsIn(c.id).length} cards</div></div><div style="display:flex;gap:6px"><button class="btn sm" data-ec="${c.id}">Edit</button><button class="btn sm" data-oc="${c.id}">Open</button></div></div>`).join('')||'<p class="desc">No collections yet.</p>');
