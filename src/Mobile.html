@@ -162,6 +162,8 @@ h1,h2,h3{font-family:var(--f-display);font-weight:700;text-transform:uppercase;l
 .cmi.read .cmc{opacity:.72}
 .cmd{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink)}.cmd .i{width:14px;height:14px;stroke-width:3}
 .cmp{position:absolute;left:6px;right:6px;bottom:6px;height:4px;border-radius:9px;background:rgba(0,0,0,.45);overflow:hidden}.cmp i{display:block;height:100%;background:var(--accent)}
+.cmst{position:absolute;top:6px;left:6px;padding:2px 7px;border-radius:6px;background:rgba(10,12,16,.82);color:#fff;font-size:11px;font-weight:700}.cmst.first{background:var(--accent);color:var(--accent-ink)}
+.cmnote{color:var(--muted)!important;line-height:1.3}.cmen{color:var(--muted);font-size:13px;margin:-4px 16px 10px}
 .cmn{font-size:13px;color:var(--dim)!important;margin-top:10px!important}
 .slist{display:flex;flex-direction:column;gap:8px;padding:0 16px}
 .xrow{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--line2);border-radius:14px;background:var(--panel);color:var(--fg)}
@@ -866,6 +868,34 @@ async function crLoadPages(c,pass){ if(CR_CACHE[c.id]) return CR_CACHE[c.id];
 const CR_WARM=new Set();
 function crWarm(url){ if(!url||CR_WARM.has(url)) return; CR_WARM.add(url); const i=new Image(); i.referrerPolicy='no-referrer'; i.decoding='async'; i.src=url; }
 
+/* ---- reading order: series grouped into the eras of the comics' continuity, earliest first ---- */
+const CR_ERAS=[
+  {t:'The Green Ranger saga',y:'2016–2018',n:'Start here. Tommy joins the team, and Lord Drakkon, an evil Tommy from another timeline, is introduced.',s:[
+    [/^mighty morphin power rangers$/,'The main series, issue #0 onward. Read it alongside Go Go Power Rangers.'],
+    [/^go go power rangers$/,'The team’s first days together, running alongside the main series.'],
+    [/lost chronicles/,'Side stories set between issues of the main series.'],
+    [/(^|- )pink$/,'Kimberly’s own story after she leaves the team.'],
+    [/rise of drakkon/,'How Lord Drakkon came to power.']]},
+  {t:'Shattered Grid',y:'2018',n:'Lord Drakkon invades every Ranger timeline at once: the big event of the first run.',s:[[/shattered grid/,'The event itself.']]},
+  {t:'Beyond the Grid and Necessary Evil',y:'2018–2020',n:'The aftermath of Shattered Grid, ending the first run.',s:[
+    [/beyond the grid/,'Rangers stranded beyond the Morphin Grid.'],[/necessary evil/,'The finale of the first run.'],[/drakkon new dawn/,'Drakkon’s next move, after Necessary Evil.']]},
+  {t:'The Omega Rangers era',y:'2020–2022',n:'Two linked series relaunch the line: a new Mighty Morphin team on Earth, and Jason, Trini and Zack as the Omega Rangers in space.',s:[
+    [/^mighty morphin$/,'The new Mighty Morphin team. Read it alongside Power Rangers.'],[/^power rangers$/,'The Omega Rangers in space.'],
+    [/ranger slayer/,'The Ranger Slayer, Kimberly from another reality.'],[/^power rangers unlimited$/,'One-shots about villains and alternate Rangers from this era.'],
+    [/unlimited.*one-shots/,'More one-shots from this era.'],[/universe/,'A companion series from this era.']]},
+  {t:'Later stories',y:'2022–2025',n:'The line continues with new teams and a fresh start.',s:[
+    [/ranger academy/,'Training the next generation of Rangers.'],[/the return/,''],[/across the morphin grid/,'Stories from across the Ranger timelines.'],[/megazords ?& ?monsters/,''],[/prime/,'The grown-up Rangers return.'],[/recharged/,'']]},
+  {t:'The 2026 series',y:'2026',n:'The newest series.',s:[[/\(2026\)/,'']]},
+  {t:'Crossovers and specials',y:'',n:'Stand-alone stories you can read at any point.',s:[
+    [/justice league/,''],[/teenage mutant ninja turtles$/,''],[/teenage mutant ninja turtles ii$/,''],[/teenage mutant ninja turtles iii$/,''],[/godzilla(?!.*ii$)/,''],[/godzilla/,''],
+    [/giveaway day|free comic/,''],[/vr troopers/,'A related Saban series.']]}];
+const crNorm=s=>String(s||'').toLowerCase().replace(/[–—]/g,'-').replace(/\s+/g,' ').trim();
+/** Series in reading order: [{t, y, n, list:[{s, note, step}]}], with anything not in the list last. */
+function crReadingOrder(series){ const used=new Set(), out=[]; let step=0;
+  CR_ERAS.forEach(era=>{ const list=[]; era.s.forEach(([re,note])=>{ series.filter(s=>!used.has(s.id)&&re.test(crNorm(s.name))).sort((a,b)=>crNat(a.name,b.name)).forEach(s=>{ used.add(s.id); list.push({s,note}); }); });
+    if(list.length) out.push({t:era.t,y:era.y,n:era.n,list}); });
+  const rest=series.filter(s=>!used.has(s.id)); if(rest.length) out.push({t:'More stories',y:'',n:'',list:rest.map(s=>({s,note:''}))});
+  out.forEach(e=>e.list.forEach(x=>{ x.step=++step; })); return out; }
 /** Opens issue c inside host. opts: {onClose, onIssue(c) (another issue opened from the end screen), page, pass (admin passcode)}. */
 function crMount(host,c0,opts={}){
   const set=Object.assign({two:'auto',fit:'screen'},store.get('cr-set',{}));
@@ -1242,8 +1272,8 @@ async function rdPagePicture(doc,i){ const page=await doc.getPage(i); const v1=p
 /* ---------------- Comics (the full site has the admin tools) ---------------- */
 const cmSortedM=()=>[...(S.comicSeries||[])].sort((a,b)=>(a.order||0)-(b.order||0)||crNat(a.name,b.name)).filter(s=>crIssues(s.id).length);
 const cmCovM=c=>{ const u=crCover(c,400); return `<span class="cmc" style="aspect-ratio:1/${Math.min(1.8,Math.max(1.2,crCoverR(c)))}">${u?`<img src="${esc(u)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:''}`; };
-function cmTileM(s){ const l=crIssues(s.id), read=crRead(), n=l.filter(c=>read.has(c.id)).length;
-  return `<button class="cms" data-cser="${s.id}">${cmCovM(l[0])}</span><b>${esc(s.name)}</b><small>${esc([plural(l.length,'issue','issues'),s.years].filter(Boolean).join(' · '))}${n?' · '+n+' read':''}</small></button>`; }
+function cmTileM(s,ro){ const l=crIssues(s.id), read=crRead(), n=l.filter(c=>read.has(c.id)).length;
+  return `<button class="cms" data-cser="${s.id}">${cmCovM(l[0])}${ro?`<span class="cmst${ro.step===1?' first':''}">${ro.step===1?'Start here':'#'+ro.step}</span>`:''}</span><b>${esc(s.name)}</b>${ro&&ro.note?`<small class="cmnote">${esc(ro.note)}</small>`:''}<small>${esc([plural(l.length,'issue','issues'),s.years].filter(Boolean).join(' · '))}${n?' · '+n+' read':''}</small></button>`; }
 function cmIssueM(c,withSeries){ const read=crRead().has(c.id), at=crAt(c.id), pct=c.p&&at&&!read?Math.round((at+1)/c.p*100):0, sr=withSeries?crSeries(c.s):null;
   return `<button class="cmi${read?' read':''}" data-comic="${c.id}">${cmCovM(c)}${read?`<span class="cmd">${ico('check')}</span>`:''}${pct?`<span class="cmp"><i style="width:${pct}%"></i></span>`:''}</span>
     ${sr?`<small>${esc(sr.name)}</small>`:''}<b>${c.n?`<em>${esc(crNum(c))}</em> `:''}${esc(c.t)}</b><small>${esc([c.y,c.p?plural(c.p,'page','pages'):''].filter(Boolean).join(' · '))}${pct?' · page '+(at+1):''}</small></button>`; }
@@ -1251,9 +1281,9 @@ function renderComicsM(m){ const q=S.q.trim().toLowerCase(), all=cmSortedM();
   const hay=s=>[s.name,s.publisher,s.years,s.description,...crIssues(s.id).map(c=>c.t+' '+c.n)].join(' ').toLowerCase();
   const l=all.filter(s=>!q||q.split(/\s+/).every(t=>hay(s).includes(t))), read=crRead();
   const going=(S.comics||[]).filter(c=>!c.st&&crAt(c.id)>0&&!read.has(c.id)&&crSeries(c.s));
-  m.innerHTML=`<section class="screen"><div class="rpg-head"><button class="back" data-back style="margin:-4px 0 10px">${ico('left')}Cards</button><small>Read online</small><h1>Comics</h1><p>Power Rangers comics by series. Tap an issue to read it, then swipe or tap the edges of the page to turn it.</p></div>
+  m.innerHTML=`<section class="screen"><div class="rpg-head"><button class="back" data-back style="margin:-4px 0 10px">${ico('left')}Cards</button><small>Read online</small><h1>Comics</h1><p>Power Rangers comics in reading order. Tap a series to start; swipe or tap the edges of a page to turn it.</p></div>
     ${going.length&&!q?`<div class="bkg"><h2>Continue reading</h2><div class="cmrow">${going.slice(0,8).map(c=>cmIssueM(c,true)).join('')}</div></div>`:''}
-    ${l.length?`<div class="bkg">${going.length&&!q?'<h2>All series</h2>':''}<div class="cmgrid">${l.map(cmTileM).join('')}</div></div>`:`<div class="empty"><b>${all.length?'No matches':'No comics yet'}</b>${all.length?'Try another search.':'Check back soon.'}</div>`}</section>`; }
+    ${l.length?crReadingOrder(l).map((e,k)=>`<div class="bkg"><h2>${k+1}. ${esc(e.t)}${e.y?' · '+esc(e.y):''}</h2>${e.n?`<p class="cmen">${esc(e.n)}</p>`:''}<div class="cmgrid">${e.list.map(x=>cmTileM(x.s,x)).join('')}</div></div>`).join(''):`<div class="empty"><b>${all.length?'No matches':'No comics yet'}</b>${all.length?'Try another search.':'Check back soon.'}</div>`}</section>`; }
 function renderCserM(m,s){ if(!s){ S.sub=null; return render(); } const l=crIssues(s.id), q=S.q.trim().toLowerCase(), read=crRead();
   const shown=q?l.filter(c=>q.split(/\s+/).every(t=>(c.t+' '+c.n+' '+c.y).toLowerCase().includes(t))):l, k=crContinue(s.id), n=l.filter(c=>read.has(c.id)).length;
   const yrs=s.years||(()=>{ const ys=l.map(c=>parseInt(c.y)).filter(Boolean); if(!ys.length) return ''; const a=Math.min(...ys), b=Math.max(...ys); return a===b?String(a):a+'–'+b; })();
@@ -1339,6 +1369,7 @@ function grHostM(){ return { rangers:()=>grRangerOrder(S.cards.filter(c=>ctype(c
   decksOfKind:k=>S.decks.filter(d=>d.kind===k), deckName:id=>(deckById(id)||{}).name||'',
   loadDecks:async ids=>{ await ensureDecks(ids); const o={}; ids.forEach(id=>{ o[id]=S.deckCards[id]||[]; }); return o; },
   zordsOf:id=>S.cards.filter(x=>ctype(x)==='zord'&&(x.rangers||[]).includes(id)), megazordsOf:id=>S.cards.filter(x=>ctype(x)==='megazord'&&(x.rangers||[]).includes(id)),
+  zords:()=>S.cards.filter(x=>ctype(x)==='zord'), megazords:()=>S.cards.filter(x=>ctype(x)==='megazord'),
   arsenal:()=>S.cards.filter(x=>ctype(x)==='arsenal'), onExit:()=>splashM() }; }
 
 /* search */

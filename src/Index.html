@@ -943,6 +943,15 @@ button,a,label,select,.tile,.chip,.spot-card,.dc{-webkit-tap-highlight-color:tra
 .cm-vis label:has(input:checked){border-color:var(--accent)}
 .cm-vis input{margin-top:4px;accent-color:var(--accent)}
 .cm-vis span{display:flex;flex-direction:column;gap:2px}.cm-vis small{color:var(--muted);font-size:12.5px}
+/* reading order */
+.cm-era+.cm-era{margin-top:34px}
+.cm-erah{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.cm-eran{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink);font-family:var(--f-display);font-size:18px}
+.cm-erah h3{margin:0;font-family:var(--f-display);text-transform:uppercase;letter-spacing:.03em;font-size:22px}.cm-erah h3 small{font-size:14px;color:var(--dim);margin-left:6px}
+.cm-erah p{margin:3px 0 0;color:var(--muted);font-size:14px;max-width:70ch}
+.cm-step{position:absolute;z-index:2;top:8px;left:8px;padding:3px 8px;border-radius:6px;background:rgba(10,12,16,.82);color:#fff;font-size:11.5px;font-weight:700}
+.cm-step.first{background:var(--accent);color:var(--accent-ink)}
+.cm-note{color:var(--muted)!important;font-weight:400!important;white-space:normal!important;line-height:1.35}
 /* adding comics */
 .cu-drop{border:2px dashed var(--line2);border-radius:14px;padding:22px 18px;text-align:center;transition:border-color .15s,background .15s}
 .cu-drop.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
@@ -1259,6 +1268,7 @@ function grHost(){ return { rangers:()=>grRangerOrder(S.cards.filter(c=>ctype(c)
   decksOfKind:k=>S.deckList.filter(d=>d.kind===k), deckName:id=>(deckById(id)||{}).name||'',
   loadDecks:async ids=>{ await ensureDecks(ids); const o={}; ids.forEach(id=>{ o[id]=S.decks[id]||[]; }); return o; },
   zordsOf:id=>S.cards.filter(x=>ctype(x)==='zord'&&(x.rangers||[]).includes(id)), megazordsOf:id=>S.cards.filter(x=>ctype(x)==='megazord'&&(x.rangers||[]).includes(id)),
+  zords:()=>S.cards.filter(x=>ctype(x)==='zord'), megazords:()=>S.cards.filter(x=>ctype(x)==='megazord'),
   arsenal:()=>S.cards.filter(x=>ctype(x)==='arsenal'), onExit:()=>splash() }; }
 
 /* ===================== render ===================== */
@@ -2409,6 +2419,34 @@ async function crLoadPages(c,pass){ if(CR_CACHE[c.id]) return CR_CACHE[c.id];
 const CR_WARM=new Set();
 function crWarm(url){ if(!url||CR_WARM.has(url)) return; CR_WARM.add(url); const i=new Image(); i.referrerPolicy='no-referrer'; i.decoding='async'; i.src=url; }
 
+/* ---- reading order: series grouped into the eras of the comics' continuity, earliest first ---- */
+const CR_ERAS=[
+  {t:'The Green Ranger saga',y:'2016–2018',n:'Start here. Tommy joins the team, and Lord Drakkon, an evil Tommy from another timeline, is introduced.',s:[
+    [/^mighty morphin power rangers$/,'The main series, issue #0 onward. Read it alongside Go Go Power Rangers.'],
+    [/^go go power rangers$/,'The team’s first days together, running alongside the main series.'],
+    [/lost chronicles/,'Side stories set between issues of the main series.'],
+    [/(^|- )pink$/,'Kimberly’s own story after she leaves the team.'],
+    [/rise of drakkon/,'How Lord Drakkon came to power.']]},
+  {t:'Shattered Grid',y:'2018',n:'Lord Drakkon invades every Ranger timeline at once: the big event of the first run.',s:[[/shattered grid/,'The event itself.']]},
+  {t:'Beyond the Grid and Necessary Evil',y:'2018–2020',n:'The aftermath of Shattered Grid, ending the first run.',s:[
+    [/beyond the grid/,'Rangers stranded beyond the Morphin Grid.'],[/necessary evil/,'The finale of the first run.'],[/drakkon new dawn/,'Drakkon’s next move, after Necessary Evil.']]},
+  {t:'The Omega Rangers era',y:'2020–2022',n:'Two linked series relaunch the line: a new Mighty Morphin team on Earth, and Jason, Trini and Zack as the Omega Rangers in space.',s:[
+    [/^mighty morphin$/,'The new Mighty Morphin team. Read it alongside Power Rangers.'],[/^power rangers$/,'The Omega Rangers in space.'],
+    [/ranger slayer/,'The Ranger Slayer, Kimberly from another reality.'],[/^power rangers unlimited$/,'One-shots about villains and alternate Rangers from this era.'],
+    [/unlimited.*one-shots/,'More one-shots from this era.'],[/universe/,'A companion series from this era.']]},
+  {t:'Later stories',y:'2022–2025',n:'The line continues with new teams and a fresh start.',s:[
+    [/ranger academy/,'Training the next generation of Rangers.'],[/the return/,''],[/across the morphin grid/,'Stories from across the Ranger timelines.'],[/megazords ?& ?monsters/,''],[/prime/,'The grown-up Rangers return.'],[/recharged/,'']]},
+  {t:'The 2026 series',y:'2026',n:'The newest series.',s:[[/\(2026\)/,'']]},
+  {t:'Crossovers and specials',y:'',n:'Stand-alone stories you can read at any point.',s:[
+    [/justice league/,''],[/teenage mutant ninja turtles$/,''],[/teenage mutant ninja turtles ii$/,''],[/teenage mutant ninja turtles iii$/,''],[/godzilla(?!.*ii$)/,''],[/godzilla/,''],
+    [/giveaway day|free comic/,''],[/vr troopers/,'A related Saban series.']]}];
+const crNorm=s=>String(s||'').toLowerCase().replace(/[–—]/g,'-').replace(/\s+/g,' ').trim();
+/** Series in reading order: [{t, y, n, list:[{s, note, step}]}], with anything not in the list last. */
+function crReadingOrder(series){ const used=new Set(), out=[]; let step=0;
+  CR_ERAS.forEach(era=>{ const list=[]; era.s.forEach(([re,note])=>{ series.filter(s=>!used.has(s.id)&&re.test(crNorm(s.name))).sort((a,b)=>crNat(a.name,b.name)).forEach(s=>{ used.add(s.id); list.push({s,note}); }); });
+    if(list.length) out.push({t:era.t,y:era.y,n:era.n,list}); });
+  const rest=series.filter(s=>!used.has(s.id)); if(rest.length) out.push({t:'More stories',y:'',n:'',list:rest.map(s=>({s,note:''}))});
+  out.forEach(e=>e.list.forEach(x=>{ x.step=++step; })); return out; }
 /** Opens issue c inside host. opts: {onClose, onIssue(c) (another issue opened from the end screen), page, pass (admin passcode)}. */
 function crMount(host,c0,opts={}){
   const set=Object.assign({two:'auto',fit:'screen'},store.get('cr-set',{}));
@@ -2606,9 +2644,9 @@ const cmMatch=s=>{ const q=S.q.trim().toLowerCase(); return !q||q.split(/\s+/).e
 
 /* ---------- tiles ---------- */
 function cmCoverHTML(c,cls){ const u=crCover(c,400); return `<span class="cm-cov ${cls||''}" style="aspect-ratio:1/${Math.min(1.8,Math.max(1.2,crCoverR(c)))}">${u?`<img src="${esc(u)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:'<i>'+ico('book')+'</i>'}</span>`; }
-function cmSeriesTileHTML(s){ const l=crIssues(s.id), first=l[0]||cmAll(s.id)[0], p=cmProgress(s.id), y=cmYears(s.id,s);
+function cmSeriesTileHTML(s,ro){ const l=crIssues(s.id), first=l[0]||cmAll(s.id)[0], p=cmProgress(s.id), y=cmYears(s.id,s);
   return `<button class="cm-st" data-cser="${s.id}" aria-label="${esc(s.name)}">${cmCoverHTML(first)}${l.length>1?'<span class="cm-stack" aria-hidden="true"></span>':''}
-    <span class="cm-tx"><b>${esc(s.name)}</b><span>${esc([plural(l.length,'issue','issues'),y,s.publisher].filter(Boolean).join(' · '))}</span>
+    ${ro?`<span class="cm-step${ro.step===1?' first':''}">${ro.step===1?'Start here':'#'+ro.step+' in order'}</span>`:''}<span class="cm-tx"><b>${esc(s.name)}</b><span>${esc([plural(l.length,'issue','issues'),y,s.publisher].filter(Boolean).join(' · '))}</span>${ro&&ro.note?`<small class="cm-note">${esc(ro.note)}</small>`:''}
     ${p.read?`<span class="cm-bar" title="${p.read} of ${p.n} read"><i style="width:${Math.round(p.read/Math.max(1,p.n)*100)}%"></i></span>`:''}
     ${s.hidden?`<span class="cm-hid">${ico('lock')}Only you can see this</span>`:''}</span></button>`; }
 function cmIssueTileHTML(c,opt){ const read=crRead().has(c.id), at=crAt(c.id), pct=c.p&&at&&!read?Math.round((at+1)/c.p*100):0;
@@ -2628,14 +2666,16 @@ function comicsHTML(){ const all=cmSeriesSorted(), l=all.filter(cmMatch), going=
   const issues=(S.comics||[]).filter(c=>!c.st).length;
   const hero=`<section class="hero rpg-hero cm-hero"><div class="wrap" style="grid-template-columns:1fr"><div>
     <div class="eyebrow">Read online</div><h1>Comics</h1>
-    <p class="lede">Power Rangers comics, organized by series. Open any issue to read it here, one page at a time or two side by side. The site remembers where you stopped.</p>
+    <p class="lede">Power Rangers comics in reading order, so you know where to start and how the stories connect. Open any issue to read it here; the site remembers where you stopped.</p>
     <div class="hero-actions"><span class="count">${all.length?plural(all.length,'series','series')+' · '+plural(issues,'issue','issues'):'No comics yet'}</span>
       ${all.length?`<button class="btn sm" data-act="sharecomics">${ico('link')}Copy link</button>`:''}
       ${S.admin?`<button class="btn sm primary" data-act="addcomics">${ico('plus')}Add comics</button><button class="btn sm" data-act="newcser">${ico('plus')}New series</button>`:''}</div></div></div></section>`;
   if(!all.length) return hero+`<section class="blk"><div class="wrap"><div class="empty"><h3>No comics yet</h3><p>${S.admin?'Use <b>Add comics</b> and choose a folder of CBZ or CBR files: each folder becomes a series. Single files work too.':'Check back soon.'}</p>${S.admin?`<p><button class="btn primary" data-act="addcomics">${ico('plus')}Add comics</button></p>`:''}</div></div></section>`;
   const cont=going.length&&!S.q?`<div class="cm-sec"><h3 class="subh">Continue reading</h3><div class="cm-grid cm-igrid">${going.slice(0,6).map(c=>cmIssueTileHTML(c,{series:true})).join('')}</div></div>`:'';
-  const body=l.length?`<div class="cm-grid">${l.map(cmSeriesTileHTML).join('')}</div>`:`<div class="empty"><h3>No matching comics</h3><p>Try a different search.</p></div>`;
-  return hero+`<section class="blk" id="cardsSec"><div class="wrap">${cont}<div class="cm-sec">${cont?'<h3 class="subh">All series</h3>':''}${body}</div></div></section>`; }
+  const eras=crReadingOrder(l);
+  const body=l.length?eras.map((e,k)=>`<div class="cm-era"><div class="cm-erah"><span class="cm-eran">${k+1}</span><div><h3>${esc(e.t)}${e.y?` <small>${esc(e.y)}</small>`:''}</h3>${e.n?`<p>${esc(e.n)}</p>`:''}</div></div>
+    <div class="cm-grid">${e.list.map(x=>cmSeriesTileHTML(x.s,x)).join('')}</div></div>`).join(''):`<div class="empty"><h3>No matching comics</h3><p>Try a different search.</p></div>`;
+  return hero+`<section class="blk" id="cardsSec"><div class="wrap">${cont}<div class="cm-sec">${cont?'<h3 class="subh">Reading order</h3>':''}${body}</div></div></section>`; }
 function cseriesHTML(s){ const l=crIssues(s.id), going=cmAll(s.id).filter(c=>c.st), p=cmProgress(s.id), y=cmYears(s.id,s), q=S.q.trim().toLowerCase();
   const shown=q?l.filter(c=>q.split(/\s+/).every(t=>(c.t+' '+c.n+' '+c.y).toLowerCase().includes(t))):l;
   const k=crContinue(s.id), first=l[0];
