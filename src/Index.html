@@ -669,6 +669,12 @@ button.tag:hover{color:var(--fg);border-color:var(--line2)}
 .uitem img{width:100%;border-radius:8px;display:block}
 .uitem .st{font-size:12.5px;color:var(--dim);margin-top:6px}
 .uitem .st.ok{color:var(--ok)}
+.arts{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 6px}.art{display:flex;flex-direction:column;align-items:center;gap:5px;width:84px}
+.art>button{padding:0;border:2px solid transparent;border-radius:8px;background:none;cursor:pointer;overflow:hidden;width:84px;line-height:0}.art>button[aria-pressed="true"]{border-color:var(--accent)}
+.art img{width:100%;display:block}.art span{display:flex;gap:4px}.art .btn.sm{padding:0 6px;min-height:26px;font-size:11.5px}.art .lbl{font-size:11.5px}
+.artacts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.mglist{display:flex;flex-direction:column;gap:6px;margin-top:10px}.mgrow{display:flex;gap:10px;align-items:center;padding:6px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--fg);text-align:left;cursor:pointer}
+.mgrow:hover{border-color:var(--accent)}.mgrow img{width:46px;border-radius:5px}.mgrow span{display:flex;flex-direction:column}.mgrow small{color:var(--muted);font-size:12px}
 .repl{display:flex;flex-direction:column;gap:6px;margin-top:6px}.repl .btn{justify-content:center;white-space:normal;text-align:center;padding-inline:8px;font-size:12.5px;line-height:1.2;min-height:34px}.repl .btn .i{flex:none}.repl .lbl{font-size:12px;color:var(--accent);line-height:1.35}.uitem .st.err{color:var(--heart)}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .fgrid .full{grid-column:1/-1}
@@ -1094,6 +1100,8 @@ body.sp-on{overflow:hidden}
 @media (max-width:640px){ .sp-slice{padding:0 18px;gap:12px}.sp-tx{max-width:82%}.sp-tx span{font-size:12.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.sp-pics{width:70%}.sp-go{font-size:26px} }
 @media (prefers-reduced-motion:reduce){ .sp-slice{transition:none} }
 /* ---- end of start page ---- */
+
+body.nogame [data-go-sec="game"]{display:none!important}
 
 body.nogame [data-go-sec="game"]{display:none!important}
 
@@ -1647,7 +1655,7 @@ function enemyDeckPageHTML(d){ const T=typeOf(d.kind);
     <h1 style="margin-top:8px">${esc(d.name)}</h1>${d.description?`<p class="lede">${richText(d.description)}</p>`:''}
     <div class="hero-actions"><span class="count" id="deckCount">${plural(d.cards||0,'card','cards')}${d.unique&&d.unique!==d.cards?` (${d.unique} different)`:''}</span>
       <button class="btn sm" data-act="sharedeck">${ico('link')}Copy link</button>
-      ${S.admin?`<button class="btn sm" data-act="adddeckcards">${ico('plus')}Add cards</button><button class="btn sm" data-act="editdeck">${ico('edit')}Edit</button><button class="btn sm danger" data-act="deldeck">${ico('trash')}Delete</button>`:''}</div>
+      ${S.admin?`<button class="btn sm" data-act="adddeckcards">${ico('plus')}Add cards</button><button class="btn sm" data-act="editdeckcards">${ico('edit')}Edit all cards</button><button class="btn sm" data-act="editdeck">${ico('edit')}Edit</button><button class="btn sm danger" data-act="deldeck">${ico('trash')}Delete</button>`:''}</div>
     ${foundInHTML('decks',d,expOfDeck(d))}<div id="deckPageTotals" style="margin-top:12px"></div></div>
   </div></section>
   <section class="blk"><div class="wrap"><div class="deck big" id="deckPage"><p class="desc">Loading cards…</p></div></div></section>`; }
@@ -1657,7 +1665,7 @@ function deckPageHTML(d){ if(d.kind) return enemyDeckPageHTML(d); const users=ra
     <h1 style="margin-top:18px">${esc(d.name)}</h1>${d.description?`<p class="lede">${richText(d.description)}</p>`:''}
     <div class="hero-actions"><span class="count" id="deckCount">${plural(d.cards||0,'card','cards')}${d.unique&&d.unique!==d.cards?` (${d.unique} different)`:''}</span>
       <button class="btn sm" data-act="sharedeck">${ico('link')}Copy link</button>
-      ${S.admin?`<button class="btn sm" data-act="adddeckcards">${ico('plus')}Add cards</button><button class="btn sm" data-act="editdeck">${ico('edit')}Edit</button><button class="btn sm danger" data-act="deldeck">${ico('trash')}Delete</button>`:''}</div>
+      ${S.admin?`<button class="btn sm" data-act="adddeckcards">${ico('plus')}Add cards</button><button class="btn sm" data-act="editdeckcards">${ico('edit')}Edit all cards</button><button class="btn sm" data-act="editdeck">${ico('edit')}Edit</button><button class="btn sm danger" data-act="deldeck">${ico('trash')}Delete</button>`:''}</div>
     ${foundInHTML('decks',d,expOfDeck(d))}<div id="deckPageTotals" style="margin-top:12px"></div>
     <div class="subh" style="margin-bottom:6px">Used by</div>
     ${users.length?`<div class="users">${users.map(c=>`<button class="user" data-open="${c.id}"><img src="${esc(c.thumb)}" alt="" referrerpolicy="no-referrer">${esc(cardName(c))}</button>`).join('')}</div>`
@@ -1786,6 +1794,7 @@ function wire(){
     if(a==='campdel'){ const c=campById(S.camp); if(c) confirmBox('Delete this campaign?','It is removed from this browser. A saved file of it is not affected.','Delete',()=>{ CAMPS=campList().filter(x=>x.id!==c.id); campSave(); go('campaigns'); toast('Campaign deleted'); }); }
     if(a==='editdeck') editDeck(deckById(S.deck));
     if(a==='adddeckcards') openDeckUpload(deckById(S.deck));
+    if(a==='editdeckcards') openDeckEditAll(deckById(S.deck));
     if(a==='sharedeck') copy(linkFor({d:S.deck}),'Deck link copied');
     if(a==='deckpageretry') loadDeckPage(deckById(S.deck),true);
     if(a==='deldeck'){ const d=deckById(S.deck); confirmBox('Delete this deck?',d.kind?`Its ${plural(d.unique||0,'card','cards')}${d.face?' and face card':''} move to the Drive trash.`:`Its ${plural(d.unique||0,'combat card','combat cards')} move to the Drive trash and it is removed from every Ranger that uses it.`,'Delete', async()=>{ await adminCall('deleteDeck',d.id); S.deckList=S.deckList.filter(x=>x.id!==d.id); S.cards.forEach(c=>c.decks=(c.decks||[]).filter(x=>x!==d.id)); delete S.decks[d.id]; recountDecks(); toast('Deck deleted'); d.kind?go('type',{type:d.kind}):go('decks'); }); }
@@ -1836,6 +1845,31 @@ function openCard(id, list, autoplay){
   if(!$('#lb')){ const d=document.createElement('div'); d.id='lb'; d.className='lb'; d.setAttribute('role','dialog'); d.setAttribute('aria-modal','true'); document.body.appendChild(d); document.body.style.overflow='hidden'; }
   paintLB(); if(autoplay) togglePlay(true);
 }
+/* ---- alternate artwork: one card, several pictures ---- */
+const cardArts=c=>[{id:'',src:c.src,thumb:c.thumb,download:c.download},...(c.alts||[])];
+function artsHTML(c){ const arts=cardArts(c); if(arts.length<2&&!S.admin) return '';
+  return `<div class="subh">Artwork${arts.length>1?` <span class="lbl">${arts.length} versions</span>`:''}</div><div class="arts">${arts.map((a,i)=>`<div class="art"><button data-art="${i}" aria-pressed="${i===(LB.art||0)}" aria-label="Artwork ${i+1}"><img src="${esc(a.thumb)}" alt="" loading="lazy" referrerpolicy="no-referrer"></button>
+    ${S.admin&&i?`<span><button class="btn sm" data-artmain="${a.id}">Make main</button><button class="btn sm danger" data-artdel="${a.id}" aria-label="Remove">${ico('trash')}</button></span>`:i===0&&arts.length>1?'<span class="lbl">Main</span>':''}</div>`).join('')}</div>
+    ${S.admin?`<div class="artacts"><button class="btn sm" data-artadd>${ico('plus')}Add artwork</button><button class="btn sm" data-merge>Merge another card into this one</button></div>`:''}`; }
+function swapCard(c){ S.cards=S.cards.map(x=>x.id===c.id?Object.assign(c,{comments:x.comments,deckCount:x.deckCount}):x); LB.list=LB.list.map(x=>x.id===c.id?c:x); }
+async function artAction(c,f,msg){ try{ toast('Saving…'); const r=await adminCall('updateCard',c.id,f); swapCard(r); if(f.primaryAlt||f.removeAlt) LB.art=0; paintLB(); render(); toast(msg); }catch(e){} }
+function addArt(c){ const inp=document.createElement('input'); inp.type='file'; inp.accept='image/png,image/jpeg,image/webp'; inp.multiple=true;
+  inp.onchange=async()=>{ const fs=[...inp.files].filter(f=>/^image\/(png|jpeg|webp)$/.test(f.type)); let r=null;
+    for(const [k,f] of fs.entries()){ toast(`Uploading artwork ${k+1} of ${fs.length}…`); try{ const d=await prepImage(f); r=await adminCall('updateCard',c.id,{addAlt:d.url,altW:d.w,altH:d.h}); }catch(e){ break; } }
+    if(r){ swapCard(r); LB.art=cardArts(r).length-1; paintLB(); toast(fs.length>1?'Artwork added':'Artwork added'); } };
+  inp.click(); }
+function pickMerge(c){ const same=x=>(x.character&&x.character===c.character)?0:1;
+  const list=S.cards.filter(x=>x.id!==c.id&&ctype(x)===ctype(c)).sort((a,b)=>same(a)-same(b)||a.title.localeCompare(b.title));
+  layer(`<div class="drawer" role="dialog" aria-modal="true" aria-labelledby="mgh" style="z-index:73"><div class="dh"><h3 id="mgh">Merge into ${esc(c.title)}</h3><span class="sp"></span><button class="tbtn" data-close aria-label="Close">${ico('x')}</button></div>
+    <div class="db"><p class="desc" style="margin:0">Pick the duplicate card. Its picture becomes alternate artwork on this card, its likes, comments, decks and collections move over, and the duplicate is removed.</p>
+      <input class="inp" id="mgq" placeholder="Search cards" autocomplete="off"><div id="mgl" class="mglist"></div></div></div>`);
+  $('#scrim').style.zIndex=72; $('#layer [data-close]').onclick=closeLayer;
+  const draw=q=>{ q=(q||'').toLowerCase(); $('#mgl').innerHTML=list.filter(x=>!q||(x.title+' '+(x.character||'')+' '+(x.ranger||'')).toLowerCase().includes(q)).slice(0,80).map(x=>`<button class="mgrow" data-mg="${x.id}"><img src="${esc(x.thumb)}" alt="" loading="lazy" referrerpolicy="no-referrer"><span><b>${esc(x.title)}</b><small>${esc([x.ranger,x.series].filter(Boolean).join(' · '))}</small></span></button>`).join('')||'<p class="desc">No cards match.</p>'; };
+  draw(''); $('#mgq').oninput=e=>draw(e.target.value);
+  $('#mgl').onclick=e=>{ const b=e.target.closest('[data-mg]'); if(!b) return; const o=S.cards.find(x=>x.id===b.dataset.mg);
+    confirmBox(`Merge ${o.title} into ${c.title}?`,`${o.title} stops being a separate card. Its picture is kept as alternate artwork on ${c.title}.`,'Merge',async()=>{
+      try{ toast('Merging…'); const r=await adminCall('mergeCards',c.id,o.id); S.cards=S.cards.filter(x=>x.id!==o.id); LB.list=LB.list.filter(x=>x.id!==o.id); LB.i=Math.max(0,LB.list.findIndex(x=>x.id===c.id));
+        swapCard(r); closeLayer(); LB.artFor=null; paintLB(); render(); toast('Cards merged'); }catch(e){} }); }; }
 function closeCard(){ togglePlay(false); closeDeckCard(); $('#lb')?.remove(); document.body.style.overflow=''; }
 function step(d){ LB.i=(LB.i+d+LB.list.length)%LB.list.length; paintLB(); }
 function togglePlay(on){ clearInterval(LB.play); LB.play=null; if(on) LB.play=setInterval(()=>step(1),4500); const b=$('#lbPlay'); if(b) b.innerHTML=ico(LB.play?'pause':'play'); }
@@ -1844,13 +1878,15 @@ function paintLB(){
   const colls=c.collections.map(collById).filter(Boolean);
   const related = (colls[0]?cardsIn(colls[0].id):S.cards.filter(x=>x.series&&x.series===c.series)).filter(x=>x.id!==c.id).slice(0,6);
   const on=S.liked.has(c.id), sv=S.saved.has(c.id);
+  if(LB.artFor!==c.id){ LB.artFor=c.id; LB.art=0; }
+  const arts=cardArts(c), art=arts[Math.min(LB.art||0,arts.length-1)];
   lb.innerHTML = `
   <div class="lb-stage">
     <div class="lb-top"><span>${LB.i+1} / ${LB.list.length}</span><span class="sp"></span>
       <button class="qb" id="lbPlay" aria-label="Slideshow">${ico(LB.play?'pause':'play')}</button>
       <button class="qb" data-x aria-label="Close">${ico('x')}</button></div>
     ${LB.list.length>1?`<button class="lb-nav prev" aria-label="Previous">${ico('left')}</button><button class="lb-nav next" aria-label="Next">${ico('right')}</button>`:''}
-    <div class="lb-imgwrap">${c.kind==='homebrew'?'<span class="stamp lg">Custom</span>':''}<img id="lbImg" src="${esc(c.src)}" alt="${esc(c.title)}" referrerpolicy="no-referrer"></div>
+    <div class="lb-imgwrap">${c.kind==='homebrew'?'<span class="stamp lg">Custom</span>':''}<img id="lbImg" src="${esc(art.src)}" alt="${esc(c.title)}" referrerpolicy="no-referrer"></div>
   </div>
   <aside class="lb-side"><div class="pad">
     <div class="pillrow" style="align-items:center">${kindTag(c)}${ctype(c)!=='ranger'?`<button class="kindtag" data-ctypego="${ctype(c)}">${esc(typeOf(ctype(c)).one)}</button>`:''}<span class="eyebrow" style="font-size:12px;color:${colorOf(c.color)}">${esc([c.series,c.color].filter(Boolean).join(' · '))}</span></div>
@@ -1861,9 +1897,10 @@ function paintLB(){
       <button class="btn ${on?'liked':''}" data-like="${c.id}">${ico(on?'heart-f':'heart')}${fmt(c.likes)}</button>
       <button class="btn ${sv?'saved':''}" data-save="${c.id}">${ico(sv?'save-f':'save')}${sv?'Saved':'Save'}</button>
       <button class="btn" data-share aria-label="Copy link">${ico('link')}Share</button>
-      <a class="btn" href="${esc(c.download)}" target="_blank" rel="noopener" aria-label="Download image">${ico('down')}</a>
+      <a class="btn" id="lbDl" href="${esc(art.download)}" target="_blank" rel="noopener" aria-label="Download image">${ico('down')}</a>
       ${S.admin?`<button class="btn" data-edit aria-label="Edit">${ico('edit')}</button><button class="btn danger" data-del aria-label="Delete">${ico('trash')}</button>`:''}
     </div>
+    ${artsHTML(c)}
     ${c.abilityName||c.abilityText?`<div class="ability">${c.abilityName?`<b>${esc(c.abilityName)}</b>`:''}${c.abilityText?`<p>${richText(c.abilityText)}</p>`:''}</div>`:''}
     ${c.description?`<p class="desc">${richText(c.description)}</p>`:''}
     ${ctype(c)==='ranger'?`<div class="subh deckh">${ico('deck')}<span>${decksOf(c).length>1?'Decks':'Deck'}</span><span class="sp"></span>${S.admin?`<button class="btn sm" data-pickdecks>${ico('edit')}Choose decks</button>`:''}</div>
@@ -1893,6 +1930,11 @@ function paintLB(){
     if(t.dataset.coll){ closeCard(); return go('collection',{collection:t.dataset.coll}); }
     if(t.dataset.ctypego){ closeCard(); return go('type',{type:t.dataset.ctypego}); }
     if(t.dataset.edit!==undefined) return openUpload(c);
+    if(t.dataset.art!==undefined){ LB.art=+t.dataset.art; const a=cardArts(c)[LB.art]; $('#lbImg').src=a.src; $('#lbDl').href=a.download; $$('.arts [data-art]').forEach(b=>b.setAttribute('aria-pressed',b===t)); return; }
+    if(t.dataset.artadd!==undefined) return addArt(c);
+    if(t.dataset.artmain) return artAction(c,{primaryAlt:t.dataset.artmain},'Main artwork changed');
+    if(t.dataset.artdel) return confirmBox('Remove this artwork?','The picture moves to the Drive trash. The card and its other artwork stay.','Remove',()=>artAction(c,{removeAlt:t.dataset.artdel},'Artwork removed'));
+    if(t.dataset.merge!==undefined) return pickMerge(c);
     if(t.dataset.pickdecks!==undefined) return pickDecks(c);
     if(t.dataset.picklink) return pickLinks(c,t.dataset.picklink);
     if(t.dataset.pickrangers!==undefined) return pickRangers(c);
@@ -4370,14 +4412,14 @@ function paintDeckCard(){
 }
 const DTYPES=['Attack','Maneuver','Reaction','Other'], ETYPES=['Enemy','Deployment','Other'];
 let dqueue=[], dqTypes=DTYPES, dqEnemy=false;
-function openDeckUpload(deck, edit){ if(!deck) return; dqEnemy=!!deck.kind; dqTypes=dqEnemy?ETYPES:DTYPES;
-  dqueue = edit ? [{edit, meta:{title:edit.title, type:edit.type, cost:edit.cost, copies:edit.copies, text:edit.text, dice:edit.dice||0, hits:edit.hits||0, shields:edit.shields||0, star:!!edit.star}}] : [];
-  layer(`<div class="drawer" role="dialog" aria-modal="true" aria-labelledby="duh" style="z-index:73"><div class="dh"><h3 id="duh">${edit?(deck.kind?'Edit card':'Edit combat card'):'Add cards to '+esc(deck.name)}</h3><span class="sp"></span><button class="tbtn" data-close aria-label="Close">${ico('x')}</button></div>
+function openDeckUpload(deck, edit, all){ if(!deck) return; dqEnemy=!!deck.kind; dqTypes=dqEnemy?ETYPES:DTYPES;
+  dqueue = all || (edit ? [{edit, meta:dqMeta(edit)}] : []); DQ_ALL=!!all;
+  layer(`<div class="drawer" role="dialog" aria-modal="true" aria-labelledby="duh" style="z-index:73"><div class="dh"><h3 id="duh">${all?'Edit all cards in '+esc(deck.name):edit?(deck.kind?'Edit card':'Edit combat card'):'Add cards to '+esc(deck.name)}</h3><span class="sp"></span><button class="tbtn" data-close aria-label="Close">${ico('x')}</button></div>
     <div class="db">
-      ${edit?'':`<div class="drop" id="ddrop"><b>Drop ${deck.kind?'enemy and deployment':'combat'} card images here</b>Portrait card scans or exports · several at once is fine<br><br><button class="btn sm" id="dpick">Choose files</button><input type="file" id="dfiles" accept="image/png,image/jpeg,image/webp" multiple hidden></div>`}
+      ${edit?'':all?`<div class="drop" id="ddrop"><b>Drop new pictures here</b>Each one replaces the picture of the card whose name best matches the file name. Or use Replace image on any card below. Nothing is saved until you choose Save changes.<br><br><button class="btn sm" id="dpick">Choose pictures</button><input type="file" id="dfiles" accept="image/png,image/jpeg,image/webp" multiple hidden></div>`:`<div class="drop" id="ddrop"><b>Drop ${deck.kind?'enemy and deployment':'combat'} card images here</b>Portrait card scans or exports · several at once is fine<br><br><button class="btn sm" id="dpick">Choose files</button><input type="file" id="dfiles" accept="image/png,image/jpeg,image/webp" multiple hidden></div>`}
       <div id="dlist" style="display:flex;flex-direction:column;gap:12px"></div>
     </div>
-    <div class="df"><span class="lbl" id="dMsg" style="margin-right:auto;align-self:center"></span><button class="btn" data-close>Cancel</button><button class="btn primary" id="dGo">${edit?'Save changes':'Add to deck'}</button></div></div>`);
+    <div class="df"><span class="lbl" id="dMsg" style="margin-right:auto;align-self:center"></span><button class="btn" data-close>Cancel</button><button class="btn primary" id="dGo">${edit||all?'Save changes':'Add to deck'}</button></div></div>`);
   $('#scrim').style.zIndex=72;
   if(!edit){ const drop=$('#ddrop'), inp=$('#dfiles'); $('#dpick').onclick=()=>inp.click(); inp.onchange=()=>addDeckFiles([...inp.files]);
     ['dragenter','dragover'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault(); drop.classList.add('hot');}));
@@ -4385,7 +4427,9 @@ function openDeckUpload(deck, edit){ if(!deck) return; dqEnemy=!!deck.kind; dqTy
     drop.addEventListener('drop',e=>addDeckFiles([...e.dataTransfer.files])); }
   paintDeckQueue(); $('#dGo').onclick=()=>submitDeckQueue(deck);
 }
+let DQ_ALL=false;
 async function addDeckFiles(files){
+  if(DQ_ALL){ const miss=await dqMatch(files.filter(f=>/^image\//.test(f.type))); paintDeckQueue(); if(miss.length) toast(`No card matched ${miss.length===1?miss[0]:miss.length+' files'}. Use Replace image on the card instead.`); return; }
   for(const f of files.filter(f=>/^image\//.test(f.type))){ const d=await prepImage(f); const base=f.name.replace(/\.[^.]+$/,'').replace(/[-_]+/g,' ').trim();
     dqueue.push({data:d.url, meta:{title:base.replace(/\b\w/g,m=>m.toUpperCase()), type:dqEnemy?(/deploy/i.test(base)?'Deployment':'Enemy'):/maneuver/i.test(base)?'Maneuver':/reaction/i.test(base)?'Reaction':'Attack', cost:'', copies:1, text:'', dice:0, hits:0, shields:0, star:false}}); }
   paintDeckQueue();
@@ -4404,12 +4448,50 @@ function paintDeckQueue(){
       <label class="checks" style="align-self:end;padding-bottom:8px"><label><input type="checkbox" data-k="star" ${m.star?'checked':''}><i class="gi">S</i> Star ability</label></label>
       ${symField('Card text (optional, makes it searchable later)','text',m.text,1200,'If this attack defeats the target, …')}
     </div></div>`; }).join('');
-  box.oninput=box.onchange=e=>{ const it=e.target.closest('.uitem'); if(it&&e.target.dataset.k) dqueue[+it.dataset.i].meta[e.target.dataset.k]=e.target.type==='checkbox'?e.target.checked:e.target.value; };
+  box.oninput=box.onchange=e=>{ const it=e.target.closest('.uitem'); if(it&&e.target.dataset.k){ const m=dqueue[+it.dataset.i].meta, k=e.target.dataset.k; const v=e.target.type==='checkbox'?e.target.checked:e.target.value;
+      m[k]=['copies','dice','hits','shields'].includes(k)?(+v||0):v;
+      if(DQ_ALL){ const n=dqueue.filter(dqChanged).length; $('#dGo').disabled=!n; $('#dMsg').textContent=n?`${n} card${n===1?'':'s'} changed`:'No changes yet'; const st=$('#dst'+it.dataset.i); if(st&&!st.dataset.busy) st.textContent=dqChanged(dqueue[+it.dataset.i])?'Changed':''; } } };
   box.onclick=e=>{ const r=e.target.closest('[data-rm]'); if(r){ dqueue.splice(+r.dataset.rm,1); paintDeckQueue(); }
     replaceClick(e, dqueue, paintDeckQueue); };
+  if(DQ_ALL){ const n=dqueue.filter(dqChanged).length; $('#dGo').disabled=!n; $('#dMsg').textContent=n?`${n} card${n===1?'':'s'} changed`:'No changes yet';
+    dqueue.forEach((q,i)=>{ const st=$('#dst'+i); if(st&&!q.done&&!st.classList.contains('err')&&!st.dataset.busy){ st.className='st'; st.textContent=dqChanged(q)?'Changed':''; } }); return; }
   const n=dqueue.filter(q=>!q.done).length; $('#dGo').disabled=!n; $('#dMsg').textContent=dqueue.length&&!dqueue[0].edit?`${n} ready`:'';
 }
+/** Saves every changed card, three at a time. The drawer can be closed; saving carries on in the background. */
+async function submitDeckEdits(deck){
+  const jobs=dqueue.map((q,i)=>[q,i]).filter(([q])=>dqChanged(q)); if(!jobs.length) return;
+  const btn=$('#dGo'); if(btn){ btn.disabled=true; btn.textContent='Saving…'; }
+  let done=0, failed=0; const total=jobs.length;
+  const say=()=>{ const m=$('#dMsg'); if(m) m.textContent=`Saved ${done} of ${total}${failed?` · ${failed} failed`:''}`; };
+  say(); toast(`Saving ${total} card${total===1?'':'s'}…`);
+  const run=async()=>{ while(jobs.length){ const [q,i]=jobs.shift(); const st=()=>$('#dst'+i);
+      const s0=st(); if(s0){ s0.className='st'; s0.dataset.busy='1'; s0.textContent=q.data?'Uploading…':'Saving…'; }
+      try{ const r=await api('updateDeckCard',q.edit.id,q.data?{...q.meta,image:q.data}:q.meta,S.admin);
+        const l=S.decks[deck.id]||[]; const k=l.findIndex(y=>y.id===r.id); if(k>=0) l[k]=r;
+        q.done=true; q.edit=r; done++; const s1=st(); if(s1){ s1.className='st ok'; s1.textContent='Saved'; delete s1.dataset.busy; } }
+      catch(e){ failed++; const s1=st(); if(s1){ s1.className='st err'; s1.textContent=e.message; delete s1.dataset.busy; } if(/passcode/i.test(e.message)) jobs.length=0; }
+      say(); } };
+  await Promise.all([run(),run(),run()]);
+  refreshDeckViews(); if($('#dv')) paintDeckCard();
+  toast(failed?`${done} saved, ${failed} could not be saved`:`${done} card${done===1?'':'s'} saved`);
+  if(!failed&&$('#dlist')) closeLayer(); else if(btn){ btn.textContent='Save changes'; paintDeckQueue(); } }
+/* Edit a whole deck in one go: change any card's picture or details, then save everything with one button. */
+const dqMeta=x=>({title:x.title, type:x.type, cost:x.cost, copies:x.copies, text:x.text, dice:x.dice||0, hits:x.hits||0, shields:x.shields||0, star:!!x.star});
+async function openDeckEditAll(deck){ if(!deck) return;
+  if(!S.decks[deck.id]){ toast('Loading the deck…'); try{ await ensureDecks([deck.id]); }catch(e){ return toast(e.message); } }
+  const l=S.decks[deck.id]||[]; if(!l.length) return toast('This deck has no cards yet.');
+  openDeckUpload(deck, null, l.map(x=>({edit:x, meta:dqMeta(x), orig:JSON.stringify(dqMeta(x))}))); }
+const dqChanged=q=>!q.done&&(!q.edit||!!q.data||JSON.stringify(q.meta)!==q.orig);
+/** Matches dropped images to cards by file name (the closest card title wins). */
+function dqMatch(files){ const norm=t=>String(t).toLowerCase().replace(/\.[^.]+$/,'').replace(/[^a-z0-9]+/g,' ').trim();
+  const words=t=>new Set(norm(t).split(' ').filter(w=>w.length>1&&!/^\d+$/.test(w)));
+  const used=new Set(), miss=[];
+  return Promise.all(files.map(async f=>{ const fw=words(f.name); let best=-1, bs=0;
+      dqueue.forEach((q,i)=>{ if(used.has(i)) return; const tw=words(q.meta.title); let n=0; tw.forEach(w=>{ if(fw.has(w)) n++; }); const sc=n/Math.max(tw.size,1)+(norm(f.name)===norm(q.meta.title)?1:0); if(sc>bs){ bs=sc; best=i; } });
+      if(best<0||bs<0.5){ miss.push(f.name); return; } used.add(best); const d=await prepImage(f); Object.assign(dqueue[best],{data:d.url,w:d.w,h:d.h}); }))
+    .then(()=>miss); }
 async function submitDeckQueue(deck){
+  if(DQ_ALL) return submitDeckEdits(deck);
   $('#dGo').disabled=true;
   for(let i=0;i<dqueue.length;i++){ const q=dqueue[i]; if(q.done) continue; const st=$('#dst'+i);
     try{ st.className='st'; st.textContent=q.edit?'Saving…':'Uploading…';
