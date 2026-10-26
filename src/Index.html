@@ -552,6 +552,29 @@ button.kindtag{cursor:pointer;background:none;color:var(--muted);border-color:va
   .rd.qa-on .rd-scroll{margin-right:0;padding-bottom:60vh}
   .rd-qab span{display:none}
 }
+.qa-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.qa-h b{font-size:15px}
+.qa-who{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#a9afbf;font-weight:700}
+.qa-sel{height:36px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:#08090d;color:#fff;padding:0 8px;font-size:14px}
+.qa-pg{font-size:12px;color:#a9afbf;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-top:1px solid rgba(255,255,255,.08);padding-top:10px}
+.qa-list{display:flex;flex-direction:column;gap:8px}
+.qa-it{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:10px;background:#161922;border:1px solid rgba(255,255,255,.07)}
+.qa-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.qa-tx small{font-size:11px;color:#e8b931;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.qa-tx b{font-size:14px;line-height:1.25}
+.qa-tx span{font-size:12.5px;color:#b8bdca;line-height:1.35}
+.qa-add{flex:none;min-width:58px}
+.qa-add:not(.done){background:#e8b931;color:#14161c;border-color:#e8b931}
+.qa-add.done{color:#9fe0a8}
+.qa-none{margin:0;font-size:13px;color:#a9afbf;line-height:1.45}
+.qa-open{margin-top:auto;font-size:13px;color:#e8b931;font-weight:700;text-decoration:none;padding-top:6px}
+.rd-qad{position:absolute;z-index:2;top:8px;right:8px;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px 0 7px;border-radius:999px;border:0;background:#e8b931;color:#14161c;font-weight:800;font-size:12px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.rd-qad .i{width:14px;height:14px}
+@media (max-width:760px){
+  .rd-qa{top:auto;left:0;width:auto;height:58%;border-left:0;border-top:1px solid rgba(255,255,255,.14);border-radius:16px 16px 0 0;box-shadow:0 -12px 30px rgba(0,0,0,.5)}
+  .rd.qa-on .rd-scroll{margin-right:0;padding-bottom:60vh}
+  .rd-qab span{display:none}
+}
 
 .dhero{grid-template-columns:auto minmax(0,1fr)!important;padding-block:32px 28px!important}
 .dface{display:block;width:clamp(170px,22vw,250px);aspect-ratio:63/88;border-radius:12px;overflow:hidden;background:var(--raise);box-shadow:0 26px 50px -24px rgba(0,0,0,.85);border:1px solid var(--line2)}
@@ -1074,6 +1097,129 @@ body.sp-on{overflow:hidden}
 
 body.nogame [data-go-sec="game"]{display:none!important}
 
+/* ---- guided builder and play view ---- */
+.cb-modes{display:flex;gap:2px;padding:3px;border-radius:10px;background:var(--raise);flex:none}
+.cb-modes button{border:0;background:none;padding:7px 12px;border-radius:8px;color:var(--muted);font-weight:700;font-size:13.5px;white-space:nowrap}
+.cb-modes button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+.g-load{display:grid;place-items:center;gap:10px;padding:60px 0;color:var(--muted)}
+.g-wrap{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;align-items:start}
+.g-steps{position:sticky;top:calc(var(--top-h,64px) + 70px);display:flex;flex-direction:column;gap:2px}
+.g-steps button{display:flex;align-items:center;gap:10px;border:0;background:none;padding:9px 10px;border-radius:10px;color:var(--muted);font-weight:600;font-size:14.5px;text-align:left}
+.g-steps button i{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12.5px;font-weight:800;border:1.5px solid var(--line2);color:var(--muted)}
+.g-steps button i .i{width:14px;height:14px;stroke-width:3}
+.g-steps button.ok i{background:color-mix(in srgb,#2fb36b 22%,transparent);border-color:#2fb36b;color:#2fb36b}
+.g-steps button[aria-current="true"]{background:var(--raise);color:var(--fg)}
+.g-steps button[aria-current="true"] i{border-color:var(--accent);color:var(--accent)}
+.g-main{min-width:0}
+.g-h h2{margin:0;font-family:var(--f-display);text-transform:uppercase;letter-spacing:.03em;font-size:clamp(26px,3.4vw,38px)}
+.g-h p{margin:6px 0 18px;color:var(--muted);max-width:70ch;line-height:1.5}
+.g-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.g-form label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--muted)}
+.g-form label.full{grid-column:1/-1}.g-form small{font-weight:400;color:var(--dim)}
+.g-list{display:flex;flex-direction:column;gap:8px}
+.g-opt{border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden}
+.g-opt.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.g-opt-h{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border:0;background:none;color:inherit;text-align:left;cursor:pointer}
+.g-opt-h span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.g-opt-h b{font-size:16px}.g-opt-h small{color:var(--muted);font-size:12.5px}
+.g-opt-h em{flex:none;display:inline-flex;align-items:center;gap:5px;font-style:normal;font-weight:800;font-size:13px;color:var(--accent)}
+.g-opt-h em .i{width:15px;height:15px;stroke-width:3}
+.g-opt-h em.g-ch{color:var(--muted);border:1px solid var(--line2);border-radius:8px;padding:5px 10px}
+.g-opt-h:hover em.g-ch{border-color:var(--accent);color:var(--fg)}
+.g-opt details{border-top:1px solid var(--line);padding:0 14px}
+.g-opt summary,.g-perk summary,.g-pick summary{cursor:pointer;padding:9px 0;font-size:13px;font-weight:700;color:var(--muted)}
+.g-txt{padding-bottom:12px;font-size:14px;line-height:1.55;color:var(--fg)}
+.g-txt p{margin:0 0 8px;max-width:78ch}
+.g-read{display:inline-flex;align-items:center;gap:6px;border:0;background:none;color:var(--accent);font-weight:700;font-size:13px;padding:2px 0;cursor:pointer}
+.g-read .i{width:15px;height:15px}
+.g-sub{border:1px solid var(--accent);border-radius:14px;padding:14px 16px;margin-bottom:16px;background:color-mix(in srgb,var(--accent) 7%,var(--panel))}
+.g-sub h3{margin:0 0 8px;font-family:var(--f-display);text-transform:uppercase;font-size:20px;letter-spacing:.03em}
+.g-q{margin:10px 0}.g-q>b{display:block;font-size:13.5px;margin-bottom:6px}
+.g-chips{display:flex;flex-wrap:wrap;gap:6px}
+.g-chips .chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.g-meta{color:var(--muted);font-size:13.5px;margin:6px 0}
+.g-nav{display:flex;justify-content:space-between;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
+.g-left{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12.5px;font-weight:800;background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--fg)}
+.g-left.ok{background:color-mix(in srgb,#2fb36b 22%,transparent)}
+.g-ess{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
+.g-e{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--panel);display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.g-e>b{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.05em;font-size:18px}
+.g-e small{color:var(--muted);font-size:12px}
+.g-step{display:flex;align-items:center;gap:8px}
+.g-big{font-family:var(--f-display);font-size:42px;min-width:44px;text-align:center}
+.g-skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.g-sk{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--panel)}
+.g-sk h3{display:flex;align-items:center;justify-content:space-between;margin:0 0 8px;font-family:var(--f-display);text-transform:uppercase;font-size:19px;letter-spacing:.04em}
+.g-skr{display:grid;grid-template-columns:minmax(0,1fr) 44px 52px auto;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--line)}
+.g-skr b{font-size:14px}.g-skr small{color:var(--dim);font-size:11.5px}
+.g-die{font-weight:800;color:var(--accent);text-align:center}
+.g-specs{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px}
+.g-spec{display:flex;gap:4px}.g-spec .inp{height:30px;width:170px;font-size:13px}
+.g-addspec{border:1px dashed var(--line2);background:none;color:var(--muted);border-radius:8px;padding:4px 10px;font-size:12.5px;font-weight:700;cursor:pointer}
+.g-lv{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.g-lvl{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--panel)}
+.g-lvl.new{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 40%,transparent)}
+.g-lvl h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0 0 6px}
+.g-lvl h3 span{font-family:var(--f-display);text-transform:uppercase;font-size:20px;letter-spacing:.04em}
+.g-lvl h3 small{color:var(--muted);font-size:13px;font-weight:600}
+.g-perk{border-top:1px solid var(--line)}
+.g-perk summary b{color:var(--fg);font-size:14.5px}
+.g-pick{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;margin:6px 0;border-radius:10px;border:1px dashed var(--accent);background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.g-pick.sel{border-style:solid;border-color:var(--line2);background:none}
+.g-pick>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.g-pick small{color:var(--muted);font-size:12.5px}
+.g-tblw{overflow-x:auto;margin:8px 0}
+.g-tbl{border-collapse:collapse;width:100%;font-size:13px}
+.g-tbl th,.g-tbl td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.g-tbl th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--dim)}
+.g-filter{max-width:340px;margin-bottom:10px}
+.g-gl{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:var(--panel)}
+.g-gl summary{padding:12px 14px;font-weight:800;cursor:pointer}
+.g-gl>div{max-height:520px;overflow:auto;padding:0 14px 10px}
+.g-gear{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.g-gear>div{flex:1;min-width:0;display:flex;flex-direction:column}.g-gear small{color:var(--muted);font-size:12px}
+.g-gear.sel b{color:var(--accent)}
+.g-miss{line-height:1.8}.g-link{border:0;background:none;color:var(--accent);font-weight:800;padding:0;cursor:pointer}
+.g-endb{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.g-drawer .db{display:flex;flex-direction:column;gap:8px}
+/* play view */
+.pv{display:flex;flex-direction:column;gap:14px}
+.pv-top{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;padding:16px 18px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(110deg,color-mix(in srgb,var(--accent) 14%,var(--panel)),var(--panel) 55%)}
+.pv-top h2{margin:0;font-family:var(--f-display);text-transform:uppercase;font-size:clamp(26px,3.5vw,40px);letter-spacing:.02em}
+.pv-top p{margin:2px 0 0;color:var(--muted)}
+.pv-stats{display:flex;flex-wrap:wrap;gap:10px;margin-left:auto}
+.pv-st{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:12px;background:var(--bg);border:1px solid var(--line);min-width:96px}
+.pv-st>small{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);font-weight:800}
+.pv-st>b{font-size:20px}
+.pv-hp{display:flex;align-items:center;gap:8px}.pv-hp b{font-size:22px}.pv-hp b small{font-size:13px;color:var(--muted)}
+.pv-hp .btn{min-width:30px;padding:0 8px}
+.pv-acts{display:flex;gap:6px}
+.pv-ess{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.pv-e{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:12px}
+.pv-e header{display:flex;justify-content:space-between;align-items:center}
+.pv-e header b{font-family:var(--f-display);text-transform:uppercase;font-size:18px;letter-spacing:.05em}
+.pv-sc{font-family:var(--f-display);font-size:30px;color:var(--accent)}
+.pv-def{display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:12.5px;color:var(--muted);margin:6px 0 8px;padding:6px 8px;border-radius:8px;background:var(--bg)}
+.pv-def b{color:var(--fg);text-align:right}
+.pv-e ul{list-style:none;margin:0;padding:0}
+.pv-e li{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-top:1px solid var(--line);font-size:14px}
+.pv-e li span{display:flex;flex-direction:column}.pv-e li small{color:var(--dim);font-size:11.5px}
+.pv-e li b{color:var(--accent)}.pv-none{color:var(--dim);font-size:13px!important}
+.pv-box{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:12px 14px;break-inside:avoid;margin-bottom:12px}
+.pv-box h3{margin:0 0 8px;font-family:var(--f-display);text-transform:uppercase;font-size:17px;letter-spacing:.05em}
+.pv-box details{border-top:1px solid var(--line)}.pv-box summary{cursor:pointer;padding:6px 0;font-size:14px;font-weight:600}
+.pv-box details p{margin:0 0 8px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.pv-l{margin:0;padding:5px 0;border-top:1px solid var(--line);font-size:14px}.pv-dim{color:var(--muted);font-size:13px}
+.pv-cols{columns:3 300px;column-gap:12px}
+.pv-wide{margin-bottom:0}
+.pv-zs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.pv-zs span{display:flex;flex-direction:column;align-items:center;padding:4px 8px;border-radius:8px;background:var(--bg);min-width:52px}
+.pv-zs small{font-size:10.5px;color:var(--dim);text-transform:uppercase;font-weight:800}
+@media (max-width:900px){ .g-wrap{grid-template-columns:1fr;gap:14px} .g-steps{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none;margin:0 -4px} .g-steps button{flex:none;padding:7px 8px} .g-steps button span{font-size:13px}
+  .g-form,.g-skills{grid-template-columns:1fr} .g-ess,.pv-ess{grid-template-columns:repeat(2,minmax(0,1fr))} .cb-modes button{padding:7px 9px;font-size:12.5px} }
+@media (max-width:520px){ .pv-stats{margin-left:0} .g-skr{grid-template-columns:minmax(0,1fr) 36px auto} .g-skr small{display:none} }
+@media print{ body.pv-print .top,body.pv-print .cb-hero,body.pv-print .cb-tabs,body.pv-print .foot,body.pv-print .pv-acts,body.pv-print .pv-hp .btn,body.pv-print #toast{display:none!important}
+  body.pv-print .pv-box details{display:block} body.pv-print .pv-box details>p{display:block} body.pv-print .pv-cols{columns:2} }
+/* ---- end of guided builder ---- */
 </style>
 <script>
 /* Phones that open the site inside a zoomed-out frame (a masked domain forward) lay the page out
@@ -3257,7 +3403,7 @@ function qaBlank(){ if(typeof PRSHEET!=='undefined') return PRSHEET.blank();
 function qaFull(c){ const b=qaBlank(); const merge=(t,s)=>{ if(Array.isArray(t)) return t.map((v,i)=>s&&s[i]!==undefined?merge(v,s[i]):v);
     if(t&&typeof t==='object'){ const o={}; Object.keys(t).forEach(k=>{ o[k]=s&&s[k]!==undefined?merge(t[k],s[k]):t[k]; }); return o; }
     return s===undefined||s===null?t:(typeof t==='number'?(+s||0):String(s)); };
-  const o=merge(b,c||{}); o.id=(c&&c.id)||Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4); o.updated=(c&&c.updated)||Date.now(); return o; }
+  const o=merge(b,c||{}); if(c&&c.g&&typeof c.g==='object') o.g=c.g; o.id=(c&&c.id)||Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4); o.updated=(c&&c.updated)||Date.now(); return o; }
 const qaName=c=>(c.name||'').trim()||'Unnamed Ranger';
 function qaCurrent(){ const l=qaChars(); const id=qaStore.get('gcg-char-cur',''); return l.find(c=>c.id===id)||l[0]||null; }
 
@@ -3482,7 +3628,7 @@ const PRSHEET = (() => {
     const merge = (t, s) => { if (Array.isArray(t)) return t.map((v, i) => s && s[i] !== undefined ? merge(v, s[i]) : v);
       if (t && typeof t === 'object') { const o = {}; Object.keys(t).forEach(k => { o[k] = s && s[k] !== undefined ? merge(t[k], s[k]) : t[k]; }); return o; }
       return s === undefined || s === null ? t : (typeof t === 'number' ? (+s || 0) : typeof t === 'boolean' ? !!s : String(s)); };
-    const out = merge(b, c || {}); if (c && c.id) out.id = String(c.id); if (c && c.updated) out.updated = c.updated; return out;
+    const out = merge(b, c || {}); if (c && c.id) out.id = String(c.id); if (c && c.updated) out.updated = c.updated; if (c && c.g && typeof c.g === 'object') out.g = c.g; return out;
   }
   const num = v => { const n = parseFloat(String(v).replace(/[^\d.-]/g, '')); return isFinite(n) ? n : null; };
   /** Morphed defense: 10 + Essence + Perks + Armor/Bonus, unless typed in. */
@@ -3583,7 +3729,7 @@ const PRSHEET = (() => {
 /* ===================== Roleplaying Game: character builder ===================== */
 const ORIGINS=['Athletic','Brainy','Comedic','Curious','Cynical','Kind','Oddball','Popular','Rebellious','Tragic'];
 const RROLES=['Red Ranger','Blue Ranger','Black Ranger','Pink Ranger','Yellow Ranger','Green Ranger','White Ranger','Gold Ranger','Silver Ranger','Purple Ranger','Orange Ranger'];
-const CB={list:null, ch:null, tab:'ranger', tpl:null, tplId:''};
+const CB={list:null, ch:null, tab:'ranger', tpl:null, tplId:'', mode:(()=>{ try{ return JSON.parse(localStorage.getItem('gcg-cbmode'))||'guide'; }catch(e){ return 'guide'; } })(), gstep:'basics'};
 const CB_TABS=[['ranger','Ranger'],['skills','Essence & skills'],['gear','Powers & gear'],['zord','Zord'],['mega','Megaform']];
 function cbLoad(){ if(CB.list) return;
   CB.list=(store.get('gcg-chars',[])||[]).filter(c=>c&&typeof c==='object').map(c=>Object.assign(PRSHEET.normalize(c),{id:c.id||uid(),updated:c.updated||Date.now()}));
@@ -3651,16 +3797,19 @@ function cbPanelHTML(){ const c=CB.ch, t=CB.tab;
     ${cbCard('Skill notes',`<div class="cb-fields">${cfTa('','mega.notes')}</div>`)}${cbCard('Features',`<div class="cb-fields">${cfTa('','mega.features')}</div>`,'w2')}
     <div class="cb-zords wide">${c.mega.zords.map((z,i)=>cbCard('Zord '+(i+1),`<div class="cb-fields">${cfIn('Name','mega.zords.'+i+'.name',{cls:'w2'})}${cfIn('Ranger','mega.zords.'+i+'.ranger')}${cfIn('Color','mega.zords.'+i+'.color')}${cfIn('Health','mega.zords.'+i+'.health',{max:20})}${cfTa('Skill notes','mega.zords.'+i+'.notes',{rows:2})}${cfTa('Megaform traits','mega.zords.'+i+'.traits',{rows:2})}</div>`,'cb-zc')).join('')}</div></div>`;
   return ''; }
+function gNeedRules(){ grLoad().then(()=>{ if(S.view==='builder') render(); }).catch(e=>{ const p=$('#cbPanel'); if(p) p.innerHTML=`<p class="desc">${esc(e.message)} Reload the page to try again.</p>`; });
+  return `<div class="g-load"><div class="rd-spin"></div><p>Loading the rules…</p></div>`; }
 function builderHTML(){ cbLoad(); const c=CB.ch;
   return `<section class="hero rpg-hero cb-hero"><div class="wrap"><div>
       <button class="btn sm" data-view-go="rpg">${ico('left')}Roleplaying Game</button>
       <div class="eyebrow" style="margin-top:16px">Character builder</div><h1 id="cbTitle">${esc(cbName(c))}</h1>
-      <p class="lede">Build your Ranger here, then export the official fillable character sheet as a PDF. Characters save in this browser as you type.</p>
+      <p class="lede">Build your Ranger step by step, keep the sheet up to date as you level up, and play from a one-page view. Export the official fillable character sheet as a PDF any time. Characters save in this browser as you go.</p>
       <div class="cb-bar"><label class="cb-pick"><span class="sr">Character</span><select class="inp" id="cbPick">${CB.list.map(x=>`<option value="${x.id}" ${x.id===c.id?'selected':''}>${esc(cbName(x))}</option>`).join('')}</select></label>
         <button class="btn sm" data-cb="new">${ico('plus')}New</button><button class="btn sm" data-cb="dup">Duplicate</button><button class="btn sm" data-cb="savefile">${ico('down')}Save file</button><button class="btn sm" data-cb="openfile">Open file</button><button class="btn sm danger" data-cb="del">${ico('trash')}Delete</button>
         <input type="file" id="cbOpen" accept=".json,application/json" hidden></div></div></div></section>
-    <div class="cb-tabs"><div class="wrap"><div class="cb-tabrow" role="tablist">${CB_TABS.map(([k,l])=>`<button role="tab" data-cbtab="${k}" aria-selected="${CB.tab===k}">${l}</button>`).join('')}</div><button class="btn primary" data-cb="pdf">${ico('down')}<span class="cb-xl">Export </span>PDF</button></div></div>
-    <section class="blk"><div class="wrap" id="cbPanel">${cbPanelHTML()}</div></section>
+    <div class="cb-tabs"><div class="wrap"><div class="cb-modes" role="tablist" aria-label="View">${[['guide','Guided build'],['sheet','Edit sheet'],['play','Play view']].map(([k,l])=>`<button role="tab" data-cbmode="${k}" aria-selected="${CB.mode===k}">${l}</button>`).join('')}</div>
+      ${CB.mode==='sheet'?`<div class="cb-tabrow" role="tablist">${CB_TABS.map(([k,l])=>`<button role="tab" data-cbtab="${k}" aria-selected="${CB.tab===k}">${l}</button>`).join('')}</div>`:'<div class="cb-tabrow"></div>'}<button class="btn primary" data-cb="pdf">${ico('down')}<span class="cb-xl">Export </span>PDF</button></div></div>
+    <section class="blk"><div class="wrap" id="cbPanel">${CB.mode==='sheet'?cbPanelHTML():!RRD?gNeedRules():CB.mode==='play'?gPlayHTML():gHTML()}</div></section>
     <datalist id="cbOrig">${ORIGINS.map(o=>`<option value="${o}">`).join('')}</datalist><datalist id="cbRole">${RROLES.map(o=>`<option value="${o}">`).join('')}</datalist>`; }
 function cbSpecVis(root){ (root||document).querySelectorAll('.cb-specs').forEach(box=>{ let empty=0; box.querySelectorAll('.cb-spec').forEach(r=>{ const filled=r.querySelector('.inp').value.trim(); r.hidden=!filled&&empty++>0&&document.activeElement!==r.querySelector('.inp'); }); }); }
 function cbRefresh(p){ const c=CB.ch;
@@ -3670,7 +3819,7 @@ function cbRefresh(p){ const c=CB.ch;
 function cbTabVis(){ const r=$('.cb-tabrow'), on=r&&r.querySelector('[aria-selected="true"]'); if(on) r.scrollLeft=Math.max(0,on.offsetLeft-r.clientWidth/2+on.offsetWidth/2); }
 function wireBuilder(){ const root=$('#main');
   cbSpecVis(root); cbTabVis();
-  root.oninput=root.onchange=e=>{ const el=e.target, p=el.dataset&&el.dataset.p; if(!p) return; cbSet(p, el.type==='checkbox'?el.checked:el.value); cbSave(); cbRefresh(p); if(el.closest('.cb-specs')) cbSpecVis(el.closest('.cb-specs').parentNode); };
+  root.oninput=root.onchange=e=>{ const el=e.target; if(el.dataset&&typeof gInput==='function'&&gInput(el)) return; const p=el.dataset&&el.dataset.p; if(!p) return; cbSet(p, el.type==='checkbox'?el.checked:el.value); cbSave(); cbRefresh(p); if(el.closest('.cb-specs')) cbSpecVis(el.closest('.cb-specs').parentNode); };
   if(!root.dataset.cbf){ root.dataset.cbf='1'; root.addEventListener('focusin',e=>{ if(S.view==='builder'&&e.target.closest&&e.target.closest('.cb-specs')) cbSpecVis(); }); }
   const pick=$('#cbPick'); if(pick) pick.onchange=()=>{ cbSave(true); CB.ch=CB.list.find(x=>x.id===pick.value)||CB.ch; cbSave(true); render(); };
   const op=$('#cbOpen'); if(op) op.onchange=async()=>{ const f=op.files[0]; op.value=''; if(!f) return;
@@ -3679,12 +3828,15 @@ function wireBuilder(){ const root=$('#main');
     catch(e){ toast('That file is not a saved character.'); } };
 }
 function cbClick(t){
+  if(t.dataset.cbmode){ CB.mode=t.dataset.cbmode; try{ localStorage.setItem('gcg-cbmode',JSON.stringify(CB.mode)); }catch(e){} cbSave(true); render(); return true; }
+  if(CB.mode==='guide'&&typeof gClick==='function'&&gClick(t)) return true;
+  if(CB.mode==='play'&&typeof pvClick==='function'&&pvClick(t)) return true;
   if(t.dataset.cbtab){ CB.tab=t.dataset.cbtab; $$('[data-cbtab]').forEach(b=>b.setAttribute('aria-selected',b===t)); $('#cbPanel').innerHTML=cbPanelHTML(); cbSpecVis(); cbTabVis(); const tb=$('.cb-tabs'); if(tb&&tb.getBoundingClientRect().top<=0.5+(parseFloat(getComputedStyle(tb).top)||0)) window.scrollTo({top:window.scrollY+tb.nextElementSibling.getBoundingClientRect().top-tb.offsetHeight-(parseFloat(getComputedStyle(tb).top)||0)-8}); return true; }
   if(t.dataset.die){ const p=t.dataset.die, v=+t.dataset.v; cbSet(p,v); cbSave(); t.parentNode.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.v===v)); return true; }
   if(t.dataset.pip){ const p=t.dataset.pip; let v=+t.dataset.v; if(v&&v===cbv(p)) v--; cbSet(p,v); cbSave();
     const box=t.closest('.cb-card'); box.querySelectorAll(`.cb-pips [data-pip="${p}"]`).forEach(b=>b.setAttribute('aria-pressed',+b.dataset.v<=v)); const n=box.querySelector(`[data-pipn="${p}"]`); if(n) n.textContent=n.textContent.replace(/^\d+/,v); return true; }
   const a=t.dataset.cb; if(!a) return false;
-  if(a==='new'){ cbSave(true); const ch=cbNew(); CB.list.push(ch); CB.ch=ch; CB.tab='ranger'; cbSave(true); render(); window.scrollTo({top:0}); toast('New character started'); }
+  if(a==='new'){ cbSave(true); const ch=cbNew(); CB.list.push(ch); CB.ch=ch; CB.tab='ranger'; CB.mode='guide'; CB.gstep='basics'; cbSave(true); render(); window.scrollTo({top:0}); toast('New character started'); }
   if(a==='dup'){ cbSave(true); const ch=Object.assign(PRSHEET.normalize(JSON.parse(JSON.stringify(CB.ch))),{id:uid(),updated:Date.now()}); ch.name=(CB.ch.name||'Unnamed Ranger')+' (copy)'; CB.list.push(ch); CB.ch=ch; cbSave(true); render(); toast('Copy made'); }
   if(a==='del') confirmBox('Delete this character?',`${cbName(CB.ch)} is removed from this browser. Save a file first if you want to keep it.`,'Delete',()=>{ CB.list=CB.list.filter(x=>x!==CB.ch); if(!CB.list.length) CB.list.push(cbNew()); CB.ch=CB.list[0]; cbSave(true); render(); toast('Character deleted'); });
   if(a==='savefile'){ cbSave(true); const blob=new Blob([JSON.stringify({format:'morphin-archive-character',version:1,saved:new Date().toISOString(),character:CB.ch},null,1)],{type:'application/json'});
@@ -3717,6 +3869,247 @@ async function cbExport(btn){ cbSave(true); const html=btn.innerHTML; btn.disabl
     cbDownload(new Blob([out],{type:'application/pdf'}), cbFile(CB.ch)+' - Power Rangers RPG character sheet.pdf'); toast('Character sheet downloaded'); }
   catch(e){ if(e.message!=='cancel'){ if(CB.tplId==='local') CB.tpl=null; toast(e.message||'The PDF could not be made.'); } }
   finally{ btn.disabled=false; btn.innerHTML=html; } }
+/* ===================== Roleplaying Game: guided builder and play view ===================== */
+/* Rules data (origins, roles with level tables, influences, perks, Grid Powers, Zord features) comes from rpgrules.json.
+   The guided choices live on the character as c.g; gApply() writes them onto the sheet fields the editor and the PDF use. */
+let RRD=null, RRD_LOADING=null;
+function grLoad(){ if(RRD) return Promise.resolve(RRD); if(RRD_LOADING) return RRD_LOADING;
+  const v=(typeof BOOT!=='undefined'&&BOOT.v)||Date.now().toString(36);
+  let url; try{ url=new URL('rpgrules.json?v='+v,(typeof BOOT!=='undefined'&&BOOT.url)||location.href).href; }catch(e){ url='rpgrules.json?v='+v; }
+  return RRD_LOADING=fetch(url).then(r=>{ if(!r.ok) throw new Error('The rules could not load.'); return r.json(); }).then(d=>{ RRD=d;
+    return (typeof qaLoad==='function'?qaLoad().catch(()=>null):Promise.resolve()).then(()=>d); }).catch(e=>{ RRD_LOADING=null; throw e; }); }
+const G_ESS=[['str','Strength','Toughness'],['spd','Speed','Evasion'],['sma','Smarts','Willpower'],['soc','Social','Cleverness']];
+const G_SK=()=>PRSHEET.SKILLS; const gSkEss=k=>Object.keys(G_SK()).find(e=>G_SK()[e].some(([s])=>s===k));
+const gSkName=k=>{ for(const e in G_SK()){ const f=G_SK()[e].find(([s])=>s===k); if(f) return f[1]; } return k; };
+const G_DIE=['–','d2','d4','d6','d8','d10','d12'];
+const G_STEPS=[['basics','Basics'],['origin','Origin'],['role','Role'],['influence','Influences'],['essence','Essence'],['skills','Skills'],['levels','Level choices'],['gear','Equipment'],['done','Finish']];
+const G_CHOICE={generalperk:'perk',gridpower:'power',zordfeature:'zordfeat',shipfeature:'zordfeat',zord:'zord',phantomship:'zord'};
+const gKind=p=>G_CHOICE[gNorm(p).replace(/s$/,'')]||'';
+const gNorm=s=>String(s||'').toLowerCase().replace(/’/g,"'").replace(/\(.*?\)/g,'').replace(/[^a-z]/g,'');
+function gNew(){ return {v:1, level:1, origin:null, oEss:'', oSkill:'', role:'', rChoice:{}, infl:[], ess:{str:0,spd:0,sma:0,soc:0}, ranks:{}, specs:{}, picks:{}, gear:[], managed:{}}; }
+function gOf(c){ if(!c.g||typeof c.g!=='object') c.g=gNew(); const g=c.g; const b=gNew(); Object.keys(b).forEach(k=>{ if(g[k]===undefined) g[k]=b[k]; }); return g; }
+const gBook=b=>RRD&&RRD.books[b]?RRD.books[b].t:''; const gPg=(b,p)=>RRD&&RRD.books[b]?p+RRD.books[b].off:p;
+const gSrc=it=>it&&it.b?`${gBook(it.b)} p.${gPg(it.b,it.p)}`:'';
+const gFind=(list,ref)=>ref&&(RRD[list]||[]).find(x=>x.n===ref.n&&x.b===ref.b);
+const gRole=c=>RRD&&RRD.roles.find(r=>r.id===gOf(c).role);
+const gOrigin=c=>gFind('origins',gOf(c).origin);
+const gLevels=c=>{ const r=gRole(c); return r?r.levels.filter(l=>l.l<=gOf(c).level):[]; };
+
+/* ---- the numbers ---- */
+function gScores(c){ const g=gOf(c), s={str:0,spd:0,sma:0,soc:0};
+  gLevels(c).forEach(l=>{ Object.entries(l.ess||{}).forEach(([k,v])=>{ s[k]+=v; }); });
+  if(g.origin&&g.oEss) s[g.oEss]+=1; Object.keys(s).forEach(k=>{ s[k]+=(+g.ess[k]||0); }); return s; }
+const gEssSpent=c=>Object.values(gOf(c).ess).reduce((a,v)=>a+(+v||0),0);
+/** Free skill ranks from the Origin and the Role's starting skills. */
+function gFree(c){ const g=gOf(c), f={}; const add=(k,n)=>{ if(k) f[k]=(f[k]||0)+n; };
+  if(g.origin&&g.oSkill) add(g.oSkill,1);
+  const r=gRole(c); if(r) r.skills.forEach((s,i)=>add(s.k.length>1?(g.rChoice[i]||''):s.k[0], s.n)); return f; }
+function gRanks(c){ const g=gOf(c), f=gFree(c), out={}; Object.values(G_SK()).flat().forEach(([k])=>{ out[k]=(f[k]||0)+(+g.ranks[k]||0); }); return out; }
+/** Skill points: each point of an Essence buys one rank or one specialization in that Essence's skills. */
+function gSkillPts(c){ const g=gOf(c), sc=gScores(c), out={};
+  G_ESS.forEach(([e])=>{ const spent=G_SK()[e].reduce((a,[k])=>a+(+g.ranks[k]||0)+((g.specs[k]||[]).filter(Boolean).length),0); out[e]={have:sc[e],spent}; }); return out; }
+function gHealth(c){ const o=gOrigin(c); const r=gRanks(c); return (o&&+o.f.health||0)+Math.min(6,r.cond||0); }
+function gPP(c){ const l=gLevels(c); return l.length?l[l.length-1].pp:''; }
+const gArmor=r=>{ const t=(r&&r.armor||'').toLowerCase(); return /ultra/.test(t)?6:/heavy/.test(t)?4:/medium/.test(t)?2:/light/.test(t)?1:/psycho/.test(t)?2:0; };
+/** Choices each level asks for: [{key, kind, label, level}] */
+function gNeeds(c){ const out=[]; gLevels(c).forEach(l=>l.perks.forEach((p,i)=>{ const k=gKind(p);
+    if(k) out.push({key:l.l+':'+i, kind:k, label:p, level:l.l}); })); return out; }
+function gStatus(c){ const g=gOf(c), st={};
+  st.basics=!!(c.name||'').trim(); st.origin=!!(g.origin&&g.oEss&&g.oSkill); const r=gRole(c);
+  st.role=!!r&&r.skills.every((s,i)=>s.k.length<2||g.rChoice[i]); st.influence=g.infl.length>0;
+  st.essence=gEssSpent(c)===12; const sp=gSkillPts(c); st.skills=st.essence&&st.origin&&!!r&&Object.values(sp).every(x=>x.spent===x.have);
+  st.levels=!!r&&gNeeds(c).every(n=>g.picks[n.key]); st.gear=!!r&&g.gear.length>0; st.done=Object.keys(st).every(k=>k==='done'||k==='gear'||st[k]); return st; }
+
+/* ---- writing the guided choices onto the sheet ---- */
+function gManaged(c,field,lines){ const g=gOf(c), old=g.managed[field]||[];
+  const get=()=>field.split('.').reduce((o,k)=>o[k],c), set=v=>{ const ks=field.split('.'), last=ks.pop(); ks.reduce((o,k)=>o[k],c)[last]=v; };
+  let kept=String(get()||'').split('\n').filter(l=>l.trim()&&!old.includes(l)); const add=lines.filter(l=>l&&!kept.includes(l));
+  set([...add,...kept].join('\n')); g.managed[field]=add; }
+function gApply(c){ if(!RRD) return; const g=gOf(c), r=gRole(c), o=gOrigin(c), sc=gScores(c), rk=gRanks(c);
+  c.level=String(g.level); if(o){ c.origin=o.n; c.movement=o.f.movement||c.movement; if(!c.languages&&o.f.langs) c.languages=o.f.langs; }
+  if(r) c.role=r.n.replace(/ \(.*\)$/,'');
+  c.health=String(gHealth(c)||c.health||''); const pp=gPP(c); if(pp) c.personalPower=String(pp).replace(/[^\d]/g,'')||c.personalPower;
+  G_ESS.forEach(([e])=>{ const E=c.ess[e]; E.score=String(sc[e]); E.def=String(10+sc[e]); if(e==='str'&&r) E.bonus=String(gArmor(r)||''); if(e==='spd'&&r&&/psycho/i.test(r.armor)) E.bonus='2'; });
+  Object.keys(rk).forEach(k=>{ const S=c.skills[k]; if(!S) return; S.die=Math.min(6,rk[k]);
+    if(Array.isArray(g.specs[k])&&S.specs){ const sp=g.specs[k].filter(Boolean); S.specs.forEach((x,i)=>{ x.name=sp[i]||''; x.on=!!sp[i]; }); } });
+  // perks and powers: Origin benefit, role perks with the level gained, then picked perks and powers
+  const perks=[], powers=[], zf=[];
+  if(o&&o.f.bname) perks.push(`${o.f.bname} (Origin benefit)`);
+  gLevels(c).forEach(l=>l.perks.forEach((p,i)=>{ const pick=g.picks[l.l+':'+i]; const k=gKind(p);
+    if(!k) perks.push(`${p} (${r.n.replace(/ \(.*\)$/,'')} ${l.l})`);
+    else if(pick){ const line=`${pick.n} (${gSrc(pick)})`; if(k==='perk') perks.push(line); else if(k==='power') powers.push(line); else if(k==='zordfeat') zf.push(line); } }));
+  gManaged(c,'perks',perks); gManaged(c,'powers',powers); gManaged(c,'zord.features',zf);
+  gManaged(c,'influences',g.infl.map(ref=>{ const i=gFind('influences',ref); return i?i.f.line:''; }));
+  gManaged(c,'hangups',g.infl.slice(1).map(ref=>{ const i=gFind('influences',ref); return i?i.f.hangup:''; }));
+  gManaged(c,'inventory',[...(r?r.gear:[]),...g.gear.filter(x=>x.k==='gear').map(x=>x.n)]);
+  // the Zord: the one picked at the Zord level
+  const zp=Object.values(g.picks).find(p=>p&&p.k==='zord'); if(zp&&typeof qaApply==='function'){ const it=(QA_DATA&&(QA_DATA.books[zp.b]||[]).find(x=>x.n===zp.n&&x.k===zp.zk)); if(it&&(c.zord.name||'')!==it.n) qaApply(c,it); }
+  // weapons and armor picked in Equipment
+  g.gear.filter(x=>x.k==='weapon'||x.k==='armor').forEach(x=>{ const it=QA_DATA&&(QA_DATA.books[x.b]||[]).find(y=>y.n===x.n&&y.k===x.k);
+    if(it&&typeof qaWhere==='function'&&!qaWhere(c,it)[1]) qaApply(c,it); }); }
+
+/* ---- page ---- */
+function gHTML(){ const c=CB.ch, g=gOf(c);
+  if(!RRD) return `<div class="g-load"><div class="rd-spin"></div><p>Loading the rules…</p></div>`;
+  const st=gStatus(c), step=CB.gstep||'basics';
+  return `<div class="g-wrap"><nav class="g-steps" aria-label="Steps">${G_STEPS.map(([k,l],i)=>`<button data-gstep="${k}" aria-current="${k===step}" class="${st[k]?'ok':''}"><i>${st[k]?ico('check'):i+1}</i><span>${l}</span></button>`).join('')}</nav>
+    <div class="g-main" id="gMain">${gStepHTML(step)}</div></div>`; }
+const gCard=(sel,title,sub,body,attrs,extra='')=>`<div class="g-opt${sel?' sel':''}"><button class="g-opt-h" ${attrs}><span><b>${title}</b>${sub?`<small>${sub}</small>`:''}</span>${sel?`<em>${ico('check')}Chosen</em>`:'<em class="g-ch">Choose</em>'}</button>${extra}${body?`<details${sel?' open':''}><summary>Details</summary><div class="g-txt">${body}</div></details>`:''}</div>`;
+const gP=t=>t?`<p>${esc(t)}</p>`:'';
+const gRead=it=>it&&it.b?`<button class="g-read" data-gread="${it.b}" data-gp="${it.p}">${ico('book')}Read in ${esc(gBook(it.b))}, p.${gPg(it.b,it.p)}</button>`:'';
+function gNav(step){ const i=G_STEPS.findIndex(s=>s[0]===step);
+  return `<div class="g-nav">${i>0?`<button class="btn" data-gstep="${G_STEPS[i-1][0]}">${ico('left')}${G_STEPS[i-1][1]}</button>`:'<span></span>'}${i<G_STEPS.length-1?`<button class="btn primary" data-gstep="${G_STEPS[i+1][0]}">${G_STEPS[i+1][1]}${ico('right')}</button>`:''}</div>`; }
+function gStepHTML(step){ const c=CB.ch, g=gOf(c);
+  const H=(t,p)=>`<header class="g-h"><h2>${t}</h2>${p?`<p>${p}</p>`:''}</header>`;
+  if(step==='basics') return H('Who is your Ranger?','Start with a name and an idea. Who were they before the Morphin Grid chose them, and what do they care about? You can change any of this later.')+
+    `<div class="g-form"><label><span>Name</span><input class="inp" data-gf="name" value="${esc(c.name)}" placeholder="Your Ranger’s name" maxlength="80"></label>
+      <label><span>Pronouns</span><input class="inp" data-gf="pronouns" value="${esc(c.pronouns)}" placeholder="she/her" maxlength="40"></label>
+      <label><span>Starting level</span><select class="inp" data-gf="level">${Array.from({length:20},(_,i)=>`<option value="${i+1}" ${g.level===i+1?'selected':''}>Level ${i+1}</option>`).join('')}</select><small>Most games start at level 1. Ask your Game Master.</small></label>
+      <label class="full"><span>Concept and description</span><textarea class="inp" rows="4" data-gf="description" placeholder="A martial artist who never misses practice; a tech whiz who tinkers between missions…">${esc(c.description)}</textarea></label></div>`+gNav(step);
+  if(step==='origin'){ const o=gOrigin(c);
+    const pick=o?`<div class="g-sub"><h3>${esc(o.n)}: your choices</h3>
+      <div class="g-q"><b>Raise one Essence by 1</b><div class="g-chips">${(o.f.essk||[]).map(e=>`<button class="chip" data-goess="${e}" aria-pressed="${g.oEss===e}">${G_ESS.find(x=>x[0]===e)[1]}</button>`).join('')}</div></div>
+      ${g.oEss?`<div class="g-q"><b>Take one rank in a ${G_ESS.find(x=>x[0]===g.oEss)[1]} skill</b><div class="g-chips">${((o.f.bonus||{})[g.oEss]||G_SK()[g.oEss].map(x=>x[0])).map(k=>`<button class="chip" data-gosk="${k}" aria-pressed="${g.oSkill===k}">${gSkName(k)}</button>`).join('')}</div></div>`:''}</div>`:'';
+    return H('Choose an Origin','Your Origin is who you were before you became a Power Ranger. It sets your starting Health, how fast you move, one Essence increase, a bonus skill and a special benefit.')+pick+
+      `<div class="g-list">${RRD.origins.map((x,i)=>gCard(o===x,esc(x.n),`${esc(gBook(x.b))} · Health ${esc(x.f.health||'?')} · ${esc(x.f.movement||'')}`,
+        gP(x.full)+(x.f.ess?`<p><b>Essence:</b> ${esc(x.f.ess)}</p>`:'')+(x.f.bname?`<p><b>${esc(x.f.bname)}:</b> ${esc(x.f.btext)}</p>`:'')+(x.f.langs?`<p><b>Languages:</b> ${esc(x.f.langs)}</p>`:'')+gRead(x),`data-gorigin="${i}"`)).join('')}</div>`+gNav(step); }
+  if(step==='role'){ const r=gRole(c);
+    const pick=r?`<div class="g-sub"><h3>${esc(r.n)}</h3><p class="g-meta">Personal Power ${esc(r.levels[0].pp)} · regains ${esc(r.regen)}${r.cap?' · capacity '+esc(r.cap):''} · Armor training: ${esc(r.armor)}</p>
+      ${r.skills.map((s,i)=>s.k.length>1?`<div class="g-q"><b>Starting skill: +${s.n} in one of</b><div class="g-chips">${s.k.map(k=>`<button class="chip" data-grch="${i}" data-k="${k}" aria-pressed="${g.rChoice[i]===k}">${gSkName(k)}</button>`).join('')}</div></div>`:'').join('')}
+      <p class="g-meta">Starting skills: ${r.skills.map((s,i)=>'+'+s.n+' '+(s.k.length>1?(g.rChoice[i]?gSkName(g.rChoice[i]):s.k.map(gSkName).join(' or ')):gSkName(s.k[0]))).join(', ')}${r.gear.length?' · Gear: '+esc(r.gear.join(', ')):''}</p></div>`:'';
+    return H('Choose a Role','Your Role is your place in the Ranger Spectrum: your color, your armor, your first role perks and how you grow as you level up.')+pick+
+      `<div class="g-list">${RRD.roles.map((x,i)=>gCard(r===x,esc(x.n),`${esc(gBook(x.book))} · Level 1: ${esc(x.levels[0].perks.join(', '))}`,
+        gP(x.intro)+`<p><b>Starting Essence:</b> ${Object.entries(x.levels[0].ess||{}).map(([k,v])=>'+'+v+' '+G_ESS.find(e=>e[0]===k)[1]).join(', ')}</p><p><b>Armor:</b> ${esc(x.armor)} · <b>Skills:</b> ${esc(x.skillsText)}</p>${gLevelTable(x)}`+gRead({b:x.book,p:x.p}),`data-grole="${i}"`)).join('')}</div>`+gNav(step); }
+  if(step==='influence'){ const sel=g.infl;
+    return H('Choose Influences','Influences are the life experiences that shaped your Ranger. Pick at least one and at most three. Every Influence after the first brings its Hang-Up with it.')+
+      `<p class="g-meta">${sel.length} of 3 chosen${sel.length?': '+sel.map(x=>esc(x.n)).join(', '):''}</p><div class="g-list">${RRD.influences.map((x,i)=>{ const on=sel.some(y=>y.n===x.n&&y.b===x.b);
+        return gCard(on,esc(x.n),esc(gBook(x.b)),gP(x.full)+`<p><b>Influence perk:</b> ${esc(x.f.perkText||'')}</p><p><b>Hang-up:</b> ${esc(x.f.hangText||'')}</p>`+gRead(x),`data-ginfl="${i}"`); }).join('')}</div>`+gNav(step); }
+  if(step==='essence'){ const sc=gScores(c), left=12-gEssSpent(c);
+    return H('Spend your Essence points','You have 12 points to spread across the four Essences. A good start is 4, 3, 3 and 2. Each Essence also sets a Defense (10 + the score) and how many skill ranks you can take in its skills.')+
+      `<div class="g-left ${left?'':'ok'}">${left} point${left===1?'':'s'} left</div><div class="g-ess">${G_ESS.map(([k,n,d])=>{ const base=sc[k]-(+g.ess[k]||0);
+        return `<div class="g-e"><b>${n}</b><div class="g-step"><button class="btn sm" data-gess="${k}" data-d="-1" ${(+g.ess[k]||0)<=0?'disabled':''} aria-label="Less ${n}">−</button><span class="g-big">${sc[k]}</span><button class="btn sm" data-gess="${k}" data-d="1" ${left<=0?'disabled':''} aria-label="More ${n}">+</button></div>
+          <small>${base} from Origin and Role + ${+g.ess[k]||0} spent</small><small>${d} ${10+sc[k]}</small></div>`; }).join('')}</div>`+gNav(step); }
+  if(step==='skills'){ const pts=gSkillPts(c), rk=gRanks(c), f=gFree(c);
+    return H('Choose your skills','Each Essence point buys one rank in a skill of that Essence: the first rank gives a d2, then d4, d6 and up to d12. You can instead spend a point to specialize in a skill you already have, which lets you roll its die and every die below it for that specialty. Conditioning adds 1 Health per rank, up to 6.')+
+      `<div class="g-skills">${G_ESS.map(([e,n])=>{ const p=pts[e], left=p.have-p.spent;
+        return `<section class="g-sk"><h3>${n} <span class="g-left ${left?'':'ok'}">${left} left</span></h3>${G_SK()[e].map(([k,l])=>{ const fr=f[k]||0, mine=+g.ranks[k]||0, tot=rk[k], sp=(g.specs[k]||[]);
+          return `<div class="g-skr"><b>${esc(l)}</b><span class="g-die">${k==='cond'?(tot?'+'+tot:'–'):G_DIE[Math.min(6,tot)]}</span>${fr?`<small>${fr} free</small>`:'<small></small>'}
+            <div class="g-step"><button class="btn sm" data-grank="${k}" data-d="-1" ${mine<=0?'disabled':''} aria-label="Lower ${esc(l)}">−</button><button class="btn sm" data-grank="${k}" data-d="1" ${left<=0||tot>=6?'disabled':''} aria-label="Raise ${esc(l)}">+</button></div>
+            ${PRSHEET.NOSPEC.has(k)?'':`<div class="g-specs">${sp.map((s,i)=>`<span class="g-spec"><input class="inp" data-gspec="${k}" data-i="${i}" value="${esc(s)}" placeholder="Specialization" maxlength="40"><button class="btn sm" data-gspecx="${k}" data-i="${i}" aria-label="Remove">${ico('x')}</button></span>`).join('')}${tot&&left>0&&sp.length<3?`<button class="g-addspec" data-gspecadd="${k}">+ Specialize</button>`:''}</div>`}</div>`; }).join('')}</section>`; }).join('')}</div>`+gNav(step); }
+  if(step==='levels'){ const r=gRole(c); if(!r) return H('Level choices','Choose a Role first.')+gNav(step);
+    return H(`Level 1 to ${g.level}`,`Everything your ${esc(r.n)} gains up to level ${g.level}. When a level offers a General Perk, a Grid Power, a Zord or a Zord feature, choose it here.`)+
+      `<div class="g-lv">${gLevels(c).map(l=>gLevelHTML(c,r,l)).join('')}</div>${g.level<20?`<button class="btn primary" data-glevelup>${ico('plus')}Level up to ${g.level+1}</button>`:''}`+gNav(step); }
+  if(step==='gear'){ const r=gRole(c), mine=g.gear;
+    const list=k=>Object.entries((QA_DATA&&QA_DATA.books)||{}).flatMap(([b,l])=>l.filter(x=>x.k===k).map(x=>Object.assign({b},x)));
+    const row=(x,i)=>{ const on=mine.some(y=>y.n===x.n&&y.b===x.b&&y.k===x.k); const s=typeof qaSummary==='function'?qaSummary(x):x.d;
+      return `<div class="g-gear${on?' sel':''}"><div><b>${esc(x.n)}</b><small>${esc(s)} · ${esc(gBook(x.b))}</small></div><button class="btn sm${on?'':' primary'}" data-ggear="${esc(x.k)}|${esc(x.b)}|${esc(x.n)}">${on?'Remove':'Add'}</button></div>`; };
+    const filt=CB.gfilter||'';
+    const pick=(k,t)=>{ const all=list(k).filter(x=>!filt||x.n.toLowerCase().includes(filt.toLowerCase())); return `<details class="g-gl"${k==='weapon'?' open':''}><summary>${t} (${all.length})</summary><div>${all.slice(0,200).map(row).join('')}</div></details>`; };
+    return H('Equipment',`${r?`As a ${esc(r.n)} you start with: ${esc(r.gear.join(', ')||'your Morpher')}. `:''}Add the weapons, armor and gear your Ranger carries. Weapons fill the weapon rows on your sheet.`)+
+      `<input class="inp g-filter" data-gfilter value="${esc(filt)}" placeholder="Search equipment">${mine.length?`<p class="g-meta">Carrying: ${mine.map(x=>esc(x.n)).join(', ')}</p>`:''}${pick('weapon','Weapons')}${pick('armor','Armor and shields')}${pick('gear','Gear, kits and vehicles')}`+gNav(step); }
+  if(step==='done'){ const st=gStatus(c), miss=G_STEPS.filter(([k])=>k!=='done'&&k!=='gear'&&!st[k]);
+    return H(miss.length?'Almost there':'Your Ranger is ready',miss.length?'These steps still need something:':'Everything is filled in on your character sheet. Open the play view for a one-page reference at the table, or export the official PDF.')+
+      (miss.length?`<ul class="g-miss">${miss.map(([k,l])=>`<li><button class="g-link" data-gstep="${k}">${l}</button>: ${gMissing(c,k)}</li>`).join('')}</ul>`:'')+
+      `<div class="g-endb"><button class="btn primary" data-cbmode="play">${ico('eye')}Play view</button><button class="btn" data-cbmode="sheet">Edit the sheet</button>${g.level<20?`<button class="btn" data-glevelup>${ico('plus')}Level up to ${g.level+1}</button>`:''}<button class="btn" data-cb="pdf">${ico('down')}Export PDF</button></div>`; }
+  return ''; }
+function gMissing(c,k){ const g=gOf(c);
+  if(k==='basics') return 'give your Ranger a name'; if(k==='origin') return !g.origin?'choose an Origin':!g.oEss?'pick the Essence it raises':'pick its bonus skill';
+  if(k==='role') return gRole(c)?'pick between the starting skill options':'choose a Role'; if(k==='influence') return 'choose at least one Influence';
+  if(k==='essence'){ const l=12-gEssSpent(c); return l>0?`${l} Essence point${l===1?'':'s'} left to spend`:'too many points spent'; }
+  if(k==='skills') return Object.entries(gSkillPts(c)).filter(([,x])=>x.have!==x.spent).map(([e,x])=>`${x.have-x.spent} ${G_ESS.find(y=>y[0]===e)[1]} point${Math.abs(x.have-x.spent)===1?'':'s'} ${x.have>x.spent?'left':'over'}`).join(', ');
+  if(k==='levels') return gNeeds(c).filter(n=>!g.picks[n.key]).map(n=>`level ${n.level} ${n.label}`).join(', ');
+  return ''; }
+function gLevelTable(r){ return `<div class="g-tblw"><table class="g-tbl"><thead><tr><th>Level</th><th>Role perks</th><th>Power</th>${r.special?`<th>${esc(r.special)}</th>`:''}<th>Essence</th></tr></thead><tbody>${r.levels.map(l=>`<tr><td>${l.l}</td><td>${esc(l.perks.join(', ')||'—')}</td><td>${esc(l.pp)}</td>${r.special?`<td>${esc(l.sp||'')}</td>`:''}<td>${Object.entries(l.ess||{}).map(([k,v])=>'+'+v+' '+G_ESS.find(e=>e[0]===k)[1]).join(', ')||'—'}</td></tr>`).join('')}</tbody></table></div>`; }
+function gPerkText(r,name){ const n=gNorm(name); const k=Object.keys(r.perks).find(x=>gNorm(x)===n)||Object.keys(r.perks).find(x=>gNorm(x).startsWith(n)&&n.length>4)||Object.keys(r.perks).find(x=>n.startsWith(gNorm(x))&&gNorm(x).length>4); return k?r.perks[k]:null; }
+function gLevelHTML(c,r,l){ const g=gOf(c);
+  const ess=Object.entries(l.ess||{}).map(([k,v])=>`+${v} ${G_ESS.find(e=>e[0]===k)[1]}`).join(', ');
+  return `<section class="g-lvl" id="glv${l.l}"><h3><span>Level ${l.l}</span><small>Personal Power ${esc(l.pp)}${r.special&&l.sp?' · '+esc(r.special)+' '+esc(l.sp):''}${ess?' · '+ess+(l.l>1?' (and a skill point to spend)':''):''}</small></h3>
+    ${l.perks.map((p,i)=>{ const kind=gKind(p); const t=gPerkText(r,p);
+      if(!kind) return `<details class="g-perk"><summary><b>${esc(p)}</b></summary>${t?`<div class="g-txt"><p>${esc(t.t)}</p></div>`:''}</details>`;
+      const key=l.l+':'+i, pick=g.picks[key];
+      return `<div class="g-pick${pick?' sel':''}"><div><b>${esc(p)}</b><small>${pick?'Chosen: '+esc(pick.n)+' · '+esc(gSrc(pick)):'Choose one'}</small>${t?`<details><summary>What this means</summary><div class="g-txt"><p>${esc(t.t)}</p></div></details>`:''}</div>
+        <button class="btn sm${pick?'':' primary'}" data-gpick="${key}" data-kind="${kind}">${pick?'Change':'Choose'}</button></div>`; }).join('')}</section>`; }
+
+/* ---- choosing a perk, Grid Power, Zord feature or Zord ---- */
+function gPicker(key,kind){ const c=CB.ch, g=gOf(c);
+  const list=kind==='zord'?Object.entries(QA_DATA.books).flatMap(([b,l])=>l.filter(x=>x.k==='zord'||x.k==='mega').map(x=>Object.assign({b},x))):(RRD[kind+'s']||[]);
+  const T={perk:'Choose a General Perk',power:'Choose a Grid Power',zordfeat:'Choose a Zord feature',zord:'Choose your Zord'}[kind];
+  layer(`<div class="drawer g-drawer" role="dialog" aria-modal="true" aria-label="${T}"><div class="dh"><h3>${T}</h3><button class="ib" data-close aria-label="Close">${ico('x')}</button></div>
+    <div class="db"><input class="inp" id="gpq" placeholder="Search" autocomplete="off"><div id="gpl"></div></div></div>`);
+  const draw=q=>{ q=(q||'').toLowerCase(); $('#gpl').innerHTML=list.map((x,i)=>[x,i]).filter(([x])=>!q||(x.n+' '+(x.full||x.d||'')).toLowerCase().includes(q)).map(([x,i])=>{
+      const sel=g.picks[key]&&g.picks[key].n===x.n&&g.picks[key].b===x.b; const s=kind==='zord'&&typeof qaSummary==='function'?qaSummary(x):(x.d||'');
+      return `<div class="g-opt${sel?' sel':''}"><button class="g-opt-h" data-gpi="${i}"><span><b>${esc(x.n)}</b><small>${esc(gBook(x.b))}${s?' · '+esc(s):''}</small></span><em class="g-ch">${sel?'Chosen':'Choose'}</em></button>${x.full?`<details><summary>Details</summary><div class="g-txt"><p>${esc(x.full)}</p></div></details>`:''}</div>`; }).join('')||'<p class="desc">Nothing matches.</p>'; };
+  draw(''); $('#gpq').oninput=e=>draw(e.target.value); $('#layer [data-close]').onclick=closeLayer;
+  $('#gpl').onclick=e=>{ const b=e.target.closest('[data-gpi]'); if(!b) return; const x=list[+b.dataset.gpi];
+    g.picks[key]={n:x.n,b:x.b,p:x.p,k:kind,zk:x.k}; gSave(); closeLayer(); gDraw(); toast(`${x.n} chosen`); }; }
+
+/* ---- events ---- */
+function gSave(){ gApply(CB.ch); cbSave(); }
+function gDraw(keepScroll){ const m=$('#gMain'); if(!m){ return; } const y=window.scrollY; const st=gStatus(CB.ch);
+  $$('.g-steps button').forEach(b=>b.classList.toggle('ok',!!st[b.dataset.gstep])); $$('.g-steps button i').forEach((i,n)=>{ const b=i.parentNode; i.innerHTML=st[b.dataset.gstep]?ico('check'):String(n+1); });
+  m.innerHTML=gStepHTML(CB.gstep||'basics'); if(keepScroll!==false) window.scrollTo({top:y}); }
+function gClick(t){ const c=CB.ch, g=gOf(c);
+  if(t.dataset.gstep){ CB.gstep=t.dataset.gstep; $$('.g-steps button').forEach(b=>b.setAttribute('aria-current',b.dataset.gstep===CB.gstep)); gDraw(false); const m=$('.g-wrap'); if(m&&m.getBoundingClientRect().top<0) window.scrollTo({top:window.scrollY+m.getBoundingClientRect().top-80}); return true; }
+  if(t.dataset.gorigin!==undefined){ const o=RRD.origins[+t.dataset.gorigin]; g.origin={n:o.n,b:o.b}; g.oEss=(o.f.essk||[]).length===1?o.f.essk[0]:''; g.oSkill=''; gSave(); gDraw(); return true; }
+  if(t.dataset.goess){ g.oEss=t.dataset.goess; g.oSkill=''; gSave(); gDraw(); return true; }
+  if(t.dataset.gosk){ g.oSkill=t.dataset.gosk; gSave(); gDraw(); return true; }
+  if(t.dataset.grole!==undefined){ const r=RRD.roles[+t.dataset.grole]; if(g.role!==r.id){ g.role=r.id; g.rChoice={}; g.picks={}; } gSave(); gDraw(); return true; }
+  if(t.dataset.grch!==undefined){ g.rChoice[t.dataset.grch]=t.dataset.k; gSave(); gDraw(); return true; }
+  if(t.dataset.ginfl!==undefined){ const x=RRD.influences[+t.dataset.ginfl]; const i=g.infl.findIndex(y=>y.n===x.n&&y.b===x.b);
+    if(i>=0) g.infl.splice(i,1); else if(g.infl.length<3) g.infl.push({n:x.n,b:x.b}); else { toast('You can have at most three Influences.'); return true; } gSave(); gDraw(); return true; }
+  if(t.dataset.gess){ const k=t.dataset.gess, d=+t.dataset.d; const v=(+g.ess[k]||0)+d; if(v<0||(d>0&&gEssSpent(c)>=12)) return true; g.ess[k]=v; gSave(); gDraw(); return true; }
+  if(t.dataset.grank){ const k=t.dataset.grank, d=+t.dataset.d; g.ranks[k]=Math.max(0,(+g.ranks[k]||0)+d); gSave(); gDraw(); return true; }
+  if(t.dataset.gspecadd){ const k=t.dataset.gspecadd; (g.specs[k]=g.specs[k]||[]).push('New specialization'); gSave(); gDraw(); const ins=$$(`[data-gspec="${k}"]`); const last=ins[ins.length-1]; if(last){ last.select(); last.focus(); } return true; }
+  if(t.dataset.gspecx){ const k=t.dataset.gspecx; (g.specs[k]||[]).splice(+t.dataset.i,1); gSave(); gDraw(); return true; }
+  if(t.dataset.gpick){ gPicker(t.dataset.gpick,t.dataset.kind); return true; }
+  if(t.dataset.glevelup!==undefined){ if(!gRole(c)){ toast('Choose a Role first.'); return true; } g.level=Math.min(20,g.level+1); gSave(); CB.gstep='levels'; render();
+    setTimeout(()=>{ const el=$('#glv'+g.level); if(el){ el.classList.add('new'); el.scrollIntoView({block:'center'}); } },60);
+    const l=gRole(c).levels.find(x=>x.l===g.level); toast(`Level ${g.level}: ${l&&l.perks.length?l.perks.join(', '):'new Essence and Personal Power'}`); return true; }
+  if(t.dataset.ggear){ const [k,b,n]=t.dataset.ggear.split('|'); const i=g.gear.findIndex(x=>x.k===k&&x.b===b&&x.n===n);
+    if(i>=0){ g.gear.splice(i,1); if(k==='weapon'){ const w=c.weapons.find(x=>x.name===n); if(w) Object.keys(w).forEach(f=>w[f]=''); } if(k==='armor'){ const a=c.armor.find(x=>x.type===n); if(a) Object.keys(a).forEach(f=>a[f]=''); } }
+    else g.gear.push({k,b,n}); gSave(); gDraw(); return true; }
+  if(t.dataset.gread){ openFile(t.dataset.gread,{page:+t.dataset.gp}); return true; }
+  return false; }
+function gInput(el){ const c=CB.ch, g=gOf(c);
+  if(el.dataset.gf){ const f=el.dataset.gf; if(f==='level'){ g.level=+el.value||1; gSave(); gDraw(); return true; } c[f]=el.value; cbSave(); if(f==='name'){ const h=$('#cbTitle'); if(h) h.textContent=cbName(c); const s=$('.g-steps [data-gstep="basics"]'); if(s) s.classList.toggle('ok',!!el.value.trim()); } return true; }
+  if(el.dataset.gspec){ const k=el.dataset.gspec; (g.specs[k]=g.specs[k]||[])[+el.dataset.i]=el.value; gSave(); return true; }
+  if(el.dataset.gfilter!==undefined){ CB.gfilter=el.value; clearTimeout(gInput.t); gInput.t=setTimeout(()=>{ const pos=el.selectionStart; gDraw(); const n=$('[data-gfilter]'); if(n){ n.focus(); n.setSelectionRange(pos,pos); } },250); return true; }
+  return false; }
+
+/* ---- play view: everything on one page ---- */
+function gPlayHTML(){ const c=CB.ch, g=gOf(c), r=RRD&&gRole(c);
+  const pips=(p,n,v)=>`<div class="pv-hp"><button class="btn sm" data-pvd="${p}" data-d="1" aria-label="Take 1 damage">−</button><b>${Math.max(0,n-v)}<small> / ${n}</small></b><button class="btn sm" data-pvd="${p}" data-d="-1" aria-label="Heal 1">+</button></div>`;
+  const hp=+c.health||0, ess=G_ESS.map(([k,n,d])=>{ const E=c.ess[k]; const sk=G_SK()[k].filter(([s])=>c.skills[s].die||c.skills[s].specs.some(x=>x.name.trim()));
+    return `<section class="pv-e"><header><b>${n}</b><span class="pv-sc">${esc(E.score||'–')}</span></header><div class="pv-def"><span>${d}</span><b>${esc(E.def||(E.score?10+ +E.score:'–'))}</b><span>Morphed</span><b>${esc(PRSHEET.morphed(E)||'–')}</b></div>
+      <ul>${sk.map(([s,l])=>{ const S=c.skills[s]; const sp=S.specs.filter(x=>x.name.trim()).map(x=>x.name); return `<li><span>${esc(l)}${sp.length?`<small>${esc(sp.join(', '))}</small>`:''}</span><b>${s==='cond'?'+'+S.die:(G_DIE[S.die]||'–')}</b></li>`; }).join('')||'<li class="pv-none">No skills</li>'}</ul></section>`; }).join('');
+  const lines=t=>String(t||'').split('\n').filter(x=>x.trim());
+  const rows=(arr,cols)=>arr.filter(x=>Object.values(x).some(v=>String(v).trim())).map(x=>`<tr>${cols.map(k=>`<td>${esc(x[k]||'')}</td>`).join('')}</tr>`).join('');
+  const att=rows(c.attacks,['name','range','attack','effects','notes']), wep=rows(c.weapons,['name','range','hands','attack','effects','traits']), arm=rows(c.armor,['type','effect','traits','desc']);
+  const findText=(name)=>{ if(!RRD) return ''; const n=gNorm(name.replace(/\s*\(.*$/,''));
+    if(r){ const t=gPerkText(r,name.replace(/\s*\(.*$/,'')); if(t) return t.t; }
+    for(const L of ['perks','powers','zordfeats']){ const x=(RRD[L]||[]).find(y=>gNorm(y.n)===n); if(x) return x.full||x.d; }
+    const o=gOrigin(c); if(o&&gNorm(o.f.bname)===n) return o.f.btext; return ''; };
+  const list=(t,title)=>{ const l=lines(t); if(!l.length) return ''; return `<section class="pv-box"><h3>${title}</h3>${l.map(x=>{ const tx=findText(x); return tx?`<details><summary>${esc(x)}</summary><p>${esc(tx)}</p></details>`:`<p class="pv-l">${esc(x)}</p>`; }).join('')}</section>`; };
+  const z=c.zord, zOn=z.name.trim(), m=c.mega, mOn=m.name.trim();
+  const zs=o=>`<div class="pv-zs">${[['Str',o.str],['Spd',o.spd],['Tough',o.tough],['Eva',o.eva],['Size',o.size],['Move',o.move],['Health',Array.isArray(o.health)?o.health.filter(Boolean).join('/'):o.health]].filter(x=>String(x[1]||'').trim()).map(([a,b])=>`<span><small>${a}</small><b>${esc(b)}</b></span>`).join('')}</div>
+    ${o.attacks.filter(a=>a.weapon.trim()).map(a=>`<p class="pv-l"><b>${esc(a.weapon)}</b> ${esc(a.range)} · ${esc(a.effects)}</p>`).join('')}${o.features?`<p class="pv-l pv-dim">${esc(o.features.split('\n').join(' · '))}</p>`:''}`;
+  return `<div class="pv">
+    <header class="pv-top"><div><h2>${esc(cbName(c))}</h2><p>${[c.pronouns,c.level?'Level '+c.level:'',c.role,c.origin].filter(x=>String(x||'').trim()).map(esc).join(' · ')}</p></div>
+      <div class="pv-stats"><div class="pv-st"><small>Health</small>${hp?pips('damage',hp,+c.damage||0):`<b>${esc(c.health||'–')}</b>`}</div>
+        <div class="pv-st"><small>Personal Power</small>${+c.personalPower?pips('g.ppUsed',+c.personalPower,+g.ppUsed||0):`<b>${esc(c.personalPower||'–')}</b>`}</div>
+        <div class="pv-st"><small>Movement</small><b>${esc(c.movement||'–')}</b></div>${r?`<div class="pv-st"><small>Regains</small><b>${esc(r.regen)}</b></div>`:''}</div>
+      <div class="pv-acts"><button class="btn sm" data-pvrest>Rest</button><button class="btn sm" data-pvprint>${ico('down')}Print</button></div></header>
+    <div class="pv-ess">${ess}</div>
+    ${att||wep?`<section class="pv-box pv-wide"><h3>Attacks and weapons</h3><div class="g-tblw"><table class="g-tbl">${att?`<thead><tr><th>Attack</th><th>Range</th><th>Roll</th><th>Effects</th><th>Notes</th></tr></thead><tbody>${att}</tbody>`:''}${wep?`<thead><tr><th>Weapon</th><th>Range</th><th>Hands</th><th>Skill</th><th>Effects</th><th>Traits</th></tr></thead><tbody>${wep}</tbody>`:''}</table></div></section>`:''}
+    ${arm?`<section class="pv-box pv-wide"><h3>Armor</h3><div class="g-tblw"><table class="g-tbl"><tbody>${arm}</tbody></table></div></section>`:''}
+    <div class="pv-cols">${list(c.perks,'Perks and role perks')}${list(c.powers,'Grid Powers')}${list(c.influences,'Influences')}${list(c.hangups,'Hang-ups')}${list(c.bonds,'Background bonds')}${list(c.inventory,'Inventory')}${list(c.languages,'Languages')}
+      ${zOn?`<section class="pv-box"><h3>Zord: ${esc(z.name)}</h3>${zs(z)}</section>`:''}${mOn?`<section class="pv-box"><h3>Megaform: ${esc(m.name)}</h3>${zs(m)}</section>`:''}${list(c.notes,'Notes')}</div></div>`; }
+function pvClick(t){ const c=CB.ch, g=gOf(c);
+  if(t.dataset.pvd){ const p=t.dataset.pvd, d=+t.dataset.d; if(p==='damage'){ c.damage=Math.max(0,Math.min(+c.health||20,(+c.damage||0)+d)); } else { g.ppUsed=Math.max(0,Math.min(+c.personalPower||0,(+g.ppUsed||0)+d)); } cbSave(); $('#cbPanel').innerHTML=gPlayHTML(); return true; }
+  if(t.dataset.pvrest!==undefined){ c.damage=0; g.ppUsed=0; cbSave(); $('#cbPanel').innerHTML=gPlayHTML(); toast('Health and Personal Power restored'); return true; }
+  if(t.dataset.pvprint!==undefined){ $$('.pv details').forEach(d=>d.open=true); document.body.classList.add('pv-print'); window.print(); setTimeout(()=>document.body.classList.remove('pv-print'),500); return true; }
+  return false; }
+/* ===================== end of guided builder ===================== */
 
 /* ===================== decks ===================== */
 /** The decks assigned to a Ranger, shown inside its card view. */

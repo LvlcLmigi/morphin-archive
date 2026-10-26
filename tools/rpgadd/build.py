@@ -2,8 +2,10 @@ import re, json, sys, pymupdf
 from lib import *
 
 ITEMS = {}
-def add(fid, kind, e, d='', f=None, n=None, q=None):
+def add(fid, kind, e, d='', f=None, n=None, q=None, full=None):
     it = {'p': e['p'], 'k': kind, 'n': n or title_case(e['n']), 'd': d}
+    if full is None and kind in ('perk', 'power', 'zordfeat', 'gear') and e.get('body'): full = e['body']
+    if full: it['full'] = tidy(full)[:2400]
     qq = q if q is not None else e.get('q', e['p'])
     if qq and qq > it['p']: it['q'] = qq
     if f: it['f'] = {k: v for k, v in f.items() if v not in (None, '', {}, [])}
@@ -33,10 +35,19 @@ def origins(fid, a, b, head):
         bname = ben.group(1).strip() if ben else ''
         intro = body.split('Starting Health')[0]
         ess = field(body, 'Essence Score Increase Options', LABELS)
+        EM = {'strength': 'str', 'speed': 'spd', 'smarts': 'sma', 'social': 'soc'}
+        essk = ['str', 'spd', 'sma', 'soc'] if re.search(r'any Essence', ess, re.I) else [EM[x.lower()] for x in re.findall(r'(Strength|Speed|Smarts|Social)', ess)]
+        bonus = {}
+        for m in re.finditer(r'(Strength|Speed|Smarts|Social)-based:\s*(.+?)(?=•|Ground Movement|Languages|Origin Benefit|$)', body):
+            from roles import SKILLS
+            bonus[EM[m.group(1).lower()]] = [SKILLS[x.strip().lower()] for x in re.split(r',|\bor\b', m.group(2)) if x.strip().lower() in SKILLS]
+        langs = field(body, 'Languages:', ['Origin Benefit'])
+        btxt = body.split('Origin Benefit:', 1)[1].strip() if 'Origin Benefit:' in body else ''
+        if bname and btxt.startswith(bname): btxt = btxt[len(bname):].strip()
         add(fid, 'origin', e, first_sentence(intro), n=re.sub(r'^Origin:\s*', '', title_case(e['n'])), f={
             'health': hp.group(1) if hp else '', 'movement': (mv.group(1) + ' ft') if mv else '',
             'perk': (bname + ' (origin benefit, ' + ref(fid, e['p']) + ')') if bname else '',
-            'ess': first_sentence(ess, 90)})
+            'ess': first_sentence(ess, 90), 'essk': essk, 'bonus': bonus, 'langs': tidy(langs)[:300], 'bname': bname, 'btext': btxt[:1500]}, full=intro)
 
 # ---------- influences ----------
 def influences(fid, a, b, head, sub):
@@ -59,7 +70,7 @@ def influences(fid, a, b, head, sub):
         pk = first_sentence(c['perk'], 200); hg = first_sentence(c['hang'], 200)
         last = max([x['e']['p'] for x in out if x is c] + [e['p']])
         add(fid, 'influence', e, first_sentence(c['intro']), {
-            'line': f"{name}: {pk} ({ref(fid, e['p'])})", 'hangup': f"{hg} ({name})" if hg else ''}, n=name)
+            'line': f"{name}: {pk} ({ref(fid, e['p'])})", 'hangup': f"{hg} ({name})" if hg else '', 'perkText': tidy(c['perk'])[:1500], 'hangText': tidy(c['hang'])[:1500]}, n=name, full=c['intro'])
 
 # ---------- simple named entries (perks, powers, gear, roles…) ----------
 def simple(fid, kind, a, b, head, skip_names=(), keep=None, start=None, end=None, after=None, until=None):
