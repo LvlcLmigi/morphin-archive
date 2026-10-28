@@ -11,10 +11,8 @@ Farkas "Bulk" Bulkmeier and Eugene "Skull" Skullovitch are the bullies of Angel 
 
 ## In the BOOM! comics
 
-In the 2016 *Mighty Morphin Power Rangers* series they run "Ranger Station," a video channel about the Power Rangers, shot at the Angel Grove Youth Center. In issue #1 they spend the day interviewing students about the new Green Ranger, including [[Tommy Oliver]] himself, who has never watched the show.
+Bulk and Skull run "Ranger Station," a video channel about the Power Rangers shot at the Youth Center, and claim hundreds of thousands of fans. They spend a day asking Angel Grove what it thinks of the new Green Ranger, cover the Rangers' disappearance and Rita's ultimatum as the world panics, and later film a four-week documentary that ends on a note of hope. During the Rangers' quiet months they report on their rescue work and on [[Grace Sterling]].
 
-They also star in the backup feature *The Ongoing Adventures of Bulk & Skull* by Steve Orlando and Corin Howell. In the first of these, Bulk decides they will impress Trini and Kimberly by becoming better heroes than the Rangers, with a captured Putty Patroller and armor made from sports gear. It goes about as well as expected.
+Their backup stories are comedies. Bulk decides to impress Trini and Kimberly by staging a heroic win over a captured Putty, which ends with the girls knocking it out with a basketball. Sentenced to nearly two thousand hours of community service under the strict Lieutenant Jerome Stone, they accidentally stop a robbery and earn their release. Rita, delighted by how much they mock the Rangers, gives them a two-headed monster to drive, which short-circuits when its heads fight over the controls the way they do.
 
-## Backup stories, Vols. 2 and 3
-
-Bulk and Skull serve community service under the strict Lieutenant Jerome Stone and earn their release by accidentally stopping a robbery. Later Rita, impressed by how they mock the Rangers, gives them a two-headed monster to drive. It short-circuits when its heads start fighting over the controls the way the two of them do.
+In [[Lord Drakkon]]'s world, Bulk is a member of the [[Coinless]].

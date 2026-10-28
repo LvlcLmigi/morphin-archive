@@ -8,6 +8,8 @@ Scorpina is a warrior who serves [[Rita Repulsa]]. On the show she is an old fri
 
 ## In the BOOM! comics
 
-Scorpina is Rita's first move against [[Tommy Oliver]] once he joins the Rangers. In issue #0 she recovers a crystal from the wreckage of the monster Bullzer. She later turns up in Tommy's bedroom demanding the Green Power Coin and threatens his mother, which drives Tommy to teleport her into a forest and fight her alone.
+Scorpina is Rita's first move against [[Tommy Oliver]] once he joins the Rangers. She recovers a crystal from the wreckage of the monster Bullzer, then turns up in Tommy's bedroom demanding the Green Power Coin and threatens his mother. Tommy teleports her into a forest and fights her alone.
 
-Her real job, as Rita explains, is to push Tommy into battle. The fights feed the crystal on her sword with "green chaos energy." In issue #3 she uses the crystal and a copy of the Dragon Dagger to take control of the [[Dragonzord]] and sinks a cruise ship near San Francisco. Tommy fights her in the Dragonzord's cockpit and breaks the copied dagger, and the Rangers take her prisoner. The crystal she carried opens the portal that brings the [[Black Dragon]] to the [[Command Center]].
+Her job, as Rita explains, is to push Tommy into battle. The fights feed the crystal on her sword with "green chaos energy." Using it and a copy of the Dragon Dagger, she takes control of the [[Dragonzord]] and sinks a cruise ship near San Francisco. Tommy fights her in the cockpit and breaks the copied dagger, but the crystal opens the portal that brings the [[Black Dragon]] to the [[Command Center]].
+
+When the Black Dragon crosses back, Scorpina ends up stranded in [[Lord Drakkon]]'s world, where she serves at his court.

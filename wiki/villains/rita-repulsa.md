@@ -9,18 +9,20 @@ Rita Repulsa is an alien sorceress who spent ten thousand years locked in a spac
 
 From her palace on the moon she watches [[Angel Grove]] through a telescope and sends a new monster against the Rangers almost every week. [[Finster]] sculpts the monsters, [[Goldar]] leads them in battle, and [[Squatt]] and [[Baboo]] mostly get in the way. When a monster loses, Rita throws her wand down to Earth and makes it grow.
 
-## The Green Ranger
+## In the BOOM! comics
 
-Her most dangerous plan was making her own Ranger. She picked [[Tommy Oliver]], put him under a spell and gave him the Green Power Coin, the Dragon Dagger and the Dragonzord. He came close to beating the team before Jason destroyed the Sword of Darkness and broke her hold on him.
+### Looking for a Green Ranger
 
-## Zedd and after
+Rita spent ten thousand years trapped in a space dumpster on the moon, a prison [[Zordon]] put her in after she had conquered planet after planet. In 1969, Dark Specter's agent [[Psycho Green]] tried to free her and was stopped by the [[Ranger team of 1969]].
 
-In the second season [[Lord Zedd]] arrives, shrinks Rita and throws her back into a dumpster. She returns later, slips him a love potion and marries him, and the two run their schemes together after that. Zordon's energy wave at the end of *Power Rangers in Space* purifies her and turns her back into a human.
+Free again, Rita wants a Green Ranger of her own. She first offers the Green Power Coin to Zack, who refuses. She decides she needs an outsider, someone new, and chooses Tommy. A voice "from beyond" tells her he will betray her, and that when she is ready to rule Earth she will meet the one speaking.
 
-## In comics
+### In Tommy's head
 
-BOOM! Studios' *Mighty Morphin Power Rangers* expands her story, including her history with the Green Ranger powers and the way Tommy's time under her spell stays with him.
+After Tommy breaks free, Rita keeps appearing to him as a vision only he can see, wearing down his confidence. She uses [[Scorpina]] to push him into fights that charge a crystal with "green chaos energy," and when the crystal breaks it opens a portal for the [[Black Dragon]], the agent of the voice she struck a deal with.
 
-## Empress of Earth
+### Empress
 
-In BOOM!'s [[Mighty Morphin Power Rangers Vol. 2|Vol. 2]], Rita makes a deal with a voice "from beyond" and lets the [[Black Dragon]] into the Command Center. She sits her throne where Zordon's tube stood, takes the Zords, and gives the world's governments twenty-four hours to swear loyalty to her. Before Tommy, she tried to recruit Zack the same way, offering him the Green Power Coin. In [[Lord Drakkon]]'s world she won outright and rules as Empress from Angel Grove.
+With the Command Center taken, Rita sets her throne where Zordon's tube stood, takes the Zords and gives every government twenty-four hours to swear loyalty, sending the Dinozords against Paris and Tokyo. She has Finster build an army of Goldar copies and holds Trini as a hostage. When Trini turns the Black Dragon against her, Rita retreats rather than fight her. After that she goes quiet for months, and Finster says she has left him to his art.
+
+In [[Lord Drakkon]]'s world, Rita won. She rules Earth as Empress from Angel Grove, where giant statues of her stand over the city.

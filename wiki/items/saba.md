@@ -7,4 +7,10 @@ infobox: Owner = White Ranger | First appearance (comics) = [[Mighty Morphin Pow
 ---
 Saba is a sword with a tiger's head on the hilt that can talk, think and see. On the show it belongs to Tommy when he becomes the White Ranger.
 
-In BOOM!'s comics, Tommy and [[Billy Cranston]] find the Saba of [[Lord Drakkon]]'s world in the ruins of a Command Center. It was made to partner the White Ranger, but when that world's Jason was killed, Zordon hid it so Tommy could never have it. It calls itself the last steward of Zordon, a fail-safe that could only be woken by someone with goodness in them. Saba wakes the [[Falconzord]], gets Tommy and Billy away from Drakkon, and tells them how its world fell.
+## In the BOOM! comics
+
+The Saba of [[Lord Drakkon]]'s world was made to partner the White Ranger. When Tommy killed that world's Jason and took the White Light, Zordon hid Saba so Drakkon could never have it. Saba calls itself the last steward of Zordon, a fail-safe that only someone with goodness in them could wake. Before going into hiding it told that world's Zack it would come back one day with people who could save the world.
+
+Tommy and [[Billy Cranston|Billy]] find it in the ruins of a Command Center. Saba wakes the [[Falconzord]], gets them away from Drakkon, and tells them how its world fell. It also tethers our Zordon, stranded between timelines, to the [[Morphin Grid]].
+
+Saba comes home with the Rangers. It guards the imprisoned [[Finster]] in the [[Command Center]] and works with Alpha on bringing Zordon back.

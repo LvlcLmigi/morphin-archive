@@ -1,20 +1,21 @@
 ---
 title: Lord Drakkon
 type: villain
+image: deck:4a8cda8766c3
 aliases: Drakkon, Evil Tommy
-summary: An older Tommy Oliver from another world who stayed loyal to Rita, killed Jason, and took the White Ranger power for himself.
-infobox: Real name = Tommy Oliver | Powers = Green Ranger, stolen White Ranger power | First appearance = [[Mighty Morphin Power Rangers Vol. 3|Mighty Morphin Power Rangers #9]] (2017) | Created by = Kyle Higgins
+summary: An older Tommy Oliver from another world who stayed loyal to Rita, killed his Jason, and took the White Ranger power for himself.
+infobox: Real name = Tommy Oliver | Powers = Green Ranger, stolen White Ranger power | Weapons = Dragon Dagger, Saba (sought) | First appearance = [[Mighty Morphin Power Rangers Vol. 3|Mighty Morphin Power Rangers #9]] (2017) | Created by = Kyle Higgins
 ---
 Lord Drakkon is the [[Tommy Oliver]] of another world. Like the Tommy we know, he was kidnapped by [[Rita Repulsa]] and turned into her Green Ranger. Unlike him, once the spell broke he chose to stay with her.
 
 ## History
 
-Rita and her Green Ranger spent years taking Earth city by city, and in time people came to accept her rule. Zordon's last hope was the White Light, a new power that could make a Ranger stronger than any before. Jason was chosen to receive it, but before the process was finished Tommy killed him and took the power, becoming Drakkon. His armor mixes the Green and White Ranger designs, and he keeps Jason's helmet.
+Weeks after the Sword of Darkness was destroyed, that world's Tommy went back to Rita. Together they marched on Washington and spent years taking Earth city by city, and in time people came to accept her rule. Zordon's last hope was the White Light, a new power, and he chose Jason to receive it. Before it was finished, Tommy killed Jason in the Command Center, took the power and declared that his name was no longer Tommy. He then poisoned Zordon and cut him off from the world. His armor mixes the Green and White Ranger designs.
 
-In Drakkon's world, Angel Grove is the capitol of Rita's "Power Coalition," with giant statues of Rita and Tommy, curfews and soldiers in Ranger-style armor called Ranger Sentries. Those without power coins who resist him are called the Coinless.
+Drakkon's Angel Grove is the capitol of Rita's "Power Coalition," with giant statues of Rita and Tommy, curfews, and soldiers in Ranger-style armor called [[Ranger Sentries]]. He hands out Zord powers to his officers and takes them away just as easily. The people who still resist him are the [[Coinless]].
 
-## In the comics
+## Against the Rangers
 
-Drakkon is the hidden hand behind the [[Black Dragon]], which reached the Rangers' world through Rita and was built from parts of the Dragonzord. When Tommy and [[Billy Cranston]] are thrown into his world, he greets them as "a better you" and calls Tommy his lesser self. He wants [[Saba]] above all, and loses it when Saba wakes the [[Falconzord]] and escapes with the two Rangers.
+Drakkon is the hidden hand behind the [[Black Dragon]], a machine built from the Dragonzord that he sent into the Rangers' world. When Tommy and Billy are thrown into his world, he greets Tommy as his "lesser self" and shows him his own face, older and scarred. He wants [[Saba]] above all, since Zordon hid the sword from him. He brings down the Falconzord, offers to spare Tommy in exchange for the Coinless's surrender, and fights the powerless Tommy in the final battle. When the Rangers arrive he falls from a cliff, and he later wakes surrounded by soldiers.
 
 He is the central villain of the *Shattered Grid* event.
