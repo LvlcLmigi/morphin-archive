@@ -14,3 +14,7 @@ Farkas "Bulk" Bulkmeier and Eugene "Skull" Skullovitch are the bullies of Angel 
 In the 2016 *Mighty Morphin Power Rangers* series they run "Ranger Station," a video channel about the Power Rangers, shot at the Angel Grove Youth Center. In issue #1 they spend the day interviewing students about the new Green Ranger, including [[Tommy Oliver]] himself, who has never watched the show.
 
 They also star in the backup feature *The Ongoing Adventures of Bulk & Skull* by Steve Orlando and Corin Howell. In the first of these, Bulk decides they will impress Trini and Kimberly by becoming better heroes than the Rangers, with a captured Putty Patroller and armor made from sports gear. It goes about as well as expected.
+
+## Backup stories, Vols. 2 and 3
+
+Bulk and Skull serve community service under the strict Lieutenant Jerome Stone and earn their release by accidentally stopping a robbery. Later Rita, impressed by how they mock the Rangers, gives them a two-headed monster to drive. It short-circuits when its heads start fighting over the controls the way the two of them do.

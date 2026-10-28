@@ -9,3 +9,7 @@ Goldar is a griffin-like warrior in gold armor who leads [[Rita Repulsa]]'s forc
 ## In the BOOM! comics
 
 When the series opens, Goldar is in disgrace. He oversaw [[Tommy Oliver]] while Tommy was Rita's Green Ranger, and he blames himself for losing him. In issue #3 he sits in a cell in the moon palace, refusing the dinner [[Squatt]] and [[Baboo]] sneak in to him. He tells them the queen will never let him leave, "not after I failed her."
+
+## Prisoner and redemption
+
+Rita sends Goldar to the Dark Dimension for losing the Green Ranger, where he shares captivity with [[Billy Cranston]] in [[Mighty Morphin Power Rangers Vol. 2|Vol. 2]]. He insists the Empress will remember his worth. In [[Mighty Morphin Power Rangers Vol. 3|Vol. 3]] he gives Billy his communicator so the Rangers can beat the Black Dragon, then lets Rita believe he could do nothing to stop the escape. She brings him home and offers him a chance to redeem himself, which he takes.

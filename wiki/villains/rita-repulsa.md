@@ -20,3 +20,7 @@ In the second season [[Lord Zedd]] arrives, shrinks Rita and throws her back int
 ## In comics
 
 BOOM! Studios' *Mighty Morphin Power Rangers* expands her story, including her history with the Green Ranger powers and the way Tommy's time under her spell stays with him.
+
+## Empress of Earth
+
+In BOOM!'s [[Mighty Morphin Power Rangers Vol. 2|Vol. 2]], Rita makes a deal with a voice "from beyond" and lets the [[Black Dragon]] into the Command Center. She sits her throne where Zordon's tube stood, takes the Zords, and gives the world's governments twenty-four hours to swear loyalty to her. Before Tommy, she tried to recruit Zack the same way, offering him the Green Power Coin. In [[Lord Drakkon]]'s world she won outright and rules as Empress from Angel Grove.

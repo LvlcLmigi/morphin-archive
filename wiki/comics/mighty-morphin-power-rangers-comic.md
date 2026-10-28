@@ -13,3 +13,6 @@ The series runs to issue #55 and includes the [[Shattered Grid]] event, before B
 ## Volumes
 
 - [[Mighty Morphin Power Rangers Vol. 1|Vol. 1]] (#0–4): Tommy joins the team, Rita works on him from inside his head, and the Command Center falls.
+
+- [[Mighty Morphin Power Rangers Vol. 2|Vol. 2]] (#5–8): the Black Dragon takes the Command Center and Rita takes the Zords. Four Rangers come back as Green Rangers.
+- [[Mighty Morphin Power Rangers Vol. 3|Vol. 3]] (#9–12): the Black Dragon falls and Tommy and Billy are thrown into [[Lord Drakkon]]'s world.

@@ -20,3 +20,7 @@ Once the spell is broken he joins the team, but his powers were made by Rita and
 ## In comics
 
 BOOM! Studios' *Mighty Morphin Power Rangers* starts with Tommy newly on the team and still carrying guilt from his time under Rita's spell. In the *Shattered Grid* event, an alternate Tommy who never broke free becomes the tyrant [[Lord Drakkon]].
+
+## Comics: Vols. 2 and 3
+
+When the [[Black Dragon]] cuts the Rangers off from the Morphin Grid, Tommy is the only one who can still morph. He takes the Dragonzord to the moon, loses to the Black Dragon, and comes back with his arm. To restore the team he channels the others' powers through his Dragon Coin, which turns them into Green Rangers and leaves him with nothing. With [[Billy Cranston|Billy]] he destroys the Black Dragon from inside, and the two are thrown into a world where an older Tommy, [[Lord Drakkon]], stayed with Rita. Meeting him leaves Tommy afraid of who he might still become.
