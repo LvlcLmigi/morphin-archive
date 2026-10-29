@@ -1772,6 +1772,7 @@ function wire(){
     if(a==='newcoll') editCollection();
     if(a==='uploadtype') openUpload();
     if(a==='sharetype') copy(linkFor({t:S.type}),'Link copied');
+    if(a==='exporttype') exportType(S.type, t.dataset.fmt||'csv');
     if(a==='combatretry') loadCombat(true);
     if(a==='playtype'){ const l=currentList(); if(l.length) openCard(l[0].id,l,true); }
     if(a==='editcoll') editCollection(collById(S.collection));
@@ -2029,12 +2030,42 @@ function typeHeadHTML(T){ const n=typeCount(T);
     <div class="hero-actions"><span class="count">${typeSub(T)}</span>
       ${rulesFor(T.id).length?`<button class="btn sm rulesbtn" data-act="typerules">${ico('book')}Rules${rulesFor(T.id).length>1?` <small>${rulesFor(T.id).length}</small>`:''}</button>`:''}
       <button class="btn sm" data-act="sharetype">${ico('link')}Copy link</button>
+      <button class="btn sm" data-act="exporttype" data-fmt="csv" title="Download every card's text and numbers in this section as a spreadsheet (no pictures)">${ico('down')}Export CSV</button>
+      <button class="btn sm" data-act="exporttype" data-fmt="json" title="Download every card's text and numbers in this section as JSON (no pictures)">${ico('down')}JSON</button>
       ${T.id!=='combat'&&S.cards.some(c=>ctype(c)===T.id)?`<button class="btn sm" data-act="playtype">${ico('play')}Slideshow</button>`:''}
       ${S.admin&&DKIND[T.id]?`<button class="btn sm primary" data-act="newkdeck">${ico('plus')}New ${esc(DKIND[T.id].toLowerCase())}</button>`:''}
       ${S.admin&&T.id!=='combat'?`<button class="btn sm${DKIND[T.id]?'':' primary'}" data-act="uploadtype">${ico('plus')}${DKIND[T.id]?'Upload single cards':'Upload '+esc(T.name.toLowerCase())}</button>`:''}
       ${S.admin&&T.id==='combat'?`<button class="btn sm" data-view-go="decks">${ico('deck')}Manage decks</button>`:''}</div>
     <div class="tswitch" role="group" aria-label="Card types">${TYPES.map(t=>`<button class="chip" data-ctype="${t.id}" aria-pressed="${t.id===T.id}"><i style="background:${t.tint}"></i>${esc(t.name)}</button>`).join('')}</div></div>
   </div></section>`; }
+
+/* ===================== Export: every card's information in one card-type section, without pictures ===================== */
+const expNames = l => (l||[]).map(id=>expName(expById(id))).filter(Boolean).join('; ');
+const deckNames = l => (l||[]).map(id=>(deckById(id)||{}).name).filter(Boolean).join('; ');
+/** Rows for one deck's cards (combat or enemy). */
+function deckRows(d){ const who=rangersUsing(d.id).map(cardName).join('; ');
+  return (S.decks[d.id]||[]).map(x=>({deck:d.name, deckKind:d.kind?DKIND[d.kind]:'Ranger combat deck', rangers:who, expansions:expNames(expOfDeck(d)),
+    title:x.title, type:x.type, cost:x.cost, dice:x.dice||0, hits:x.hits||0, shields:x.shields||0, star:x.star?'yes':'', copies:x.copies||1, text:x.text||''})); }
+/** Every card in a card-type section as plain rows. Combat and enemy sections load their decks first. */
+async function exportRows(type){
+  if(type==='combat'){ await ensureDecks(rangerDecks().map(d=>d.id)); return [...rangerDecks()].sort((a,b)=>a.name.localeCompare(b.name)).flatMap(deckRows); }
+  const singles=S.cards.filter(c=>ctype(c)===type).map(c=>({title:c.title, character:c.character||'', ranger:c.ranger||'', series:c.series||'', color:c.color||'',
+    abilityName:c.abilityName||'', abilityText:c.abilityText||'', description:c.description||'', kind:c.kind||'', expansions:expNames(c.expansions),
+    decks:deckNames(c.decks), linked:(c.rangers||[]).map(id=>{ const r=S.cards.find(x=>x.id===id); return r?cardName(r):''; }).filter(Boolean).join('; '), tags:(c.tags||[]).join('; ')}));
+  if(!DKIND[type]) return singles;
+  const ds=enemyDecks(type); await ensureDecks(ds.map(d=>d.id));
+  return [...singles.map(r=>Object.assign({deck:'(single card)'},r)), ...ds.flatMap(deckRows)]; }
+function toCSV(rows){ const keys=[...new Set(rows.flatMap(r=>Object.keys(r)))];
+  const cell=v=>{ v=String(v==null?'':v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; };
+  return '\ufeff'+[keys.join(','), ...rows.map(r=>keys.map(k=>cell(r[k])).join(','))].join('\r\n'); }
+async function exportType(type, fmt){
+  const T=typeOf(type); toast('Preparing '+T.name.toLowerCase()+'…');
+  let rows; try{ rows=await exportRows(type); }catch(e){ return toast('The cards could not load. Try again.'); }
+  if(!rows.length) return toast('Nothing to export yet');
+  const body=fmt==='json'?JSON.stringify({format:'morphin-archive-cards', section:T.name, exported:new Date().toISOString(), count:rows.length, cards:rows},null,1):toCSV(rows);
+  const blob=new Blob([body],{type:fmt==='json'?'application/json':'text/csv'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='Heroes of the Grid - '+T.name+'.'+fmt; document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },500); toast(plural(rows.length,'card','cards')+' exported'); }
 
 /** The decks on an enemy type page (foot soldiers, monsters, bosses, nemeses), shown by their face cards. */
 function enemyDecksHTML(T){ const all=enemyDecks(T.id); const q=S.q.trim().toLowerCase();
