@@ -579,6 +579,13 @@ body.sp-on{overflow:hidden}
 /* ---- end of start page ---- */
 
 body.nogame [data-go-sec="game"]{display:none!important}
+body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
+body.nosec-comics [data-go-sec="comics"],body.nosec-comics .nav [data-sec="comics"],body.nosec-comics .mobnav [data-sec="comics"]{display:none!important}
+body.nosec-rpg [data-go-sec="rpg"],body.nosec-rpg .nav [data-sec="rpg"],body.nosec-rpg .mobnav [data-sec="rpg"]{display:none!important}
+body.nosec-wiki [data-go-sec="wiki"],body.nosec-wiki .nav [data-sec="wiki"],body.nosec-wiki .mobnav [data-sec="wiki"]{display:none!important}
+body.nosec-game [data-go-sec="game"],body.nosec-game .nav [data-sec="game"],body.nosec-game .mobnav [data-sec="game"]{display:none!important}
+
+body.nogame [data-go-sec="game"]{display:none!important}
 
 body.nogame [data-go-sec="game"]{display:none!important}
 
@@ -1284,13 +1291,19 @@ const SECTIONS=[
   {id:'rpg', eyebrow:'Tabletop', name:'Roleplaying Game', blurb:'The rulebooks and adventures, and a character builder that fills in the official sheet.', tint:'#1b8fe0'},
   {id:'wiki', eyebrow:'Encyclopedia', name:'Wiki', blurb:'Rangers, villains, Zords, teams, shows and every comic issue, all linked together.', tint:'#14a35a'},
   {id:'game', eyebrow:'Play now', name:'Grid Run', blurb:'A deckbuilding roguelike built from Heroes of the Grid cards and battles.', tint:'#f4bf1c'}];
-/** Grid Run shows only when the admin has turned it on in Settings, or to a signed-in admin. */
-function gameOn(){ return typeof S!=='undefined'&&!!S&&(!!(S.settings&&S.settings.showGame)||!!S.admin); }
-function syncGame(){ document.body.classList.toggle('nogame',!gameOn()); }
+/** Which sections show is set in Settings: one list for visitors (hideSec) and one for admin mode (hideSecAdmin).
+    Grid Run also needs showGame on before visitors see it. */
+const hiddenList = v => String(v||'').split(',').filter(Boolean);
+function secHidden(id){ if(typeof S==='undefined'||!S) return false; const st=S.settings||{};
+  if(S.admin) return hiddenList(st.hideSecAdmin).includes(id);
+  return hiddenList(st.hideSec).includes(id) || (id==='game' && !st.showGame); }
+const secShown = () => SECTIONS.filter(s=>!secHidden(s.id));
+function gameOn(){ return !secHidden('game'); }
+function syncGame(){ if(!document.body) return; SECTIONS.forEach(x=>document.body.classList.toggle('nosec-'+x.id,secHidden(x.id))); document.body.classList.toggle('nogame',secHidden('game')); }
 /** The start page: one wide slice per section. pics: {sectionId: [image urls]}. onPick(sectionId). */
 function showSplash(pics,onPick){ hideSplash(); const el=document.createElement('div'); el.id='splash'; el.className='splash'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','Choose a section');
   el.innerHTML=`<div class="sp-brand"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 36 11v18L20 38 4 29V11z" fill="none" stroke="var(--accent)" stroke-width="2.5"/><path d="M20 10 28 14.5v9L20 28l-8-4.5v-9z" fill="var(--accent)"/></svg><b>${esc((typeof S!=='undefined'&&S.settings&&S.settings.siteTitle)||'The Morphin Archive')}</b></div>
-    ${SECTIONS.filter(s=>s.id!=='game'||gameOn()).map((s,k)=>{ const ps=(pics&&pics[s.id]||[]).filter(Boolean).slice(0,4);
+    ${secShown().map((s,k)=>{ const ps=(pics&&pics[s.id]||[]).filter(Boolean).slice(0,4);
       return `<button class="sp-slice" data-sec="${s.id}" style="--tint:${s.tint};--k:${k}"><span class="sp-pics">${ps.map((u,i)=>`<i style="background-image:url('${esc(u)}');--i:${i}"></i>`).join('')}</span>
         <span class="sp-tx"><small>${esc(s.eyebrow)}</small><b>${esc(s.name)}</b><span>${esc(s.blurb)}</span></span><span class="sp-go" aria-hidden="true">→</span></button>`; }).join('')}`;
   document.body.appendChild(el); document.body.classList.add('sp-on');
@@ -1800,7 +1813,7 @@ function refreshList(){ const feed=$('#feed'); if(!feed) return render(); const 
 $$('.tabs button').forEach(b=>b.onclick=()=>{ NAV.length=0; if(S.tab===b.dataset.tab&&!S.sub){ window.scrollTo({top:0,behavior:'smooth'}); return; } setTab(b.dataset.tab); });
 $('#brand').onclick=()=>splashM();
 /* ---- the four sections ---- */
-function pickSectionM(sec){ NAV.length=0; if(sec==='game') return openGame(grHostM()); if(sec==='wiki'){ setTab('cards'); return openSub('wiki',{}); } if(sec==='rpg') return setTab('rpg'); setTab('cards'); if(sec==='comics') openSub('comics',''); }
+function pickSectionM(sec){ NAV.length=0; if(secHidden(sec)){ const v=secShown().find(x=>x.id!=='game'); if(!v) return; sec=v.id; } if(sec==='game') return openGame(grHostM()); if(sec==='wiki'){ setTab('cards'); return openSub('wiki',{}); } if(sec==='rpg') return setTab('rpg'); setTab('cards'); if(sec==='comics') openSub('comics',''); }
 function splashM(){ closeGame(); const r=grRangerOrder(S.cards.filter(c=>ctype(c)==='ranger')).slice(0,4).map(c=>c.thumb);
   showSplash({hotg:r, comics:(S.comicSeries||[]).map(x=>crIssues(x.id)[0]).filter(Boolean).slice(0,4).map(c=>crCover(c,400)), rpg:S.files.filter(f=>areaOf(f)!=='rules').slice(0,4).map(f=>f.cover),
     wiki:(S.decks||[]).filter(d=>d.kind==='boss'||d.kind==='nemesis').slice(0,4).map(d=>d.faceThumb||d.thumb),

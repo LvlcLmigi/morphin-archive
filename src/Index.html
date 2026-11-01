@@ -1102,6 +1102,13 @@ body.sp-on{overflow:hidden}
 /* ---- end of start page ---- */
 
 body.nogame [data-go-sec="game"]{display:none!important}
+body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
+body.nosec-comics [data-go-sec="comics"],body.nosec-comics .nav [data-sec="comics"],body.nosec-comics .mobnav [data-sec="comics"]{display:none!important}
+body.nosec-rpg [data-go-sec="rpg"],body.nosec-rpg .nav [data-sec="rpg"],body.nosec-rpg .mobnav [data-sec="rpg"]{display:none!important}
+body.nosec-wiki [data-go-sec="wiki"],body.nosec-wiki .nav [data-sec="wiki"],body.nosec-wiki .mobnav [data-sec="wiki"]{display:none!important}
+body.nosec-game [data-go-sec="game"],body.nosec-game .nav [data-sec="game"],body.nosec-game .mobnav [data-sec="game"]{display:none!important}
+
+body.nogame [data-go-sec="game"]{display:none!important}
 
 body.nogame [data-go-sec="game"]{display:none!important}
 
@@ -1279,6 +1286,7 @@ body.nogame [data-go-sec="game"]{display:none!important}
 .wk-chips{display:flex;flex-wrap:wrap;gap:6px}
 @media (max-width:760px){ .wk{padding-top:12px} .wk-box{float:none;width:auto;margin:12px 0} .wk-box img{max-height:420px;object-fit:contain} .wk-list{grid-template-columns:1fr} }
 /* ---- end of wiki ---- */
+.sectog{border-collapse:collapse;margin-top:8px;width:100%;max-width:440px}.sectog th,.sectog td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line,#8883)}.sectog th{font-size:12px;font-weight:600;opacity:.75}.sectog td:not(:first-child),.sectog th:not(:first-child){text-align:center}.sectog i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:middle}
 </style>
 <script>
 /* Phones that open the site inside a zoomed-out frame (a masked domain forward) lay the page out
@@ -1488,7 +1496,7 @@ function applyAccent(hex){ if(!/^#[0-9a-f]{6}$/i.test(hex||'')) return; document
 async function load(){
   try{
     const d = await api('getData', visitor);
-    S.cards=d.cards; S.collections=d.collections; S.deckList=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.liked=new Set(d.liked); S.settings=d.settings;
+    S.cards=d.cards; S.collections=d.collections; S.deckList=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.liked=new Set(d.liked); S.settings=d.settings; if(typeof syncGame==='function') syncGame();
     $('#siteTitle').textContent=d.settings.siteTitle||'The Morphin Archive'; $('#footTitle').textContent=$('#siteTitle').textContent;
     document.title=$('#siteTitle').textContent; applyAccent(d.settings.accent);
     if(STANDALONE) store.set('gcg-cache',{cards:d.cards,collections:d.collections,decks:d.decks,files:d.files,scenarios:d.scenarios||[],expansions:d.expansions||[],comicSeries:d.comicSeries||[],comics:d.comics||[],settings:d.settings,ts:Date.now()});
@@ -1554,7 +1562,7 @@ const SEC_HOME={hotg:'explore',comics:'comics',rpg:'rpg',wiki:'wiki'};
 const secOf=v=>v==='comics'||v==='cseries'?'comics':v==='rpg'||v==='builder'?'rpg':v==='wiki'?'wiki':'hotg';
 function applySec(sec){ S.sec=sec; document.body.dataset.sec=sec; const s=SECTIONS.find(x=>x.id===sec); $('#secName').textContent=s?s.name:'';
   $$('.nav [data-sec],.mobnav [data-sec]').forEach(b=>{ b.hidden=b.dataset.sec!==sec; }); }
-function pickSection(sec){ if(sec==='game') return openGame(grHost()); go(SEC_HOME[sec]||'explore'); }
+function pickSection(sec){ if(secHidden(sec)){ const v=secShown().find(x=>x.id!=='game'); if(!v) return; sec=v.id; } if(sec==='game') return openGame(grHost()); go(SEC_HOME[sec]||'explore'); }
 function splashPics(){ const r=grRangerOrder(S.cards.filter(c=>ctype(c)==='ranger')).slice(0,4).map(c=>c.thumb);
   const cm=(S.comicSeries||[]).map(x=>crIssues(x.id)[0]).filter(Boolean).slice(0,4).map(c=>crCover(c,400));
   const rp=filesIn('').slice(0,4).map(f=>f.cover); const z=S.cards.filter(c=>ctype(c)==='zord'||ctype(c)==='megazord').slice(0,4).map(c=>c.thumb);
@@ -1571,6 +1579,7 @@ function grHost(){ return { rangers:()=>grRangerOrder(S.cards.filter(c=>ctype(c)
 /* ===================== render ===================== */
 function render(){
   const m=$('#main');
+  if(secHidden(secOf(S.view))){ const v=secShown().find(x=>x.id!=='game'); if(v&&SEC_HOME[v.id]!==S.view){ S.view=SEC_HOME[v.id]; applySec(v.id); } }
   if(S.view==='explore') m.innerHTML = heroHTML() + typesMenuHTML() + expRailHTML() + collectionsRailHTML() + decksRailHTML() + previewSectionHTML('official') + previewSectionHTML('homebrew');
   else if(S.view==='types') m.innerHTML = typesMenuHTML(true);
   else if(S.view==='type'){ const T=typeOf(S.type); if(T.id==='combat'){ m.innerHTML = typeHeadHTML(T) + combatSectionHTML(); wire(); return loadCombat(); }
@@ -3304,13 +3313,19 @@ const SECTIONS=[
   {id:'rpg', eyebrow:'Tabletop', name:'Roleplaying Game', blurb:'The rulebooks and adventures, and a character builder that fills in the official sheet.', tint:'#1b8fe0'},
   {id:'wiki', eyebrow:'Encyclopedia', name:'Wiki', blurb:'Rangers, villains, Zords, teams, shows and every comic issue, all linked together.', tint:'#14a35a'},
   {id:'game', eyebrow:'Play now', name:'Grid Run', blurb:'A deckbuilding roguelike built from Heroes of the Grid cards and battles.', tint:'#f4bf1c'}];
-/** Grid Run shows only when the admin has turned it on in Settings, or to a signed-in admin. */
-function gameOn(){ return typeof S!=='undefined'&&!!S&&(!!(S.settings&&S.settings.showGame)||!!S.admin); }
-function syncGame(){ document.body.classList.toggle('nogame',!gameOn()); }
+/** Which sections show is set in Settings: one list for visitors (hideSec) and one for admin mode (hideSecAdmin).
+    Grid Run also needs showGame on before visitors see it. */
+const hiddenList = v => String(v||'').split(',').filter(Boolean);
+function secHidden(id){ if(typeof S==='undefined'||!S) return false; const st=S.settings||{};
+  if(S.admin) return hiddenList(st.hideSecAdmin).includes(id);
+  return hiddenList(st.hideSec).includes(id) || (id==='game' && !st.showGame); }
+const secShown = () => SECTIONS.filter(s=>!secHidden(s.id));
+function gameOn(){ return !secHidden('game'); }
+function syncGame(){ if(!document.body) return; SECTIONS.forEach(x=>document.body.classList.toggle('nosec-'+x.id,secHidden(x.id))); document.body.classList.toggle('nogame',secHidden('game')); }
 /** The start page: one wide slice per section. pics: {sectionId: [image urls]}. onPick(sectionId). */
 function showSplash(pics,onPick){ hideSplash(); const el=document.createElement('div'); el.id='splash'; el.className='splash'; el.setAttribute('role','dialog'); el.setAttribute('aria-label','Choose a section');
   el.innerHTML=`<div class="sp-brand"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 36 11v18L20 38 4 29V11z" fill="none" stroke="var(--accent)" stroke-width="2.5"/><path d="M20 10 28 14.5v9L20 28l-8-4.5v-9z" fill="var(--accent)"/></svg><b>${esc((typeof S!=='undefined'&&S.settings&&S.settings.siteTitle)||'The Morphin Archive')}</b></div>
-    ${SECTIONS.filter(s=>s.id!=='game'||gameOn()).map((s,k)=>{ const ps=(pics&&pics[s.id]||[]).filter(Boolean).slice(0,4);
+    ${secShown().map((s,k)=>{ const ps=(pics&&pics[s.id]||[]).filter(Boolean).slice(0,4);
       return `<button class="sp-slice" data-sec="${s.id}" style="--tint:${s.tint};--k:${k}"><span class="sp-pics">${ps.map((u,i)=>`<i style="background-image:url('${esc(u)}');--i:${i}"></i>`).join('')}</span>
         <span class="sp-tx"><small>${esc(s.eyebrow)}</small><b>${esc(s.name)}</b><span>${esc(s.blurb)}</span></span><span class="sp-go" aria-hidden="true">→</span></button>`; }).join('')}`;
   document.body.appendChild(el); document.body.classList.add('sp-on');
@@ -4567,10 +4582,15 @@ async function adminTab(tab){
     <div class="fl"><label for="stA">Accent color</label><input id="stA" type="color" value="${esc(s.accent||'#E8B931')}" style="width:64px;height:36px;border:0;background:none"></div>
     <label class="toggle"><span><b>Visitor submissions</b><br><span class="lbl">Visitors can submit cards. They wait in the review queue until you approve them.</span></span><input type="checkbox" id="stS" ${s.allowSubmissions?'checked':''}></label>
     <label class="toggle"><span><b>Comments</b><br><span class="lbl">Let visitors comment on cards.</span></span><input type="checkbox" id="stC" ${s.allowComments!==false?'checked':''}></label>
-    <label class="toggle"><span><b>Grid Run</b><br><span class="lbl">Show the Grid Run game on the start page and in the menus. While it's off, only you see it when signed in.</span></span><input type="checkbox" id="stGm" ${s.showGame?'checked':''}></label>
+    <div class="fl"><label>Sections</label><span class="lbl">Choose which sections appear on the start page and in the menus. Visitors and admin mode are set separately, so a section can stay hidden from you too.</span>
+      <table class="sectog"><thead><tr><th>Section</th><th>Visitors</th><th>Admin mode</th></tr></thead><tbody>
+      ${SECTIONS.map(x=>{ const pub=!(hiddenList(s.hideSec).includes(x.id)||(x.id==='game'&&!s.showGame)), adm=!hiddenList(s.hideSecAdmin).includes(x.id);
+        return `<tr><td><i style="background:${x.tint}"></i>${esc(x.name)}</td><td><input type="checkbox" data-secpub="${x.id}" aria-label="Show ${esc(x.name)} to visitors" ${pub?'checked':''}></td><td><input type="checkbox" data-secadm="${x.id}" aria-label="Show ${esc(x.name)} in admin mode" ${adm?'checked':''}></td></tr>`; }).join('')}
+      </tbody></table></div>
     <div><button class="btn primary" id="stSave">Save settings</button></div>`;
     $('#stA').oninput=e=>applyAccent(e.target.value);
-    $('#stSave').onclick=async()=>{ const r=await adminCall('saveSettings',{siteTitle:$('#stT').value,tagline:$('#stG').value,accent:$('#stA').value,allowSubmissions:$('#stS').checked,allowComments:$('#stC').checked,showGame:$('#stGm').checked}); S.settings=r; $('#siteTitle').textContent=r.siteTitle; refreshAdminUI(); render(); toast('Settings saved'); };
+    $('#stSave').onclick=async()=>{ const r=await adminCall('saveSettings',{siteTitle:$('#stT').value,tagline:$('#stG').value,accent:$('#stA').value,allowSubmissions:$('#stS').checked,allowComments:$('#stC').checked,
+        showGame:!!$('[data-secpub="game"]').checked, hideSec:$$('[data-secpub]').filter(x=>!x.checked).map(x=>x.dataset.secpub).join(','), hideSecAdmin:$$('[data-secadm]').filter(x=>!x.checked).map(x=>x.dataset.secadm).join(',')}); S.settings=r; syncGame(); $('#siteTitle').textContent=r.siteTitle; refreshAdminUI(); render(); toast('Settings saved'); };
   }
   if(tab==='colls'){
     b.innerHTML=`<div><button class="btn primary sm" id="nc">${ico('plus')}New collection</button></div>`+(S.collections.map(c=>`<div class="prow" style="grid-template-columns:1fr auto"><div><b>${esc(c.name)}</b><div class="lbl">${cardsIn(c.id).length} cards</div></div><div style="display:flex;gap:6px"><button class="btn sm" data-ec="${c.id}">Edit</button><button class="btn sm" data-oc="${c.id}">Open</button></div></div>`).join('')||'<p class="desc">No collections yet.</p>');
@@ -4989,7 +5009,7 @@ function confirmBox(title,msg,okLbl,fn){ const keep=$('#layer')?.innerHTML; cons
 
 /* ===================== boot ===================== */
 function applyData(d){
-  S.cards=d.cards; S.collections=d.collections; S.deckList=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.settings=d.settings; if(d.liked) S.liked=new Set(d.liked);
+  S.cards=d.cards; S.collections=d.collections; S.deckList=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.settings=d.settings; if(typeof syncGame==='function') syncGame(); if(d.liked) S.liked=new Set(d.liked);
   if(!(S.admin&&S.cmAdmin)){ S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; }
   $('#siteTitle').textContent=d.settings.siteTitle||'The Morphin Archive'; $('#footTitle').textContent=$('#siteTitle').textContent;
   document.title=$('#siteTitle').textContent; applyAccent(d.settings.accent); refreshAdminUI();

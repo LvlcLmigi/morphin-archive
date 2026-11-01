@@ -180,7 +180,7 @@ function publicPayload_() {
     cards, collections, decks, files, scenarios, expansions, comicSeries: cm.series, comics: cm.comics,
     settings: {
       siteTitle: settings.siteTitle, tagline: settings.tagline, accent: settings.accent,
-      allowSubmissions: settings.allowSubmissions === 'true', allowComments: settings.allowComments !== 'false', showGame: settings.showGame === 'true'
+      allowSubmissions: settings.allowSubmissions === 'true', allowComments: settings.allowComments !== 'false', showGame: settings.showGame === 'true', hideSec: String(settings.hideSec || ''), hideSecAdmin: String(settings.hideSecAdmin || '')
     }
   };
   cachePutJSON_(PUB_KEY, out, 600);
@@ -1025,6 +1025,7 @@ function saveSettings(s, passcode) {
   requireAdmin_(passcode);
   ['siteTitle', 'tagline', 'accent'].forEach(k => { if (s[k] !== undefined) setSetting_(k, clean_(s[k], 120)); });
   ['allowSubmissions', 'allowComments', 'showGame'].forEach(k => { if (s[k] !== undefined) setSetting_(k, s[k] ? 'true' : 'false'); });
+  ['hideSec', 'hideSecAdmin'].forEach(k => { if (s[k] !== undefined) setSetting_(k, String(s[k]).split(',').map(x => x.trim()).filter(x => /^[a-z]{2,12}$/.test(x)).join(',')); });
   bust_();
   return publicPayload_().settings;
 }
