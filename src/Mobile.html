@@ -554,6 +554,56 @@ textarea.inp{min-height:76px;resize:vertical}
 @media (max-width:460px){ .cr-tx[data-cr="dir"]{display:none} }
 @media (prefers-reduced-motion:reduce){ .cr-view,.cr-top,.cr-bot,.cr-pg img{transition:none} }
 /* ---- end of comic reader ---- */
+/* character tags */
+.cr-chars[hidden],.cr-tf[hidden]{display:none}
+.cr-tag{position:absolute;z-index:3;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:2px solid transparent;background:none;padding:0;cursor:help;transition:border-color .15s,background-color .15s;-webkit-tap-highlight-color:transparent}
+.cr-pg:hover .cr-tag,.cr.tagall .cr-tag,.cr.tagging .cr-tag{border-color:rgba(255,255,255,.6);background:rgba(0,0,0,.14)}
+.cr-tag:hover,.cr-tag.show{border-color:#e8b931!important}
+.cr-tag span{position:absolute;left:50%;top:100%;transform:translate(-50%,6px);white-space:nowrap;background:rgba(10,11,14,.93);color:#fff;font:600 12.5px/1.2 system-ui,-apple-system,sans-serif;padding:5px 9px;border-radius:7px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.cr-tag:hover span,.cr-tag.show span,.cr.tagall .cr-tag span{opacity:1}
+.cr-tag.pending{border-color:#e8b931;background:rgba(232,185,49,.28);pointer-events:none}
+.cr.tagging .cr-stage{cursor:crosshair}
+.cr.tagging .cr-tag{cursor:pointer}
+.cr-b.on{background:#e8b931;color:#111}
+.cr-tf{position:absolute;z-index:9;width:270px;max-width:calc(100% - 16px)}
+.cr-tff{display:grid;gap:8px;background:#16181f;border:1px solid #2c2f3a;border-radius:12px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.6);color:#e9ebf0}
+.cr-tff small{color:#9aa0ad;margin-top:-6px}
+.cr-tff input{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid #3a3e4b;background:#0d0e12;color:#fff;width:100%;box-sizing:border-box}
+.cr-tfb{display:flex;gap:6px;flex-wrap:wrap}
+.cr-tfb .pri{background:#e8b931;color:#111}
+.cr-cl{flex:1;min-height:0;overflow:auto;padding:4px 16px max(20px,env(safe-area-inset-bottom,0px))}
+.cr-chl{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.cr-chl li{display:flex;gap:12px;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid #23252e}
+.cr-chl span{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.cr-pgc{font:600 12px system-ui,sans-serif;min-width:30px;padding:4px 7px;border-radius:6px;border:1px solid #3a3e4b;background:#1b1d25;color:#e9ebf0;cursor:pointer}
+.cr-pgc:hover{border-color:#e8b931}
+.cr-empty{color:#9aa0ad}
+.cr-chf{margin-top:14px}
+/* character tags */
+.cr-chars[hidden],.cr-tf[hidden]{display:none}
+.cr-tag{position:absolute;z-index:3;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:2px solid transparent;background:none;padding:0;cursor:help;transition:border-color .15s,background-color .15s;-webkit-tap-highlight-color:transparent}
+.cr-pg:hover .cr-tag,.cr.tagall .cr-tag,.cr.tagging .cr-tag{border-color:rgba(255,255,255,.6);background:rgba(0,0,0,.14)}
+.cr-tag:hover,.cr-tag.show{border-color:#e8b931!important}
+.cr-tag span{position:absolute;left:50%;top:100%;transform:translate(-50%,6px);white-space:nowrap;background:rgba(10,11,14,.93);color:#fff;font:600 12.5px/1.2 system-ui,-apple-system,sans-serif;padding:5px 9px;border-radius:7px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.cr-tag:hover span,.cr-tag.show span,.cr.tagall .cr-tag span{opacity:1}
+.cr-tag.pending{border-color:#e8b931;background:rgba(232,185,49,.28);pointer-events:none}
+.cr.tagging .cr-stage{cursor:crosshair}
+.cr.tagging .cr-tag{cursor:pointer}
+.cr-b.on{background:#e8b931;color:#111}
+.cr-tf{position:absolute;z-index:9;width:270px;max-width:calc(100% - 16px)}
+.cr-tff{display:grid;gap:8px;background:#16181f;border:1px solid #2c2f3a;border-radius:12px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.6);color:#e9ebf0}
+.cr-tff small{color:#9aa0ad;margin-top:-6px}
+.cr-tff input{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid #3a3e4b;background:#0d0e12;color:#fff;width:100%;box-sizing:border-box}
+.cr-tfb{display:flex;gap:6px;flex-wrap:wrap}
+.cr-tfb .pri{background:#e8b931;color:#111}
+.cr-cl{flex:1;min-height:0;overflow:auto;padding:4px 16px max(20px,env(safe-area-inset-bottom,0px))}
+.cr-chl{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.cr-chl li{display:flex;gap:12px;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid #23252e}
+.cr-chl span{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.cr-pgc{font:600 12px system-ui,sans-serif;min-width:30px;padding:4px 7px;border-radius:6px;border:1px solid #3a3e4b;background:#1b1d25;color:#e9ebf0;cursor:pointer}
+.cr-pgc:hover{border-color:#e8b931}
+.cr-empty{color:#9aa0ad}
+.cr-chf{margin-top:14px}
 
 /* ---- start page ---- */
 body.sp-on{overflow:hidden}
@@ -577,6 +627,27 @@ body.sp-on{overflow:hidden}
 @media (max-width:640px){ .sp-slice{padding:0 18px;gap:12px}.sp-tx{max-width:82%}.sp-tx span{font-size:12.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.sp-pics{width:70%}.sp-go{font-size:26px} }
 @media (prefers-reduced-motion:reduce){ .sp-slice{transition:none} }
 /* ---- end of start page ---- */
+
+body.nogame [data-go-sec="game"]{display:none!important}
+body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
+body.nosec-comics [data-go-sec="comics"],body.nosec-comics .nav [data-sec="comics"],body.nosec-comics .mobnav [data-sec="comics"]{display:none!important}
+body.nosec-rpg [data-go-sec="rpg"],body.nosec-rpg .nav [data-sec="rpg"],body.nosec-rpg .mobnav [data-sec="rpg"]{display:none!important}
+body.nosec-wiki [data-go-sec="wiki"],body.nosec-wiki .nav [data-sec="wiki"],body.nosec-wiki .mobnav [data-sec="wiki"]{display:none!important}
+body.nosec-game [data-go-sec="game"],body.nosec-game .nav [data-sec="game"],body.nosec-game .mobnav [data-sec="game"]{display:none!important}
+
+body.nogame [data-go-sec="game"]{display:none!important}
+body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
+body.nosec-comics [data-go-sec="comics"],body.nosec-comics .nav [data-sec="comics"],body.nosec-comics .mobnav [data-sec="comics"]{display:none!important}
+body.nosec-rpg [data-go-sec="rpg"],body.nosec-rpg .nav [data-sec="rpg"],body.nosec-rpg .mobnav [data-sec="rpg"]{display:none!important}
+body.nosec-wiki [data-go-sec="wiki"],body.nosec-wiki .nav [data-sec="wiki"],body.nosec-wiki .mobnav [data-sec="wiki"]{display:none!important}
+body.nosec-game [data-go-sec="game"],body.nosec-game .nav [data-sec="game"],body.nosec-game .mobnav [data-sec="game"]{display:none!important}
+
+body.nogame [data-go-sec="game"]{display:none!important}
+body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
+body.nosec-comics [data-go-sec="comics"],body.nosec-comics .nav [data-sec="comics"],body.nosec-comics .mobnav [data-sec="comics"]{display:none!important}
+body.nosec-rpg [data-go-sec="rpg"],body.nosec-rpg .nav [data-sec="rpg"],body.nosec-rpg .mobnav [data-sec="rpg"]{display:none!important}
+body.nosec-wiki [data-go-sec="wiki"],body.nosec-wiki .nav [data-sec="wiki"],body.nosec-wiki .mobnav [data-sec="wiki"]{display:none!important}
+body.nosec-game [data-go-sec="game"],body.nosec-game .nav [data-sec="game"],body.nosec-game .mobnav [data-sec="game"]{display:none!important}
 
 body.nogame [data-go-sec="game"]{display:none!important}
 body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
@@ -690,6 +761,64 @@ body.nogame [data-go-sec="game"]{display:none!important}
 .wk-chips{display:flex;flex-wrap:wrap;gap:6px}
 @media (max-width:760px){ .wk{padding-top:12px} .wk-box{float:none;width:auto;margin:12px 0} .wk-box img{max-height:420px;object-fit:contain} .wk-list{grid-template-columns:1fr} }
 /* ---- end of wiki ---- */
+
+.wk-apps{display:grid;gap:0;max-width:720px}
+.wk-app{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid var(--line,#8883)}
+.wk-app>span:last-child{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.wk-pg{min-width:28px;text-align:center;padding:2px 7px;border-radius:6px;border:1px solid var(--line,#8885);text-decoration:none;color:inherit;font-weight:600;font-size:12.5px}
+.wk-pg:hover{border-color:var(--accent)}
+.s-arts{display:flex;gap:8px;margin:10px 0 4px;overflow-x:auto}.s-arts button{flex:none;width:58px;padding:0;border:2px solid transparent;border-radius:7px;background:none;overflow:hidden;line-height:0}.s-arts button[aria-pressed="true"]{border-color:var(--accent)}.s-arts img{width:100%}
+/* ---- wiki ---- */
+.wk{max-width:1100px;margin:0 auto;padding:22px 0 40px}
+.wk-load{display:grid;place-items:center;padding:60px 0}
+.wk-head h1{margin:0;font-family:var(--f-display);text-transform:uppercase;letter-spacing:.02em;font-size:clamp(32px,5vw,58px);line-height:1}
+.wk-head p{margin:8px 0 0;color:var(--muted);max-width:64ch;line-height:1.5}
+.wk-crumb{font-size:13px;color:var(--dim);margin-bottom:10px}.wk-crumb a{color:var(--muted);font-weight:700;text-decoration:none}.wk-crumb a:hover{color:var(--accent)}
+.wk-sf{display:flex;gap:8px;margin:18px 0 20px;max-width:560px}.wk-sf .inp{flex:1}
+.wk-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.wk-cat{display:flex;flex-direction:column;gap:3px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--fg);text-decoration:none;transition:border-color .15s,transform .15s}
+.wk-cat:hover{border-color:var(--accent);transform:translateY(-2px)}
+.wk-cat b{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.04em;font-size:19px}.wk-cat span{color:var(--muted);font-size:13.5px}.wk-cat small{color:var(--dim);font-size:12px;font-weight:700;margin-top:4px}
+.wk-h2{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.04em;font-size:22px;margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.wk-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:8px}
+.wk-row{display:flex;gap:12px;align-items:center;padding:8px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--fg);text-decoration:none;min-width:0}
+.wk-row:hover{border-color:var(--accent)}
+.wk-ri{flex:none;width:54px;height:72px;border-radius:7px;overflow:hidden;background:var(--raise);display:grid;place-items:center}
+.wk-ri img{width:100%;height:100%;object-fit:cover}.wk-ri i{font-style:normal;font-family:var(--f-display);font-size:26px;color:var(--dim)}
+.wk-rt{display:flex;flex-direction:column;gap:1px;min-width:0}.wk-rt b{font-size:15px}.wk-rt small{color:var(--accent);font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.wk-rt span{color:var(--muted);font-size:13px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wk-stubs .wk-row{opacity:.85}
+.wk-note{color:var(--muted);font-size:14px;margin-top:22px}
+.wk-art{display:flow-root}
+.wk-ah small{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:12px}
+.wk-ah h1{margin:2px 0 4px;font-family:var(--f-display);text-transform:uppercase;font-size:clamp(32px,5vw,56px);line-height:1}
+.wk-aka{margin:0 0 10px;color:var(--muted)}
+.wk-box{float:right;width:300px;margin:0 0 18px 24px;border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
+.wk-box img{width:100%;display:block;background:var(--raise)}
+.wk-bt{padding:10px 14px 4px;font-family:var(--f-display);text-transform:uppercase;font-size:18px;letter-spacing:.03em}
+.wk-box dl{margin:0;padding:4px 14px 12px;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13.5px}
+.wk-box dt{color:var(--dim);font-weight:700}.wk-box dd{margin:0}
+.wk-box .btn{margin:0 14px 14px}
+.wk-stub{padding:12px 14px;border-radius:12px;border:1px dashed var(--line2);color:var(--muted);margin:14px 0;max-width:70ch}
+.wk-body{font-size:16px;line-height:1.7;max-width:74ch}
+.wk-body h2{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.03em;font-size:26px;margin:28px 0 8px;line-height:1.1}
+.wk-body h3{font-size:19px;margin:22px 0 6px}.wk-body h4{font-size:16px;margin:18px 0 4px}
+.wk-body p{margin:0 0 14px}.wk-body ul,.wk-body ol{margin:0 0 14px;padding-left:22px}.wk-body li{margin:3px 0}
+.wk-body blockquote{margin:0 0 14px;padding:4px 16px;border-left:3px solid var(--accent);color:var(--muted)}
+.wk-body hr{border:0;border-top:1px solid var(--line);margin:22px 0}
+.wk-l{color:var(--accent);text-decoration:none;font-weight:600}.wk-l:hover{text-decoration:underline}
+.wk-l.wk-new{color:#e5322f}
+.wk-tw{overflow-x:auto;margin:0 0 14px}.wk-t{border-collapse:collapse;font-size:14px}.wk-t th,.wk-t td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}.wk-t th{background:var(--raise)}
+.wk-covers{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;clear:both}
+.wk-cov{display:flex;flex-direction:column;gap:6px;color:var(--fg);text-decoration:none;font-size:13px}.wk-cov img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:6px;background:var(--raise)}
+.wk-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;clear:both}
+.wk-card{display:flex;flex-direction:column;gap:6px;border:0;background:none;padding:0;color:var(--fg);text-align:left;cursor:pointer;font-size:12.5px}
+.wk-card img{width:100%;border-radius:8px;background:var(--raise)}
+.wk-chips{display:flex;flex-wrap:wrap;gap:6px}
+@media (max-width:760px){ .wk{padding-top:12px} .wk-box{float:none;width:auto;margin:12px 0} .wk-box img{max-height:420px;object-fit:contain} .wk-list{grid-template-columns:1fr} }
+/* ---- end of wiki ---- */
+.tlm{display:flex;gap:10px;align-items:flex-start;margin:8px 0}.tlm-n{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#111;font-weight:700;font-size:13px;margin-top:6px}.tlm .cmrow{flex:1;min-width:0}
+.tlch{border-bottom:1px solid var(--line,#8883);padding:8px 0}.tlch summary{display:flex;justify-content:space-between;gap:10px;cursor:pointer}.tlch summary small{opacity:.7}.tlch-r{display:flex;justify-content:space-between;gap:10px;padding:6px 0 2px 10px;font-size:14px}.tlch-r>span:last-child{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}.tlch-p{min-width:30px;padding:3px 7px;border-radius:6px;border:1px solid var(--line,#8885);background:none;color:inherit;font-weight:600}
 </style>
 </head>
 <body>
@@ -1059,6 +1188,28 @@ function crOrder(a,b){ const na=String(a.n||''), nb=String(b.n||''); const pa=/^
 const crSeries=id=>(S.comicSeries||[]).find(s=>s.id===id);
 const crById=id=>(S.comics||[]).find(c=>c.id===id);
 const crIssues=sid=>(S.comics||[]).filter(c=>c.s===sid&&!c.st).sort(crOrder);
+/* ---- the admin's reading order (S.comicTimeline: [[comicId, ...], ...], issues in one step are read side by side)
+        and character tags (S.comicTags: [[comicId, page from 0, name], ...]) ---- */
+const crTimeline=()=>(S.comicTimeline||[]).map(r=>r.map(crById).filter(c=>c&&!c.st)).filter(r=>r.length);
+function crTimelineNext(c){ const T=crTimeline(), k=T.findIndex(r=>r.some(x=>x.id===c.id)); return k>=0&&T[k+1]?T[k+1][0]:null; }
+const crKey=n=>String(n||'').trim().toLowerCase().replace(/\s+/g,' ');
+/** Sort key for an issue: its place in the reading order, else its series and number. */
+function crRankFn(){ const at=new Map(); crTimeline().forEach((r,k)=>r.forEach(c=>at.set(c.id,k)));
+  const so=new Map((S.comicSeries||[]).map(s=>[s.id,s.order||0]));
+  return (a,b)=>(at.has(a.id)?at.get(a.id):1e6)-(at.has(b.id)?at.get(b.id):1e6)||(so.get(a.s)||0)-(so.get(b.s)||0)||crOrder(a,b); }
+/** Every tagged character: [{n, list:[{c, pages}]}], names A–Z, issues in reading order. names (optional) limits it to those names. */
+function crCharIndex(names){ const want=names?new Set(names.map(crKey)):null, by=new Map();
+  (S.comicTags||[]).forEach(([cid,p,n])=>{ const c=crById(cid), k=crKey(n); if(!c||c.st||!k||want&&!want.has(k)) return;
+    let e=by.get(k); if(!e){ e={n:String(n).trim(),m:new Map()}; by.set(k,e); } if(!e.m.has(cid)) e.m.set(cid,new Set()); e.m.get(cid).add(+p||0); });
+  const rank=crRankFn();
+  return [...by.values()].map(e=>({n:e.n,list:[...e.m].map(([cid,ps])=>({c:crById(cid),pages:[...ps].sort((a,b)=>a-b)})).sort((x,y)=>rank(x.c,y.c))}))
+    .sort((a,b)=>crNat(a.n,b.n)); }
+/** Names to suggest when tagging: names already used, card characters and wiki pages. */
+function crTagNames(){ const out=new Map(); const add=n=>{ const k=crKey(n); if(k&&!out.has(k)) out.set(k,String(n).trim()); };
+  (S.comicTags||[]).forEach(t=>add(t[2])); (S.cards||[]).forEach(c=>add(c.character));
+  try{ if(typeof WK!=='undefined'&&WK.idx) WK.idx.articles.filter(a=>/character|ranger|villain|monster/.test(a.type)).forEach(a=>add(a.title)); }catch(e){}
+  return [...out.values()].sort(crNat); }
+const crPagesText=ps=>ps.length===1?'page '+(ps[0]+1):'pages '+ps.map(p=>p+1).join(', ');
 const crNum=c=>c&&c.n?(/^\d/.test(c.n)?'#'+c.n:c.n):'';
 /** "Mighty Morphin #12" — the number only when the title doesn't already say it. */
 function crName(c){ if(!c) return ''; const n=crNum(c), t=c.t||''; if(!n) return t; const bare=String(c.n).replace(/^0+(?=\d)/,'');
@@ -1108,12 +1259,14 @@ function crReadingOrder(series){ const used=new Set(), out=[]; let step=0;
   out.forEach(e=>e.list.forEach(x=>{ x.step=++step; })); return out; }
 /** Opens issue c inside host. opts: {onClose, onIssue(c) (another issue opened from the end screen), page, pass (admin passcode)}. */
 function crMount(host,c0,opts={}){
-  const set=Object.assign({two:'auto',fit:'screen'},store.get('cr-set',{}));
+  const set=Object.assign({two:'auto',fit:'screen',tags:false},store.get('cr-set',{}));
   host.innerHTML=`<div class="cr ui" tabindex="-1">
     <div class="cr-top">
       <button class="cr-b" data-cr="close" aria-label="Close the comic">${ico('x')}</button>
       <div class="cr-tt"><small class="cr-se"></small><b class="cr-ti"></b></div>
       <div class="cr-tools">
+        <button class="cr-b cr-tx" data-cr="chars" title="Characters tagged in this issue">${ico('eye')}<span>Characters</span></button>
+        ${opts.pass?`<button class="cr-b cr-tx cr-tagb" data-cr="tagmode" title="Tag characters on the pages">${ico('plus')}<span>Tag</span></button>`:''}
         <button class="cr-b cr-tx" data-cr="pages" aria-label="All pages" title="All pages">${ico('grid')}<span>Pages</span></button>
         <button class="cr-b cr-tx" data-cr="two" title="One page or two side by side"><i class="cr-ic2"></i><span class="cr-twl"></span></button>
         <button class="cr-b cr-tx" data-cr="fit" title="Fit the whole page, or the page width"><span class="cr-fitl"></span></button>
@@ -1129,14 +1282,16 @@ function crMount(host,c0,opts={}){
       <span class="cr-of"></span>
     </div>
     <div class="cr-grid" hidden><div class="cr-gh"><b>Pages</b><button class="cr-b" data-cr="pages" aria-label="Close the page list">${ico('x')}</button></div><div class="cr-gl"></div></div>
+    <div class="cr-grid cr-chars" hidden><div class="cr-gh"><b>Characters in this issue</b><button class="cr-b" data-cr="chars" aria-label="Close the character list">${ico('x')}</button></div><div class="cr-cl"></div></div>
+    <div class="cr-tf" hidden></div>
     <div class="cr-end" hidden></div>
     <div class="cr-note" hidden></div>
     <div class="cr-msg"><div><div class="cr-spin"></div><p>Opening the comic…</p></div></div>
   </div>`;
   const root=host.querySelector('.cr'), stage=root.querySelector('.cr-stage'), view=root.querySelector('.cr-view'), msg=root.querySelector('.cr-msg'),
     rng=root.querySelector('.cr-rng'), pn=root.querySelector('.cr-pn'), of=root.querySelector('.cr-of'), grid=root.querySelector('.cr-grid'), gl=root.querySelector('.cr-gl'),
-    end=root.querySelector('.cr-end'), note=root.querySelector('.cr-note');
-  const R={c:c0, pages:[], spreads:[], at:0, z:1, tx:0, ty:0, alive:true, hideT:0, noteT:0, saveT:0, rtl:false, key:0};
+    end=root.querySelector('.cr-end'), note=root.querySelector('.cr-note'), chars=root.querySelector('.cr-chars'), tf=root.querySelector('.cr-tf');
+  const R={c:c0, pages:[], spreads:[], tags:[], tagMode:false, at:0, z:1, tx:0, ty:0, alive:true, hideT:0, noteT:0, saveT:0, rtl:false, key:0};
   const dpr=()=>Math.min(2.5,window.devicePixelRatio||1);
   const two=()=>set.two==='2'||(set.two==='auto'&&stage.clientWidth>=900&&stage.clientWidth>stage.clientHeight*1.15);
   const save=()=>store.set('cr-set',set);
@@ -1144,7 +1299,8 @@ function crMount(host,c0,opts={}){
     root.querySelector('.cr-ic2').className='cr-ic2'+(two()?' on':'');
     root.querySelector('.cr-fitl').textContent=set.fit==='width'?'Fit width':'Fit page';
     root.querySelector('.cr-dirl').textContent=R.rtl?'Right to left':'Left to right';
-    root.classList.toggle('rtl',R.rtl); root.classList.toggle('fitw',set.fit==='width'); }
+    root.classList.toggle('rtl',R.rtl); root.classList.toggle('fitw',set.fit==='width'); root.classList.toggle('tagall',!!set.tags); root.classList.toggle('tagging',R.tagMode);
+    const tb=root.querySelector('.cr-tagb'); if(tb) tb.classList.toggle('on',R.tagMode); }
   const say=(t,spin=true,extra='')=>{ msg.hidden=false; msg.innerHTML=`<div>${spin?'<div class="cr-spin"></div>':''}<p>${t}</p>${extra}</div>`; };
 
   /** Pages paired into spreads: the cover alone, then two at a time; a wide (already double) page always stands alone. */
@@ -1165,7 +1321,7 @@ function crMount(host,c0,opts={}){
       return `<div class="cr-pg" data-i="${i}" style="width:${w}px;height:${Math.round(h)}px;${low?`background-image:url('${low}')`:''}"></div>`; }).join('');
     view.style.width=Math.round(sum*h)+'px'; view.style.height=Math.round(h)+'px';
     stage.classList.toggle('tall',set.fit==='width'&&h>H); if(!keepZoom) stage.scrollTop=0;
-    sharpen(key); apply(); paintCount(); preload(); remember(); }
+    paintTags(); sharpen(key); apply(); paintCount(); preload(); remember(); }
   function sharpen(key){ const need=bucket(Math.max(...[...view.children].map(el=>el.clientWidth))*dpr()*R.z);
     view.querySelectorAll('.cr-pg').forEach(el=>{ const p=R.pages[+el.dataset.i]; const url=crImg(p.id,need); const cur=el.querySelector('img');
       if(cur&&cur.dataset.w>=need) return;
@@ -1185,6 +1341,45 @@ function crMount(host,c0,opts={}){
   const next=()=>{ if(set.fit==='width'&&R.z===1&&stage.scrollTop+stage.clientHeight<stage.scrollHeight-8){ stage.scrollBy({top:stage.clientHeight*.85,behavior:'smooth'}); return; } go(R.at+1); };
   const prev=()=>{ if(!end.hidden){ end.hidden=true; return; } go(R.at-1); };
   const gotoPage=p=>go(spreadOf(Math.max(0,Math.min(R.pages.length-1,p))));
+
+  /* ---- character tags: hover a spot to see who it is; the admin taps a page in Tag mode to add one ---- */
+  function paintTags(){ view.querySelectorAll('.cr-pg').forEach(el=>{ el.querySelectorAll('.cr-tag').forEach(x=>x.remove()); const i=+el.dataset.i;
+      el.insertAdjacentHTML('beforeend',R.tags.filter(t=>t.p===i).map(t=>`<button class="cr-tag" data-tag="${esc(t.id)}" style="left:${(t.x*100).toFixed(2)}%;top:${(t.y*100).toFixed(2)}%" aria-label="${esc(t.n)}"><span>${esc(t.n)}</span></button>`).join('')); }); }
+  function closeTf(){ tf.hidden=true; tf.innerHTML=''; view.querySelectorAll('.cr-tag.pending').forEach(x=>x.remove()); }
+  /** The small form for a new tag (t has p, x, y) or an existing one (t has id). Shown next to the spot at screen point (cx, cy). */
+  function tagForm(t,cx,cy){ closeTf(); const isNew=!t.id;
+    if(isNew){ const pg=view.querySelector(`.cr-pg[data-i="${t.p}"]`); if(pg) pg.insertAdjacentHTML('beforeend',`<i class="cr-tag pending" style="left:${t.x*100}%;top:${t.y*100}%"></i>`); }
+    const names=crTagNames();
+    tf.innerHTML=`<form class="cr-tff"><b>${isNew?'Tag a character':'Edit tag'}</b><small>Page ${t.p+1}</small>
+      <input name="n" list="crTagList" value="${esc(t.n||'')}" placeholder="Character name" autocomplete="off" maxlength="80" required>
+      <datalist id="crTagList">${names.map(n=>`<option value="${esc(n)}">`).join('')}</datalist>
+      <div class="cr-tfb"><button class="cr-b cr-tx pri" type="submit">${isNew?'Add tag':'Save'}</button>${isNew?'':'<button class="cr-b cr-tx" type="button" data-tf="del">Delete</button>'}<button class="cr-b cr-tx" type="button" data-tf="x">Cancel</button></div></form>`;
+    tf.hidden=false; const rr=root.getBoundingClientRect(), w=tf.offsetWidth, h=tf.offsetHeight;
+    tf.style.left=Math.max(8,Math.min(rr.width-w-8,cx-rr.left-w/2))+'px'; tf.style.top=(cy-rr.top+30+h>rr.height-8?Math.max(8,cy-rr.top-h-30):cy-rr.top+30)+'px';
+    const f=tf.querySelector('form'), inp=f.n; setTimeout(()=>inp.focus(),30);
+    f.addEventListener('keydown',e=>{ if(e.key==='Escape'){ e.preventDefault(); e.stopPropagation(); closeTf(); } });
+    f.addEventListener('click',async e=>{ const b=e.target.closest('[data-tf]'); if(!b) return;
+      if(b.dataset.tf==='x') return closeTf();
+      if(b.dataset.tf==='del'){ b.disabled=true; try{ await api('deleteComicTag',t.id,opts.pass); R.tags.splice(R.tags.findIndex(x=>x.id===t.id),1); tagIndexSync(); closeTf(); paintTags(); paintChars(); }catch(err){ b.disabled=false; toast(err.message||'The tag could not be deleted.'); } } });
+    f.addEventListener('submit',async e=>{ e.preventDefault(); const n=inp.value.trim(); if(!n) return; const sb=f.querySelector('[type=submit]'); sb.disabled=true; sb.textContent='Saving…';
+      try{ if(isNew){ const r=await api('addComicTag',R.c.id,t.p,t.x,t.y,n,opts.pass); R.tags.push(r); }
+        else { const r=await api('updateComicTag',t.id,{name:n},opts.pass); Object.assign(t,r); }
+        tagIndexSync(); closeTf(); paintTags(); paintChars(); }
+      catch(err){ sb.disabled=false; sb.textContent=isNew?'Add tag':'Save'; toast(err.message||'The tag could not be saved.'); } }); }
+  /** Keeps the site-wide character index (S.comicTags) in step with this issue's tags. */
+  function tagIndexSync(){ const id=R.c.id; S.comicTags=(S.comicTags||[]).filter(t=>t[0]!==id).concat(R.tags.map(t=>[id,t.p,t.n])); if(CR_CACHE[id]) CR_CACHE[id].tags=R.tags; }
+  function tagTap(el,x,y){ const t=R.tags.find(z=>z.id===el.dataset.tag); if(!t) return;
+    if(R.tagMode) return tagForm(t,x,y);
+    const on=!el.classList.contains('show'); view.querySelectorAll('.cr-tag.show').forEach(z=>z.classList.remove('show')); el.classList.toggle('show',on); }
+  function setTagMode(on){ R.tagMode=on; closeTf(); paintTools();
+    if(on){ note.innerHTML='<span>Tag mode: tap a character on the page to name them. Tap a tag to rename or delete it. Turn pages with the arrows.</span><button class="cr-b cr-tx" data-cr="tagmode">Done</button>'; note.hidden=false; clearTimeout(R.noteT); }
+    else note.hidden=true; }
+  function paintChars(){ const box=root.querySelector('.cr-cl'); if(chars.hidden||!box) return; const by=new Map();
+    R.tags.forEach(t=>{ const k=crKey(t.n); if(!by.has(k)) by.set(k,{n:t.n,p:new Set()}); by.get(k).p.add(t.p); });
+    const l=[...by.values()].sort((a,b)=>crNat(a.n,b.n));
+    box.innerHTML=(l.length?`<ul class="cr-chl">${l.map(e=>`<li><b>${esc(e.n)}</b><span>${[...e.p].sort((a,b)=>a-b).map(p=>`<button class="cr-pgc" data-gp="${p}">${p+1}</button>`).join('')}</span></li>`).join('')}</ul>`
+      :`<p class="cr-empty">No characters are tagged in this issue yet.${opts.pass?' Use <b>Tag</b> to add them.':''}</p>`)
+      +`<p class="cr-chf"><button class="cr-b cr-tx" data-cr="tagvis">${set.tags?'Hide':'Show'} name labels on the pages</button></p>`; }
 
   /* ---- zoom and pan ---- */
   function clamp(){ const W=stage.clientWidth, H=stage.clientHeight, cw=view.offsetWidth*R.z, ch=view.offsetHeight*R.z;
@@ -1210,6 +1405,10 @@ function crMount(host,c0,opts={}){
     if(R.z===1) view.style.transform='';
     if(e.type==='pointercancel') return;
     if(was.moved){ if(R.z===1&&Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.2&&dt<900) ((dx<0)!==R.rtl?next:prev)(); return; }
+    const hit=document.elementFromPoint(e.clientX,e.clientY), tg=hit&&hit.closest?hit.closest('.cr-tag[data-tag]'):null;
+    if(tg&&view.contains(tg)) return tagTap(tg,e.clientX,e.clientY);
+    if(R.tagMode){ const pg=hit&&hit.closest?hit.closest('.cr-pg'):null; if(!pg||!view.contains(pg)) return;
+      const b=pg.getBoundingClientRect(); return tagForm({p:+pg.dataset.i,x:Math.max(0,Math.min(1,(e.clientX-b.left)/b.width)),y:Math.max(0,Math.min(1,(e.clientY-b.top)/b.height))},e.clientX,e.clientY); }
     tap(e.clientX,e.clientY,e.pointerType); };
   stage.addEventListener('pointerup',up); stage.addEventListener('pointercancel',up);
   /** Edges turn the page; the middle shows or hides the bars, and a double tap there zooms. */
@@ -1222,7 +1421,7 @@ function crMount(host,c0,opts={}){
 
   /* ---- bars ---- */
   const fine=()=>!!(window.matchMedia&&matchMedia('(pointer:fine)').matches);
-  function showUi(){ root.classList.add('ui'); clearTimeout(R.hideT); R.hideT=setTimeout(()=>{ if(!root.querySelector('.cr-top:hover,.cr-bot:hover,.cr-side:hover')&&grid.hidden&&end.hidden) root.classList.remove('ui'); },fine()?2600:4000); }
+  function showUi(){ root.classList.add('ui'); clearTimeout(R.hideT); R.hideT=setTimeout(()=>{ if(!root.querySelector('.cr-top:hover,.cr-bot:hover,.cr-side:hover')&&grid.hidden&&end.hidden&&chars.hidden&&tf.hidden&&!R.tagMode) root.classList.remove('ui'); },fine()?2600:4000); }
   function toggleUi(){ if(root.classList.contains('ui')){ root.classList.remove('ui'); clearTimeout(R.hideT); } else showUi(); }
   root.addEventListener('mousemove',e=>{ if(e.movementX||e.movementY) showUi(); });
 
@@ -1230,15 +1429,18 @@ function crMount(host,c0,opts={}){
     gl.innerHTML=R.pages.map((p,i)=>`<button class="cr-gp${cur.includes(i)?' on':''}" data-gp="${i}" aria-label="Page ${i+1}"><span style="aspect-ratio:1/${p.r}"><img src="${crImg(p.id,400)}" alt="" loading="lazy" referrerpolicy="no-referrer"></span><small>${i+1}</small></button>`).join('');
     grid.hidden=false; const on=gl.querySelector('.on'); if(on) on.scrollIntoView({block:'center'}); }
   function showEnd(){ const sid=R.c.s, l=crIssues(sid), k=l.findIndex(x=>x.id===R.c.id), nx=k>=0?l[k+1]:null; crMarkRead(R.c.id); crSaveAt(R.c.id,0);
+    const tn=crTimelineNext(R.c), tnx=tn&&(!nx||tn.id!==nx.id)?tn:null;
     end.innerHTML=`<div class="cr-endc"><small>The end of</small><b>${esc(crName(R.c))}</b>
       ${nx?`<button class="cr-nx" data-cr="nextissue">${crCoverId(nx)?`<img src="${esc(crCover(nx,400))}" alt="" referrerpolicy="no-referrer">`:''}<span><small>Next issue</small><b>${esc(crName(nx))}</b></span>${ico('right')}</button>`:`<p>${l.length>1?'That was the last issue in this series.':''}</p>`}
+      ${tnx?`<button class="cr-nx" data-cr="nextissue" data-id="${tnx.id}">${crCoverId(tnx)?`<img src="${esc(crCover(tnx,400))}" alt="" referrerpolicy="no-referrer">`:''}<span><small>Next in the reading order</small><b>${esc(crName(tnx))}</b></span>${ico('right')}</button>`:''}
       <div class="cr-endb"><button class="cr-b cr-tx" data-cr="again">Read it again</button><button class="cr-b cr-tx" data-cr="close">${opts.closeLabel||'Back to the series'}</button></div></div>`;
     end.hidden=false; showUi(); end.dataset.next=nx?nx.id:''; }
-  async function load(c,page){ R.c=c; end.hidden=true; grid.hidden=true; view.innerHTML=''; R.pages=[]; R.spreads=[];
+  async function load(c,page){ R.c=c; end.hidden=true; grid.hidden=true; chars.hidden=true; R.tags=[]; view.innerHTML=''; R.pages=[]; R.spreads=[];
     const sr=crSeries(c.s); root.querySelector('.cr-se').textContent=sr?sr.name:''; root.querySelector('.cr-ti').textContent=crName(c);
     R.rtl=!!store.get('cr-rtl-'+c.s,false); paintTools(); say('Opening the comic…');
     try{ const r=await crLoadPages(c,opts.pass); if(!R.alive||R.c!==c) return;
       R.pages=crPages(r.pg).map(p=>p||{id:'',r:1.538}); if(!R.pages.length) throw new Error('it has no pages yet');
+      R.tags=r.tags=Array.isArray(r.tags)?r.tags:[]; closeTf(); if(!chars.hidden) paintChars();
       msg.hidden=true; R.spreads=makeSpreads();
       let at=Math.round(+page||0)-1; let back=false;
       if(!(at>=0&&at<R.pages.length)){ const saved=crAt(c.id); at=saved>0&&saved<R.pages.length?saved:0; back=at>0; }
@@ -1250,7 +1452,7 @@ function crMount(host,c0,opts={}){
     if(fsEl){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); return; }
     if(root.classList.contains('fs')){ root.classList.remove('fs'); return; }
     const req=root.requestFullscreen||root.webkitRequestFullscreen; if(req){ const p=req.call(root); if(p&&p.catch) p.catch(()=>root.classList.add('fs')); } else root.classList.add('fs'); };
-  root.addEventListener('click',e=>{ const gp=e.target.closest('[data-gp]'); if(gp){ grid.hidden=true; return gotoPage(+gp.dataset.gp); }
+  root.addEventListener('click',e=>{ const gp=e.target.closest('[data-gp]'); if(gp){ grid.hidden=true; chars.hidden=true; return gotoPage(+gp.dataset.gp); }
     const b=e.target.closest('[data-cr]'); if(!b) return; const a=b.dataset.cr; showUi();
     if(a==='close') return opts.onClose&&opts.onClose();
     if(a==='prev') return (R.rtl?next:prev)(); if(a==='next') return (R.rtl?prev:next)();
@@ -1262,13 +1464,16 @@ function crMount(host,c0,opts={}){
     if(a==='start'){ note.hidden=true; return go(0); }
     if(a==='again'){ end.hidden=true; R.at=-1; return go(0); }
     if(a==='retry'){ delete CR_CACHE[R.c.id]; return load(R.c); }
-    if(a==='nextissue'){ const nx=crById(end.dataset.next); if(nx){ load(nx,1); opts.onIssue&&opts.onIssue(nx); } } });
+    if(a==='chars'){ grid.hidden=true; chars.hidden=!chars.hidden; return paintChars(); }
+    if(a==='tagvis'){ set.tags=!set.tags; save(); paintTools(); return paintChars(); }
+    if(a==='tagmode'){ chars.hidden=true; grid.hidden=true; return setTagMode(!R.tagMode); }
+    if(a==='nextissue'){ const nx=crById(b.dataset.id||end.dataset.next); if(nx){ load(nx,1); opts.onIssue&&opts.onIssue(nx); } } });
   rng.addEventListener('input',()=>{ pn.textContent='Page '+rng.value; });
   rng.addEventListener('change',()=>gotoPage(+rng.value-1));
   /** Keys: arrows / Page Up / Page Down / Space turn pages, Home / End, + and − zoom, 0 resets, F full screen, Escape closes. */
   const key=e=>{ if(e.target&&e.target.matches&&e.target.matches('input:not([type=range]),textarea,select')) return false;
     const k=e.key, fwd=R.rtl?'ArrowLeft':'ArrowRight', back=R.rtl?'ArrowRight':'ArrowLeft';
-    if(k==='Escape'){ if(!grid.hidden){ grid.hidden=true; return true; } if(R.z>1){ R.z=1; apply(); return true; } if(!end.hidden){ end.hidden=true; return true; } if(root.classList.contains('fs')){ root.classList.remove('fs'); return true; } opts.onClose&&opts.onClose(); return true; }
+    if(k==='Escape'){ if(!tf.hidden){ closeTf(); return true; } if(!chars.hidden){ chars.hidden=true; return true; } if(R.tagMode){ setTagMode(false); return true; } if(!grid.hidden){ grid.hidden=true; return true; } if(R.z>1){ R.z=1; apply(); return true; } if(!end.hidden){ end.hidden=true; return true; } if(root.classList.contains('fs')){ root.classList.remove('fs'); return true; } opts.onClose&&opts.onClose(); return true; }
     if(R.z>1&&(k==='ArrowLeft'||k==='ArrowRight'||k==='ArrowUp'||k==='ArrowDown')){ const d=60; if(k==='ArrowLeft') R.tx+=d; if(k==='ArrowRight') R.tx-=d; if(k==='ArrowUp') R.ty+=d; if(k==='ArrowDown') R.ty-=d; apply(); return true; }
     if(k===fwd||k==='PageDown'||(k===' '&&!e.shiftKey)){ next(); return true; } if(k===back||k==='PageUp'||(k===' '&&e.shiftKey)){ prev(); return true; }
     if(k==='Home'){ go(0); return true; } if(k==='End'){ go(R.spreads.length-1); return true; }
@@ -1418,8 +1623,18 @@ function wkArticleHTML(a,ctx){ const cards=wkCards(a);
     <div class="wk-body">${wkMd(a.body)}</div>
     ${issues.length?`<h2 class="wk-h2">Issues on the site</h2><div class="wk-covers">${issues.map(c=>{ const s=wkFindComic(c.id); return `<a href="#" class="wk-cov" ${s?`data-wk="${s}"`:`data-wkcomic="${c.id}"`}><img src="${esc(crCover(c,300))}" alt="" loading="lazy" referrerpolicy="no-referrer"><b>${esc(c.n||c.t)}</b></a>`; }).join('')}</div>`:''}
     ${cards.length?`<h2 class="wk-h2">Heroes of the Grid cards</h2><div class="wk-cards">${cards.map(c=>`<button class="wk-card" data-wkcard="${c.id}"><img src="${esc(c.thumb)}" alt="${esc(c.title)}" loading="lazy" referrerpolicy="no-referrer"><span>${esc(c.title)}</span></button>`).join('')}</div>`:''}
+    ${wkTagsHTML(a)}
     ${(a.backlinks||[]).length?`<h2 class="wk-h2">Pages that link here</h2><div class="wk-chips">${a.backlinks.map(s=>WK.by[s]?`<a href="#" class="chip" data-wk="${s}">${esc(WK.by[s].title)}</a>`:'').join('')}</div>`:''}
     </article>`; }
+/** From the character tags on comic pages: where this character appears, or (on an issue's page) who appears in it. */
+function wkTagsHTML(a){ if(typeof crCharIndex!=='function'||typeof S==='undefined') return ''; const pg=(id,ps)=>ps.map(p=>`<a href="#" class="wk-pg" data-wkcomic="${id}" data-wkpage="${p+1}">${p+1}</a>`).join('');
+  if(a.comic){ const by=new Map(); (S.comicTags||[]).filter(t=>t[0]===a.comic).forEach(([,p,n])=>{ const k=crKey(n); if(!by.has(k)) by.set(k,{n,ps:new Set()}); by.get(k).ps.add(p); });
+    const l=[...by.values()].sort((x,y)=>crNat(x.n,y.n)); if(!l.length) return '';
+    return `<h2 class="wk-h2">Characters tagged in this issue</h2><div class="wk-apps">${l.map(e=>{ const s=wkFindName(e.n); return `<div class="wk-app"><span>${s?`<a href="#" data-wk="${s}">${esc(e.n)}</a>`:esc(e.n)}</span><span>${pg(a.comic,[...e.ps].sort((x,y)=>x-y))}</span></div>`; }).join('')}</div>`; }
+  const m=new Map(); crCharIndex([a.title,...(a.aliases||[])]).forEach(e=>e.list.forEach(x=>{ if(!m.has(x.c.id)) m.set(x.c.id,{c:x.c,ps:new Set()}); x.pages.forEach(p=>m.get(x.c.id).ps.add(p)); }));
+  if(!m.size) return ''; const rank=crRankFn(); const l=[...m.values()].sort((x,y)=>rank(x.c,y.c));
+  return `<h2 class="wk-h2">Comic appearances</h2><p class="wk-note">From the character tags on the comic pages. A page number opens the comic there.</p><div class="wk-apps">${l.map(x=>`<div class="wk-app"><a href="#" data-wkcomic="${x.c.id}">${esc(crName(x.c))}</a><span>${pg(x.c.id,[...x.ps].sort((p,q)=>p-q))}</span></div>`).join('')}</div>`; }
+function wkFindName(n){ const k=String(n||'').trim().toLowerCase(); const s=WK.idx&&WK.idx.names&&WK.idx.names[k]; return s&&WK.by[s]?s:''; }
 function wkFindComic(id){ const a=WK.idx.articles.find(x=>x.comic===id); return a?a.slug:''; }
 function wkNewUrl(title,type,a){ const folder={character:'characters',ranger:'rangers',team:'teams',villain:'villains',monster:'monsters',zord:'zords',show:'shows','comic-series':'comics','comic-issue':'comics',place:'places',item:'items'}[type]||'topics';
   const head=['---','title: '+title,'type: '+(type||'topic'),'aliases: ','image: '+((a&&a.image)||''),(a&&a.comic)?'comic: '+a.comic:'',(a&&a.series)?'series: '+a.series:'','infobox: ','---','',''].filter(x=>x!=='').join('\n')+'\n\n';
@@ -1436,7 +1651,7 @@ function wkShow(host,route,ctx){ route=route||{}; host._wkctx=ctx;
   if(!host.dataset.wkw){ host.dataset.wkw='1';
     host.addEventListener('click',e=>{ const t=e.target.closest('[data-wk],[data-wkt],[data-wkr],[data-wkcard],[data-wkcomic],[data-wknew]'); if(!t) return; e.preventDefault(); const ctx=host._wkctx;
       if(t.dataset.wk) return ctx.nav({a:t.dataset.wk}); if(t.dataset.wkt) return ctx.nav({t:t.dataset.wkt}); if(t.dataset.wkr) return ctx.nav({});
-      if(t.dataset.wkcard) return ctx.openCard(t.dataset.wkcard); if(t.dataset.wkcomic) return ctx.openComic(t.dataset.wkcomic);
+      if(t.dataset.wkcard) return ctx.openCard(t.dataset.wkcard); if(t.dataset.wkcomic) return ctx.openComic(t.dataset.wkcomic,t.dataset.wkpage?+t.dataset.wkpage:undefined);
       if(t.dataset.wknew) return ctx.nav({q:t.dataset.wknew}); });
     host.addEventListener('submit',e=>{ const f=e.target.closest('[data-wkform]'); if(!f) return; e.preventDefault(); host._wkctx.nav({q:f.q.value}); }); } }
 /* ===================== end of wiki ===================== */
@@ -1735,6 +1950,8 @@ function renderComicsM(m){ const q=S.q.trim().toLowerCase(), all=cmSortedM();
   const going=(S.comics||[]).filter(c=>!c.st&&crAt(c.id)>0&&!read.has(c.id)&&crSeries(c.s));
   m.innerHTML=`<section class="screen"><div class="rpg-head"><button class="back" data-back style="margin:-4px 0 10px">${ico('left')}Cards</button><small>Read online</small><h1>Comics</h1><p>Power Rangers comics in reading order. Tap a series to start; swipe or tap the edges of a page to turn it.</p></div>
     ${going.length&&!q?`<div class="bkg"><h2>Continue reading</h2><div class="cmrow">${going.slice(0,8).map(c=>cmIssueM(c,true)).join('')}</div></div>`:''}
+    ${!q&&crTimeline().length?`<div class="bkg"><h2>Reading order</h2><p class="cmen">Issues on the same step are read side by side.</p>${crTimeline().map((r,k)=>`<div class="tlm"><span class="tlm-n">${k+1}</span><div class="cmrow">${r.map(c=>cmIssueM(c,true)).join('')}</div></div>`).join('')}</div><div class="bkg"><h2>All series</h2></div>`:''}
+    ${crCharIndex().length?`<div class="bkg"><h2>Characters</h2><p class="cmen">Who appears where, from the tags on the pages.</p>${crCharIndex().filter(e=>!q||e.n.toLowerCase().includes(q)).map(e=>`<details class="tlch"><summary><b>${esc(e.n)}</b><small>${plural(e.list.length,'issue','issues')}</small></summary>${e.list.map(x=>`<div class="tlch-r"><span>${esc(crName(x.c))}</span><span>${x.pages.map(pp=>`<button class="tlch-p" data-comic="${x.c.id}" data-cpage="${pp+1}">${pp+1}</button>`).join('')}</span></div>`).join('')}</details>`).join('')}</div>`:''}
     ${l.length?crReadingOrder(l).map((e,k)=>`<div class="bkg"><h2>${k+1}. ${esc(e.t)}${e.y?' · '+esc(e.y):''}</h2>${e.n?`<p class="cmen">${esc(e.n)}</p>`:''}<div class="cmgrid">${e.list.map(x=>cmTileM(x.s,x)).join('')}</div></div>`).join(''):`<div class="empty"><b>${all.length?'No matches':'No comics yet'}</b>${all.length?'Try another search.':'Check back soon.'}</div>`}</section>`; }
 function renderCserM(m,s){ if(!s){ S.sub=null; return render(); } const l=crIssues(s.id), q=S.q.trim().toLowerCase(), read=crRead();
   const shown=q?l.filter(c=>q.split(/\s+/).every(t=>(c.t+' '+c.n+' '+c.y).toLowerCase().includes(t))):l, k=crContinue(s.id), n=l.filter(c=>read.has(c.id)).length;
@@ -1787,7 +2004,7 @@ $('#main').addEventListener('click',e=>{
   if(t.dataset.exps!==undefined) return openSub('exps','');
   if(t.dataset.comicsm!==undefined) return openSub('comics','');
   if(t.dataset.cser) return openSub('cser',t.dataset.cser);
-  if(t.dataset.comic) return openComicM(t.dataset.comic);
+  if(t.dataset.comic) return openComicM(t.dataset.comic,t.dataset.cpage?+t.dataset.cpage:undefined);
   if(t.dataset.xown){ buzz(); ownToggle(t.dataset.xown); const y=window.scrollY; render(); window.scrollTo({top:y}); return toast(OWN.has(t.dataset.xown)?'Marked as owned':'Removed from your boxes'); }
   if(t.dataset.xgo) return openSub('exp',t.dataset.xgo);
   if(t.dataset.scardOpen){ const l=expContents(S.sub.id).cards; CUR=l; return openViewer(l,l.findIndex(c=>c.id===t.dataset.scardOpen)); }
@@ -1819,7 +2036,7 @@ function splashM(){ closeGame(); const r=grRangerOrder(S.cards.filter(c=>ctype(c
     wiki:(S.decks||[]).filter(d=>d.kind==='boss'||d.kind==='nemesis').slice(0,4).map(d=>d.faceThumb||d.thumb),
     game:S.cards.filter(c=>ctype(c)==='zord').slice(0,4).map(c=>c.thumb)},pickSectionM); }
 /* ---- wiki screen ---- */
-const WKM={ nav:r=>openSub('wiki',r), openCard:id=>{ const c=S.cards.find(x=>x.id===id); if(c) openViewer([c],0); }, openComic:id=>openComicM(id), admin:()=>false };
+const WKM={ nav:r=>openSub('wiki',r), openCard:id=>{ const c=S.cards.find(x=>x.id===id); if(c) openViewer([c],0); }, openComic:(id,p)=>openComicM(id,p), admin:()=>false };
 function renderWikiM(m,r){ m.innerHTML=`<section class="screen"><button class="back" data-back style="margin:-4px 0 4px">${ico('left')}Back</button><div id="wkHost"></div></section>`; wkShow($('#wkHost',m),r||{},WKM); }
 function grHostM(){ return { rangers:()=>grRangerOrder(S.cards.filter(c=>ctype(c)==='ranger').map(c=>({...c,colorHex:RANGER[c.color]||'#888'}))),
   decksOfKind:k=>S.decks.filter(d=>d.kind===k), deckName:id=>(deckById(id)||{}).name||'',
@@ -1965,7 +2182,7 @@ function desktopLinks(){ const u=fullUrl(); const fb=$('#fullBtn'); fb.href=u; f
   if(desk&&Date.now()>snooze){ $('#dbar').hidden=false; $('#dbarGo').href=u; $('#dbarX').onclick=()=>{ store.set('gcg-desk-snooze',Date.now()+7*864e5); $('#dbar').hidden=true; }; } }
 
 /* ---------------- boot ---------------- */
-function applyData(d){ S.cards=d.cards||[]; S.collections=d.collections||[]; S.decks=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.settings=d.settings||{}; if(typeof syncGame==='function') syncGame(); if(d.liked) S.liked=new Set(d.liked);
+function applyData(d){ S.cards=d.cards||[]; S.collections=d.collections||[]; S.decks=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.comicTimeline=d.comicTimeline||[]; S.comicTags=d.comicTags||[]; S.settings=d.settings||{}; if(typeof syncGame==='function') syncGame(); if(d.liked) S.liked=new Set(d.liked);
   $('#siteTitle').textContent=S.settings.siteTitle||'The Morphin Archive'; document.title=$('#siteTitle').textContent; applyAccent(S.settings.accent); }
 window.addEventListener('resize',()=>{ placePill(); if(!$('#vw').hidden){ const pg=$('#pager'); pg.scrollLeft=V.i*pg.clientWidth; } if(!$('#dv').hidden){ const pg=$('#dpager'); pg.scrollLeft=D.i*pg.clientWidth; } });
 (async()=>{

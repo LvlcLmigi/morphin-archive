@@ -38,6 +38,7 @@ function setup() {
   ensureSheet_(ss, 'Expansions', EXP_COLS);
   ensureSheet_(ss, 'ComicSeries', CSER_COLS);
   ensureSheet_(ss, 'Comics', COMIC_COLS);
+  ensureSheet_(ss, 'ComicTags', CTAG_COLS);
   comicTextCols_(ss);
   const first = ss.getSheetByName('Sheet1'); if (first && ss.getSheets().length > 1) ss.deleteSheet(first);
 
@@ -118,7 +119,7 @@ const API_ = {
   savePages: savePages, clearPages: clearPages, getPages: getPages, setRangerLinks: setRangerLinks,
   saveScenario: saveScenario, deleteScenario: deleteScenario, importScenarios: importScenarios,
   saveExpansion: saveExpansion, deleteExpansion: deleteExpansion, setExpansionItems: setExpansionItems, setItemExpansions: setItemExpansions, seedExpansions: seedExpansions,
-  getComic: getComic, getComicsAdmin: getComicsAdmin, saveComicSeries: saveComicSeries, deleteComicSeries: deleteComicSeries,
+  getComic: getComic, getComicsAdmin: getComicsAdmin, saveComicTimeline: saveComicTimeline, addComicTag: addComicTag, updateComicTag: updateComicTag, deleteComicTag: deleteComicTag, saveComicSeries: saveComicSeries, deleteComicSeries: deleteComicSeries,
   startComic: startComic, saveComicPages: saveComicPages, finishComic: finishComic, updateComic: updateComic, deleteComic: deleteComic
 };
 
@@ -177,7 +178,7 @@ function publicPayload_() {
   const expansions = readAll_('Expansions').sort(expOrder_).map(publicExpansion_);
   const cm = comicsPayload_();
   const out = {
-    cards, collections, decks, files, scenarios, expansions, comicSeries: cm.series, comics: cm.comics,
+    cards, collections, decks, files, scenarios, expansions, comicSeries: cm.series, comics: cm.comics, comicTimeline: cm.timeline, comicTags: cm.tags,
     settings: {
       siteTitle: settings.siteTitle, tagline: settings.tagline, accent: settings.accent,
       allowSubmissions: settings.allowSubmissions === 'true', allowComments: settings.allowComments !== 'false', showGame: settings.showGame === 'true', hideSec: String(settings.hideSec || ''), hideSecAdmin: String(settings.hideSecAdmin || '')
@@ -680,12 +681,14 @@ function comicSeriesOrder_(a, b) { return (+a.order || 0) - (+b.order || 0) || S
 function comicsPayload_() {
   const series = readAll_('ComicSeries').filter(s => !isHidden_(s)).sort(comicSeriesOrder_);
   const ok = {}; series.forEach(s => { ok[s.id] = true; });
-  return { series: series.map(publicSeries_), comics: readAll_('Comics').filter(c => ok[c.seriesId] && c.status === 'ready').map(publicComic_) };
+  const comics = readAll_('Comics').filter(c => ok[c.seriesId] && c.status === 'ready');
+  const live = {}; comics.forEach(c => { live[c.id] = true; });
+  return { series: series.map(publicSeries_), comics: comics.map(publicComic_), timeline: comicTimeline_(live), tags: comicTagIndex_(live) };
 }
 /** Everything, for the admin: hidden series and unfinished uploads included. */
 function getComicsAdmin(passcode) {
   requireAdmin_(passcode);
-  return { series: readAll_('ComicSeries').sort(comicSeriesOrder_).map(publicSeries_), comics: readAll_('Comics').map(publicComic_) };
+  return { series: readAll_('ComicSeries').sort(comicSeriesOrder_).map(publicSeries_), comics: readAll_('Comics').map(publicComic_), timeline: comicTimeline_(null), tags: comicTagIndex_(null) };
 }
 /** One issue's pages and details. Issues in hidden series (and unfinished ones) need the admin passcode.
     Public issues are cached for 10 minutes (cleared when the issue changes). */
@@ -696,7 +699,7 @@ function getComic(id, passcode) {
   const s = findRow_('ComicSeries', c.seriesId);
   const open = s && !isHidden_(s) && c.status === 'ready';
   if (!open && !isAdmin_(passcode)) throw new Error('That comic is not on the site.');
-  const out = Object.assign(publicComic_(c), { pg: String(c.pageImages || ''), description: String(c.description || ''), credits: String(c.credits || ''), size: +c.fileSize || 0 });
+  const out = Object.assign(publicComic_(c), { pg: String(c.pageImages || ''), description: String(c.description || ''), credits: String(c.credits || ''), size: +c.fileSize || 0, tags: comicTagsOf_(id) });
   if (open) { try { const j = JSON.stringify(out); if (j.length < 95000) CacheService.getScriptCache().put(key, j, 600); } catch (e) {} }
   return out;
 }
@@ -858,6 +861,66 @@ function deleteComic(id, passcode) {
   withLock_(() => deleteRow_('Comics', id));
   forgetComic_(id); trashFolder_(c.pagesFolder);
   bust_();
+  return true;
+}
+
+/* ---- reading order: the admin's timeline. Each step holds one or more issues read at the same time (side by side). ---- */
+function comicTimeline_(live) {
+  let rows = [];
+  try { rows = JSON.parse(getSettingsMap_().comicTimeline || '[]'); } catch (e) {}
+  if (!Array.isArray(rows)) return [];
+  return rows.map(r => (Array.isArray(r) ? r : []).filter(id => !live || live[id])).filter(r => r.length);
+}
+/** Saves the reading order: rows = [[comicId, ...], ...], earliest first. */
+function saveComicTimeline(rows, passcode) {
+  requireAdmin_(passcode);
+  const known = {}; readAll_('Comics').forEach(c => { known[c.id] = true; });
+  const seen = {};
+  const out = (Array.isArray(rows) ? rows : []).slice(0, 3000)
+    .map(r => (Array.isArray(r) ? r : []).map(String).filter(id => known[id] && !seen[id] && (seen[id] = true)))
+    .filter(r => r.length);
+  const text = JSON.stringify(out);
+  if (text.length > 49000) throw new Error('The reading order is too long to save.');
+  withLock_(() => setSetting_('comicTimeline', text));
+  bust_();
+  return out;
+}
+
+/* ---- character tags: a name pinned to a spot on a comic page (x, y = fractions of the page's width and height; page from 0) ---- */
+const CTAG_COLS = ['id', 'comicId', 'page', 'x', 'y', 'name', 'created'];
+const publicTag_ = t => ({ id: t.id, c: t.comicId, p: +t.page || 0, x: +t.x || 0, y: +t.y || 0, n: String(t.name || '') });
+function allTags_() { try { return readAll_('ComicTags'); } catch (e) { return []; } }
+function comicTagsOf_(comicId) { return allTags_().filter(t => t.comicId === comicId).map(publicTag_); }
+/** Every tag as [comicId, page, name], for the character index. */
+function comicTagIndex_(live) { return allTags_().filter(t => !live || live[t.comicId]).map(t => [t.comicId, +t.page || 0, String(t.name || '')]); }
+const tagNum_ = (v, lo, hi) => Math.max(lo, Math.min(hi, +v || 0));
+function addComicTag(comicId, page, x, y, name, passcode) {
+  requireAdmin_(passcode);
+  const c = findRow_('Comics', comicId); if (!c) throw new Error('That comic is no longer on the site.');
+  name = clean_(name, 80); if (!name) throw new Error('Type a name for the tag.');
+  const row = { id: uid_(), comicId: comicId, page: Math.round(tagNum_(page, 0, COMIC_MAX_PAGES)), x: Math.round(tagNum_(x, 0, 1) * 10000) / 10000,
+    y: Math.round(tagNum_(y, 0, 1) * 10000) / 10000, name: name, created: new Date().toISOString() };
+  withLock_(() => append_('ComicTags', row));
+  forgetComic_(comicId); bust_();
+  return publicTag_(row);
+}
+/** Rename or move a tag: f = {name?, x?, y?}. */
+function updateComicTag(id, f, passcode) {
+  requireAdmin_(passcode);
+  const t = allTags_().find(r => r.id === id); if (!t) throw new Error('That tag no longer exists.');
+  const patch = {};
+  if (f && f.name !== undefined) { patch.name = clean_(f.name, 80); if (!patch.name) throw new Error('Type a name for the tag.'); }
+  if (f && f.x !== undefined) patch.x = Math.round(tagNum_(f.x, 0, 1) * 10000) / 10000;
+  if (f && f.y !== undefined) patch.y = Math.round(tagNum_(f.y, 0, 1) * 10000) / 10000;
+  withLock_(() => updateRow_('ComicTags', id, patch));
+  forgetComic_(t.comicId); bust_();
+  return publicTag_(Object.assign(t, patch));
+}
+function deleteComicTag(id, passcode) {
+  requireAdmin_(passcode);
+  const t = allTags_().find(r => r.id === id); if (!t) return true;
+  withLock_(() => deleteRow_('ComicTags', id));
+  forgetComic_(t.comicId); bust_();
   return true;
 }
 /* ============================== end of comics ============================== */
@@ -1243,7 +1306,7 @@ function saveImage_(dataUrl, title) {
 /** Adds new sheets/columns after an update, without re-running setup(). Runs at most every 6 hours. */
 function migrate_() {
   const cache = CacheService.getScriptCache();
-  if (cache.get('schema-v14')) return;
+  if (cache.get('schema-v15')) return;
   const id = PropertiesService.getScriptProperties().getProperty('SHEET_ID'); if (!id) return;
   const ss = SpreadsheetApp.openById(id);
   ensureSheet_(ss, 'Cards', CARD_COLS);
@@ -1254,11 +1317,12 @@ function migrate_() {
   ensureSheet_(ss, 'Expansions', EXP_COLS);
   ensureSheet_(ss, 'ComicSeries', CSER_COLS);
   ensureSheet_(ss, 'Comics', COMIC_COLS);
+  ensureSheet_(ss, 'ComicTags', CTAG_COLS);
   comicTextCols_(ss);
   migrateDecks_();
   const s = getSettingsMap_();
   if (s.tagline === 'Custom Heroes of the Grid Ranger cards') setSetting_('tagline', 'Heroes of the Grid Ranger cards — official and homebrew');
-  cache.put('schema-v14', '1', 21600);
+  cache.put('schema-v15', '1', 21600);
   bust_();
 }
 
