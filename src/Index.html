@@ -1028,6 +1028,132 @@ button,a,label,select,.tile,.chip,.spot-card,.dc{-webkit-tap-highlight-color:tra
 .cr.pmode .cr-stage{cursor:default}
 .cr.pmode .cr-tag{z-index:3}
 @media (prefers-reduced-motion:reduce){ .cr.pmode .cr-view,.cr-pmask{transition:none} }
+
+/* cover gallery */
+.cvg{margin:0 0 26px}
+.cvg-h{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;font-size:17px}.cvg-h small{font-weight:400;opacity:.65;font-size:13px}
+.cvg-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:14px}
+.cvg-it{display:flex;flex-direction:column;gap:5px;background:none;border:0;padding:0;color:inherit;cursor:zoom-in;font:inherit;text-align:left}
+.cvg-it span{display:block;border-radius:7px;overflow:hidden;background:#8882;box-shadow:0 4px 14px rgba(0,0,0,.2);transition:transform .15s}
+.cvg-it:hover span{transform:translateY(-3px)}
+.cvg-it img{width:100%;height:100%;object-fit:cover;display:block}
+.cvg-it small{font-size:12px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cvv{position:fixed;inset:0;z-index:95;background:rgba(6,7,10,.97);color:#eceef3;display:flex;flex-direction:column;outline:none}
+.cvv-top{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:max(10px,env(safe-area-inset-top,0px)) 14px 10px}
+.cvv-top small{display:block;opacity:.65;font-size:12px}.cvv-top b{font-size:15px}
+.cvv-acts{display:flex;gap:8px;align-items:center;font-size:13px}.cvv-acts span{opacity:.6}
+.cvv-b{display:inline-flex;gap:6px;align-items:center;background:#1b1d25;border:1px solid #2c2f3a;color:inherit;border-radius:9px;padding:7px 11px;font:600 13px system-ui,sans-serif;cursor:pointer}
+.cvv-b .i{width:16px;height:16px}
+.cvv-im{flex:1;min-height:0;position:relative;display:grid;place-items:center;padding:0 56px 18px}
+.cvv-im img{grid-area:1/1;max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;box-shadow:0 18px 50px rgba(0,0,0,.6)}
+.cvv-im img.hi{opacity:0;transition:opacity .2s}.cvv-im img.hi.on{opacity:1}
+.cvv-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;border-radius:10px;background:#ffffff14;color:#fff;cursor:pointer;display:grid;place-items:center}
+.cvv-nav .i{width:22px;height:22px}.cvv-nav.l{left:8px}.cvv-nav.r{right:8px}.cvv-nav:disabled{opacity:.2;cursor:default}
+@media (max-width:600px){ .cvv-im{padding:0 6px 12px} .cvv-nav{display:none} .cvv-b{padding:6px 9px} }
+.cvp-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
+.cvp-it{position:relative;display:flex;flex-direction:column;gap:4px;background:none;border:0;padding:0;color:inherit;cursor:pointer;font:600 12px system-ui,sans-serif}
+.cvp-it span{display:block;aspect-ratio:2/3;border-radius:6px;overflow:hidden;outline:3px solid transparent;outline-offset:2px;background:#8882}
+.cvp-it img{width:100%;height:100%;object-fit:cover;display:block}
+.cvp-it.on span{outline-color:var(--accent,#e8b931)}
+.cvp-it.on::after{content:'✓';position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:var(--accent,#e8b931);color:#111;display:grid;place-items:center;font-size:13px}
+.cvp-it.sug:not(.on) span{outline:2px dashed #8889}
+.cvp-it.first{cursor:default;opacity:.8}
+/* character tags */
+.cr-chars[hidden],.cr-tf[hidden]{display:none}
+.cr-tag{position:absolute;z-index:3;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:2px solid transparent;background:none;padding:0;cursor:help;transition:border-color .15s,background-color .15s;-webkit-tap-highlight-color:transparent}
+.cr-pg:hover .cr-tag,.cr.tagall .cr-tag,.cr.tagging .cr-tag{border-color:rgba(255,255,255,.6);background:rgba(0,0,0,.14)}
+.cr-tag:hover,.cr-tag.show{border-color:#e8b931!important}
+.cr-tag span{position:absolute;left:50%;top:100%;transform:translate(-50%,6px);white-space:nowrap;background:rgba(10,11,14,.93);color:#fff;font:600 12.5px/1.2 system-ui,-apple-system,sans-serif;padding:5px 9px;border-radius:7px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.cr-tag:hover span,.cr-tag.show span,.cr.tagall .cr-tag span{opacity:1}
+.cr-tag.pending{border-color:#e8b931;background:rgba(232,185,49,.28);pointer-events:none}
+.cr.tagging .cr-stage{cursor:crosshair}
+.cr.tagging .cr-tag{cursor:pointer}
+.cr-b.on{background:#e8b931;color:#111}
+.cr-tf{position:absolute;z-index:9;width:270px;max-width:calc(100% - 16px)}
+.cr-tff{display:grid;gap:8px;background:#16181f;border:1px solid #2c2f3a;border-radius:12px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.6);color:#e9ebf0}
+.cr-tff small{color:#9aa0ad;margin-top:-6px}
+.cr-tff input{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid #3a3e4b;background:#0d0e12;color:#fff;width:100%;box-sizing:border-box}
+.cr-tfb{display:flex;gap:6px;flex-wrap:wrap}
+.cr-tfb .pri{background:#e8b931;color:#111}
+.cr-cl{flex:1;min-height:0;overflow:auto;padding:4px 16px max(20px,env(safe-area-inset-bottom,0px))}
+.cr-chl{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.cr-chl li{display:flex;gap:12px;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid #23252e}
+.cr-chl span{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.cr-pgc{font:600 12px system-ui,sans-serif;min-width:30px;padding:4px 7px;border-radius:6px;border:1px solid #3a3e4b;background:#1b1d25;color:#e9ebf0;cursor:pointer}
+.cr-pgc:hover{border-color:#e8b931}
+.cr-empty{color:#9aa0ad}
+.cr-chf{margin-top:14px}
+/* panel by panel */
+.cr.pmode .cr-view{transition:transform .38s cubic-bezier(.25,.8,.3,1)}
+.cr.pmode.drag .cr-view{transition:none}
+.cr-pmask{position:absolute;z-index:2;pointer-events:none;border-radius:2px;box-shadow:0 0 0 100vmax rgba(8,9,12,.94);transition:left .38s cubic-bezier(.25,.8,.3,1),top .38s cubic-bezier(.25,.8,.3,1),width .38s cubic-bezier(.25,.8,.3,1),height .38s cubic-bezier(.25,.8,.3,1)}
+.cr:not(.pmode) .cr-pmask{display:none}
+.cr.pmode .cr-stage{cursor:default}
+.cr.pmode .cr-tag{z-index:3}
+@media (prefers-reduced-motion:reduce){ .cr.pmode .cr-view,.cr-pmask{transition:none} }
+
+/* cover gallery */
+.cvg{margin:0 0 26px}
+.cvg-h{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;font-size:17px}.cvg-h small{font-weight:400;opacity:.65;font-size:13px}
+.cvg-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:14px}
+.cvg-it{display:flex;flex-direction:column;gap:5px;background:none;border:0;padding:0;color:inherit;cursor:zoom-in;font:inherit;text-align:left}
+.cvg-it span{display:block;border-radius:7px;overflow:hidden;background:#8882;box-shadow:0 4px 14px rgba(0,0,0,.2);transition:transform .15s}
+.cvg-it:hover span{transform:translateY(-3px)}
+.cvg-it img{width:100%;height:100%;object-fit:cover;display:block}
+.cvg-it small{font-size:12px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cvv{position:fixed;inset:0;z-index:95;background:rgba(6,7,10,.97);color:#eceef3;display:flex;flex-direction:column;outline:none}
+.cvv-top{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:max(10px,env(safe-area-inset-top,0px)) 14px 10px}
+.cvv-top small{display:block;opacity:.65;font-size:12px}.cvv-top b{font-size:15px}
+.cvv-acts{display:flex;gap:8px;align-items:center;font-size:13px}.cvv-acts span{opacity:.6}
+.cvv-b{display:inline-flex;gap:6px;align-items:center;background:#1b1d25;border:1px solid #2c2f3a;color:inherit;border-radius:9px;padding:7px 11px;font:600 13px system-ui,sans-serif;cursor:pointer}
+.cvv-b .i{width:16px;height:16px}
+.cvv-im{flex:1;min-height:0;position:relative;display:grid;place-items:center;padding:0 56px 18px}
+.cvv-im img{grid-area:1/1;max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;box-shadow:0 18px 50px rgba(0,0,0,.6)}
+.cvv-im img.hi{opacity:0;transition:opacity .2s}.cvv-im img.hi.on{opacity:1}
+.cvv-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;border-radius:10px;background:#ffffff14;color:#fff;cursor:pointer;display:grid;place-items:center}
+.cvv-nav .i{width:22px;height:22px}.cvv-nav.l{left:8px}.cvv-nav.r{right:8px}.cvv-nav:disabled{opacity:.2;cursor:default}
+@media (max-width:600px){ .cvv-im{padding:0 6px 12px} .cvv-nav{display:none} .cvv-b{padding:6px 9px} }
+.cvp-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
+.cvp-it{position:relative;display:flex;flex-direction:column;gap:4px;background:none;border:0;padding:0;color:inherit;cursor:pointer;font:600 12px system-ui,sans-serif}
+.cvp-it span{display:block;aspect-ratio:2/3;border-radius:6px;overflow:hidden;outline:3px solid transparent;outline-offset:2px;background:#8882}
+.cvp-it img{width:100%;height:100%;object-fit:cover;display:block}
+.cvp-it.on span{outline-color:var(--accent,#e8b931)}
+.cvp-it.on::after{content:'✓';position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:var(--accent,#e8b931);color:#111;display:grid;place-items:center;font-size:13px}
+.cvp-it.sug:not(.on) span{outline:2px dashed #8889}
+.cvp-it.first{cursor:default;opacity:.8}
+/* character tags */
+.cr-chars[hidden],.cr-tf[hidden]{display:none}
+.cr-tag{position:absolute;z-index:3;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:2px solid transparent;background:none;padding:0;cursor:help;transition:border-color .15s,background-color .15s;-webkit-tap-highlight-color:transparent}
+.cr-pg:hover .cr-tag,.cr.tagall .cr-tag,.cr.tagging .cr-tag{border-color:rgba(255,255,255,.6);background:rgba(0,0,0,.14)}
+.cr-tag:hover,.cr-tag.show{border-color:#e8b931!important}
+.cr-tag span{position:absolute;left:50%;top:100%;transform:translate(-50%,6px);white-space:nowrap;background:rgba(10,11,14,.93);color:#fff;font:600 12.5px/1.2 system-ui,-apple-system,sans-serif;padding:5px 9px;border-radius:7px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.cr-tag:hover span,.cr-tag.show span,.cr.tagall .cr-tag span{opacity:1}
+.cr-tag.pending{border-color:#e8b931;background:rgba(232,185,49,.28);pointer-events:none}
+.cr.tagging .cr-stage{cursor:crosshair}
+.cr.tagging .cr-tag{cursor:pointer}
+.cr-b.on{background:#e8b931;color:#111}
+.cr-tf{position:absolute;z-index:9;width:270px;max-width:calc(100% - 16px)}
+.cr-tff{display:grid;gap:8px;background:#16181f;border:1px solid #2c2f3a;border-radius:12px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.6);color:#e9ebf0}
+.cr-tff small{color:#9aa0ad;margin-top:-6px}
+.cr-tff input{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid #3a3e4b;background:#0d0e12;color:#fff;width:100%;box-sizing:border-box}
+.cr-tfb{display:flex;gap:6px;flex-wrap:wrap}
+.cr-tfb .pri{background:#e8b931;color:#111}
+.cr-cl{flex:1;min-height:0;overflow:auto;padding:4px 16px max(20px,env(safe-area-inset-bottom,0px))}
+.cr-chl{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.cr-chl li{display:flex;gap:12px;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid #23252e}
+.cr-chl span{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.cr-pgc{font:600 12px system-ui,sans-serif;min-width:30px;padding:4px 7px;border-radius:6px;border:1px solid #3a3e4b;background:#1b1d25;color:#e9ebf0;cursor:pointer}
+.cr-pgc:hover{border-color:#e8b931}
+.cr-empty{color:#9aa0ad}
+.cr-chf{margin-top:14px}
+/* panel by panel */
+.cr.pmode .cr-view{transition:transform .38s cubic-bezier(.25,.8,.3,1)}
+.cr.pmode.drag .cr-view{transition:none}
+.cr-pmask{position:absolute;z-index:2;pointer-events:none;border-radius:2px;box-shadow:0 0 0 100vmax rgba(8,9,12,.94);transition:left .38s cubic-bezier(.25,.8,.3,1),top .38s cubic-bezier(.25,.8,.3,1),width .38s cubic-bezier(.25,.8,.3,1),height .38s cubic-bezier(.25,.8,.3,1)}
+.cr:not(.pmode) .cr-pmask{display:none}
+.cr.pmode .cr-stage{cursor:default}
+.cr.pmode .cr-tag{z-index:3}
+@media (prefers-reduced-motion:reduce){ .cr.pmode .cr-view,.cr-pmask{transition:none} }
 /* character tags */
 .cr-chars[hidden],.cr-tf[hidden]{display:none}
 .cr-tag{position:absolute;z-index:3;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:2px solid transparent;background:none;padding:0;cursor:help;transition:border-color .15s,background-color .15s;-webkit-tap-highlight-color:transparent}
@@ -1160,6 +1286,128 @@ button,a,label,select,.tile,.chip,.spot-card,.dc{-webkit-tap-highlight-color:tra
 .cu-fail{margin:8px 0 0;padding-left:18px;font-size:12.5px;color:var(--muted);max-height:160px;overflow:auto}
 @media (max-width:640px){ .cm-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 14px} .cm-sh{grid-template-columns:110px minmax(0,1fr)} .cu-r{grid-template-columns:22px 50px minmax(0,1fr)} .cu-sz{display:none} }
 /* ---- end of comics pages ---- */
+/* reading order timeline */
+.tl{overflow-x:auto;padding:4px 2px 14px;margin:0 -2px}
+.tl-strip{display:flex;gap:18px;position:relative;min-width:min-content;padding-top:4px}
+.tl-strip::before{content:'';position:absolute;left:0;right:0;top:17px;height:2px;background:var(--line,#8884)}
+.tl-step{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;flex:none}
+.tl-n{position:relative;z-index:1;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#111;font-weight:700;font-size:13px;box-shadow:0 0 0 4px var(--bg,#fff)}
+.tl-stack{display:flex;flex-direction:column;gap:10px}
+.tl-it{position:relative;display:flex;flex-direction:column;gap:4px;width:128px;text-align:left;background:none;border:0;padding:0;color:inherit;cursor:pointer;font:inherit}
+.tl-cov{display:block;aspect-ratio:2/3;border-radius:8px;overflow:hidden;background:var(--card,#8882);box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.tl-cov img{width:100%;height:100%;object-fit:cover;display:block}
+.tl-it b{font-size:13px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tl-it small{font-size:11.5px;opacity:.65;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-it.read .tl-cov{opacity:.55}
+.tl-it.read .tl-cov::after{content:'✓ Read';position:absolute;top:6px;left:6px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;padding:2px 6px;border-radius:5px}
+.tl-it:hover .tl-cov{outline:2px solid var(--accent);outline-offset:2px}
+.tl-tog{font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.04em}
+/* characters index */
+.tlch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0 28px}
+.tlch{border-bottom:1px solid var(--line,#8883);padding:9px 0}
+.tlch summary{display:flex;justify-content:space-between;gap:10px;cursor:pointer;list-style:none}
+.tlch summary::-webkit-details-marker{display:none}
+.tlch summary small{opacity:.65}
+.tlch-r{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0 2px 10px;font-size:14px}
+.tlch-i{background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:#8886;text-underline-offset:3px}
+.tlch-r>span{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.tlch-p{min-width:30px;padding:3px 7px;border-radius:6px;border:1px solid var(--line,#8885);background:none;color:inherit;font:600 12px system-ui,sans-serif;cursor:pointer}
+.tlch-p:hover{border-color:var(--accent)}
+/* reading order editor */
+.tled{position:fixed;inset:0;z-index:70;background:var(--bg,#fff);color:var(--fg,#111);display:flex;flex-direction:column}
+.tle-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:16px 20px;border-bottom:1px solid var(--line,#8883)}
+.tle-tt{display:grid;gap:4px;max-width:760px}.tle-tt b{font-size:18px}.tle-tt small{opacity:.75;line-height:1.45}
+.tle-acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.tle-track{flex:none;overflow-x:auto;padding:18px 20px 16px;border-bottom:1px solid var(--line,#8883);min-height:300px;background:var(--card,#8881)}
+.tle-strip{display:flex;align-items:stretch;min-width:min-content;min-height:260px}
+.tle-col{display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px;border-radius:12px;border:2px solid transparent;transition:border-color .12s,background .12s}
+.tle-col.hot{border-color:var(--accent);background:rgba(232,185,49,.12)}
+.tle-gap{width:16px;flex:none;display:flex;justify-content:center;border-radius:8px;transition:width .12s,background .12s}
+.tle-gap i{width:2px;background:transparent;border-radius:2px}
+.tled.dragging .tle-gap,.tled.picking .tle-gap{width:34px}
+.tled.dragging .tle-gap i,.tled.picking .tle-gap i{background:var(--line,#8886)}
+.tle-gap.hot{background:rgba(232,185,49,.18)}.tle-gap.hot i{background:var(--accent)!important;width:4px}
+.tle-first{flex:1;width:auto!important;min-width:300px;align-items:center;justify-content:center;gap:12px;border:2px dashed var(--line,#8886);font-size:15px;opacity:.85}
+.tle-first i{display:none}
+.tle-it{user-select:none;touch-action:none;cursor:grab}
+.tle-it .tl-cov{width:118px}
+.tle-it.sel .tl-cov{outline:3px solid var(--accent);outline-offset:2px}
+.tle-it.src{opacity:.3}
+.tle-x{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(0,0,0,.72);color:#fff;font-size:16px;line-height:1;cursor:pointer;opacity:0;transition:opacity .12s}
+.tle-it:hover .tle-x,.tle-x:focus{opacity:1}
+.tle-ghost{position:fixed;left:0;top:0;z-index:90;pointer-events:none;width:118px;opacity:.92;filter:drop-shadow(0 12px 24px rgba(0,0,0,.35))}
+.tle-pal{flex:1;min-height:0;display:flex;flex-direction:column;border-radius:0;transition:background .12s}
+.tle-pal.hot{background:rgba(229,50,47,.08)}
+.tle-ph{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 20px}
+.tle-ph .inp{max-width:260px}
+.tle-chk{display:flex;gap:6px;align-items:center;font-size:14px}
+.tle-groups{flex:1;min-height:0;overflow:auto;padding:0 20px 24px}
+.tle-g{margin:6px 0 18px}
+.tle-gh{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.tle-gl{display:flex;flex-wrap:wrap;gap:14px}
+.tled.dragging,.tled.dragging *{cursor:grabbing!important}
+.cm-ed.cm-cv{left:46px}
+/* reading order timeline */
+.tl{overflow-x:auto;padding:4px 2px 14px;margin:0 -2px}
+.tl-strip{display:flex;gap:18px;position:relative;min-width:min-content;padding-top:4px}
+.tl-strip::before{content:'';position:absolute;left:0;right:0;top:17px;height:2px;background:var(--line,#8884)}
+.tl-step{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;flex:none}
+.tl-n{position:relative;z-index:1;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#111;font-weight:700;font-size:13px;box-shadow:0 0 0 4px var(--bg,#fff)}
+.tl-stack{display:flex;flex-direction:column;gap:10px}
+.tl-it{position:relative;display:flex;flex-direction:column;gap:4px;width:128px;text-align:left;background:none;border:0;padding:0;color:inherit;cursor:pointer;font:inherit}
+.tl-cov{display:block;aspect-ratio:2/3;border-radius:8px;overflow:hidden;background:var(--card,#8882);box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.tl-cov img{width:100%;height:100%;object-fit:cover;display:block}
+.tl-it b{font-size:13px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tl-it small{font-size:11.5px;opacity:.65;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-it.read .tl-cov{opacity:.55}
+.tl-it.read .tl-cov::after{content:'✓ Read';position:absolute;top:6px;left:6px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;padding:2px 6px;border-radius:5px}
+.tl-it:hover .tl-cov{outline:2px solid var(--accent);outline-offset:2px}
+.tl-tog{font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.04em}
+/* characters index */
+.tlch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0 28px}
+.tlch{border-bottom:1px solid var(--line,#8883);padding:9px 0}
+.tlch summary{display:flex;justify-content:space-between;gap:10px;cursor:pointer;list-style:none}
+.tlch summary::-webkit-details-marker{display:none}
+.tlch summary small{opacity:.65}
+.tlch-r{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0 2px 10px;font-size:14px}
+.tlch-i{background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:#8886;text-underline-offset:3px}
+.tlch-r>span{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.tlch-p{min-width:30px;padding:3px 7px;border-radius:6px;border:1px solid var(--line,#8885);background:none;color:inherit;font:600 12px system-ui,sans-serif;cursor:pointer}
+.tlch-p:hover{border-color:var(--accent)}
+/* reading order editor */
+.tled{position:fixed;inset:0;z-index:70;background:var(--bg,#fff);color:var(--fg,#111);display:flex;flex-direction:column}
+.tle-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:16px 20px;border-bottom:1px solid var(--line,#8883)}
+.tle-tt{display:grid;gap:4px;max-width:760px}.tle-tt b{font-size:18px}.tle-tt small{opacity:.75;line-height:1.45}
+.tle-acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.tle-track{flex:none;overflow-x:auto;padding:18px 20px 16px;border-bottom:1px solid var(--line,#8883);min-height:300px;background:var(--card,#8881)}
+.tle-strip{display:flex;align-items:stretch;min-width:min-content;min-height:260px}
+.tle-col{display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px;border-radius:12px;border:2px solid transparent;transition:border-color .12s,background .12s}
+.tle-col.hot{border-color:var(--accent);background:rgba(232,185,49,.12)}
+.tle-gap{width:16px;flex:none;display:flex;justify-content:center;border-radius:8px;transition:width .12s,background .12s}
+.tle-gap i{width:2px;background:transparent;border-radius:2px}
+.tled.dragging .tle-gap,.tled.picking .tle-gap{width:34px}
+.tled.dragging .tle-gap i,.tled.picking .tle-gap i{background:var(--line,#8886)}
+.tle-gap.hot{background:rgba(232,185,49,.18)}.tle-gap.hot i{background:var(--accent)!important;width:4px}
+.tle-first{flex:1;width:auto!important;min-width:300px;align-items:center;justify-content:center;gap:12px;border:2px dashed var(--line,#8886);font-size:15px;opacity:.85}
+.tle-first i{display:none}
+.tle-it{user-select:none;touch-action:none;cursor:grab}
+.tle-it .tl-cov{width:118px}
+.tle-it.sel .tl-cov{outline:3px solid var(--accent);outline-offset:2px}
+.tle-it.src{opacity:.3}
+.tle-x{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(0,0,0,.72);color:#fff;font-size:16px;line-height:1;cursor:pointer;opacity:0;transition:opacity .12s}
+.tle-it:hover .tle-x,.tle-x:focus{opacity:1}
+.tle-ghost{position:fixed;left:0;top:0;z-index:90;pointer-events:none;width:118px;opacity:.92;filter:drop-shadow(0 12px 24px rgba(0,0,0,.35))}
+.tle-pal{flex:1;min-height:0;display:flex;flex-direction:column;border-radius:0;transition:background .12s}
+.tle-pal.hot{background:rgba(229,50,47,.08)}
+.tle-ph{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 20px}
+.tle-ph .inp{max-width:260px}
+.tle-chk{display:flex;gap:6px;align-items:center;font-size:14px}
+.tle-groups{flex:1;min-height:0;overflow:auto;padding:0 20px 24px}
+.tle-g{margin:6px 0 18px}
+.tle-gh{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.tle-gl{display:flex;flex-wrap:wrap;gap:14px}
+.tled.dragging,.tled.dragging *{cursor:grabbing!important}
+.cm-ed.cm-cv{left:46px}
 /* reading order timeline */
 .tl{overflow-x:auto;padding:4px 2px 14px;margin:0 -2px}
 .tl-strip{display:flex;gap:18px;position:relative;min-width:min-content;padding-top:4px}
@@ -1363,6 +1611,20 @@ body.sp-on{overflow:hidden}
 @media (max-width:640px){ .sp-slice{padding:0 18px;gap:12px}.sp-tx{max-width:82%}.sp-tx span{font-size:12.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.sp-pics{width:70%}.sp-go{font-size:26px} }
 @media (prefers-reduced-motion:reduce){ .sp-slice{transition:none} }
 /* ---- end of start page ---- */
+
+body.nogame [data-go-sec="game"]{display:none!important}
+body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
+body.nosec-comics [data-go-sec="comics"],body.nosec-comics .nav [data-sec="comics"],body.nosec-comics .mobnav [data-sec="comics"]{display:none!important}
+body.nosec-rpg [data-go-sec="rpg"],body.nosec-rpg .nav [data-sec="rpg"],body.nosec-rpg .mobnav [data-sec="rpg"]{display:none!important}
+body.nosec-wiki [data-go-sec="wiki"],body.nosec-wiki .nav [data-sec="wiki"],body.nosec-wiki .mobnav [data-sec="wiki"]{display:none!important}
+body.nosec-game [data-go-sec="game"],body.nosec-game .nav [data-sec="game"],body.nosec-game .mobnav [data-sec="game"]{display:none!important}
+
+body.nogame [data-go-sec="game"]{display:none!important}
+body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
+body.nosec-comics [data-go-sec="comics"],body.nosec-comics .nav [data-sec="comics"],body.nosec-comics .mobnav [data-sec="comics"]{display:none!important}
+body.nosec-rpg [data-go-sec="rpg"],body.nosec-rpg .nav [data-sec="rpg"],body.nosec-rpg .mobnav [data-sec="rpg"]{display:none!important}
+body.nosec-wiki [data-go-sec="wiki"],body.nosec-wiki .nav [data-sec="wiki"],body.nosec-wiki .mobnav [data-sec="wiki"]{display:none!important}
+body.nosec-game [data-go-sec="game"],body.nosec-game .nav [data-sec="game"],body.nosec-game .mobnav [data-sec="game"]{display:none!important}
 
 body.nogame [data-go-sec="game"]{display:none!important}
 body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
@@ -1793,7 +2055,7 @@ function applyAccent(hex){ if(!/^#[0-9a-f]{6}$/i.test(hex||'')) return; document
 async function load(){
   try{
     const d = await api('getData', visitor);
-    S.cards=d.cards; S.collections=d.collections; S.deckList=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.comicTimeline=d.comicTimeline||[]; S.comicTags=d.comicTags||[]; S.liked=new Set(d.liked); S.settings=d.settings; if(typeof syncGame==='function') syncGame();
+    S.cards=d.cards; S.collections=d.collections; S.deckList=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.comicTimeline=d.comicTimeline||[]; S.comicTags=d.comicTags||[]; S.comicCovers=d.comicCovers||[]; S.liked=new Set(d.liked); S.settings=d.settings; if(typeof syncGame==='function') syncGame();
     $('#siteTitle').textContent=d.settings.siteTitle||'The Morphin Archive'; $('#footTitle').textContent=$('#siteTitle').textContent;
     document.title=$('#siteTitle').textContent; applyAccent(d.settings.accent);
     if(STANDALONE) store.set('gcg-cache',{cards:d.cards,collections:d.collections,decks:d.decks,files:d.files,scenarios:d.scenarios||[],expansions:d.expansions||[],comicSeries:d.comicSeries||[],comics:d.comics||[],settings:d.settings,ts:Date.now()});
@@ -1843,6 +2105,7 @@ function go(view, opts={}){
   render(); if(!opts.keepScroll) window.scrollTo({top:0});
 }
 $$('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view));
+document.addEventListener('change',e=>{ if(e.target.matches&&e.target.matches('[data-cvsel]')&&e.target.value){ const v=e.target.value; e.target.value=''; openCoverPicker(crById(v)); } });
 $$('[data-wknav]').forEach(b=>b.onclick=()=>wkNav({t:b.dataset.wknav}));
 /* ---- wiki routing ---- */
 const WKCTX={ nav:r=>wkNav(r), openCard:id=>openCard(id), openComic:(id,p)=>openComic(id,p), admin:()=>!!S.admin,
@@ -1856,7 +2119,7 @@ $$('[data-go-sec]').forEach(b=>b.onclick=()=>pickSection(b.dataset.goSec));
 $('#logoBtn').onclick=()=>{ S.q=''; $('#q').value=''; S.color=''; S.series=''; S.kind=''; S.exp=''; sess.set('gcg-exp',null); splash(); };
 /* ---- the four sections ---- */
 const SEC_HOME={hotg:'explore',comics:'comics',rpg:'rpg',wiki:'wiki'};
-const secOf=v=>v==='comics'||v==='cseries'?'comics':v==='rpg'||v==='builder'?'rpg':v==='wiki'?'wiki':'hotg';
+const secOf=v=>v==='comics'||v==='cseries'||v==='ccovers'?'comics':v==='rpg'||v==='builder'?'rpg':v==='wiki'?'wiki':'hotg';
 function applySec(sec){ S.sec=sec; document.body.dataset.sec=sec; const s=SECTIONS.find(x=>x.id===sec); $('#secName').textContent=s?s.name:'';
   $$('.nav [data-sec],.mobnav [data-sec]').forEach(b=>{ b.hidden=b.dataset.sec!==sec; }); }
 function pickSection(sec){ if(secHidden(sec)){ const v=secShown().find(x=>x.id!=='game'); if(!v) return; sec=v.id; } if(sec==='game') return openGame(grHost()); go(SEC_HOME[sec]||'explore'); }
@@ -1894,6 +2157,7 @@ function render(){
   else if(S.view==='scenarios') m.innerHTML = scenariosHTML();
   else if(S.view==='expansions') m.innerHTML = expansionsHTML();
   else if(S.view==='comics'){ m.innerHTML = comicsHTML(); if(S.admin&&!S.cmAdmin) cmAdminSync(); }
+  else if(S.view==='ccovers') m.innerHTML = ccoversHTML();
   else if(S.view==='cseries'){ const cs=crSeries(S.cser); if(!cs) return go('comics'); m.innerHTML = cseriesHTML(cs); }
   else if(S.view==='expansion'){ const e=expById(S.expId); if(!e) return go('expansions'); m.innerHTML = expansionHTML(e); }
   else if(S.view==='campaigns') m.innerHTML = campaignsHTML();
@@ -3090,6 +3354,33 @@ function crTagNames(){ const out=new Map(); const add=n=>{ const k=crKey(n); if(
   (S.comicTags||[]).forEach(t=>add(t[2])); (S.cards||[]).forEach(c=>add(c.character));
   try{ if(typeof WK!=='undefined'&&WK.idx) WK.idx.articles.filter(a=>/character|ranger|villain|monster/.test(a.type)).forEach(a=>add(a.title)); }catch(e){}
   return [...out.values()].sort(crNat); }
+/** Every cover to show in the gallery, issues in reading order: each issue's first page, then the covers marked inside it.
+    [{c, p (page from 0), id, r}] */
+function crAllCovers(){ const marked=new Map(); (S.comicCovers||[]).forEach(([cid,p,img])=>{ if(!marked.has(cid)) marked.set(cid,[]); marked.get(cid).push([p,img]); });
+  const rank=crRankFn(); const out=[];
+  (S.comics||[]).filter(c=>!c.st&&crSeries(c.s)).sort(rank).forEach(c=>{ if(crCoverId(c)) out.push({c,p:0,id:crCoverId(c),r:crCoverR(c)});
+    (marked.get(c.id)||[]).sort((a,b)=>a[0]-b[0]).forEach(([p,img])=>{ const k=String(img).indexOf('~'); out.push({c,p,id:k<0?img:img.slice(0,k),r:k<0?1.538:+img.slice(k+1)||1.538}); }); });
+  return out; }
+/** A full-screen viewer for one cover in a list, with arrows; onRead(c, page) opens the comic there. */
+function crCoverViewer(list,k,onRead){ const el=document.createElement('div'); el.className='cvv'; el.tabIndex=-1; document.body.appendChild(el); document.body.style.overflow='hidden';
+  const paint=()=>{ const x=list[k]; const sr=crSeries(x.c.s);
+    el.innerHTML=`<div class="cvv-top"><div><small>${esc(sr?sr.name:'')}</small><b>${esc(crName(x.c))}${x.p?` · page ${x.p+1}`:''}</b></div><div class="cvv-acts"><span>${k+1} / ${list.length}</span><button class="cvv-b" data-cv="read">${ico('book')}Read from here</button><button class="cvv-b" data-cv="x" aria-label="Close">${ico('x')}</button></div></div>
+      <div class="cvv-im"><img src="${esc(crImg(x.id,400))}" alt="" referrerpolicy="no-referrer"><img class="hi" src="${esc(crImg(x.id,1600))}" alt="${esc(crName(x.c))} cover" referrerpolicy="no-referrer" onload="this.classList.add('on')"></div>
+      <button class="cvv-nav l" data-cv="prev" aria-label="Previous cover" ${k?'':'disabled'}>${ico('left')}</button><button class="cvv-nav r" data-cv="next" aria-label="Next cover" ${k<list.length-1?'':'disabled'}>${ico('right')}</button>`;
+    [list[k+1],list[k-1]].forEach(n=>{ if(n) crWarm(crImg(n.id,1600)); }); };
+  const close=()=>{ document.removeEventListener('keydown',key,true); el.remove(); document.body.style.overflow=''; };
+  const step=d=>{ const n=k+d; if(n<0||n>=list.length) return; k=n; paint(); };
+  const key=e=>{ if(e.key==='Escape'){ e.preventDefault(); e.stopPropagation(); close(); } else if(e.key==='ArrowRight'){ e.preventDefault(); step(1); } else if(e.key==='ArrowLeft'){ e.preventDefault(); step(-1); } };
+  document.addEventListener('keydown',key,true);
+  let sx=null; el.addEventListener('pointerdown',e=>{ sx=e.clientX; }); el.addEventListener('pointerup',e=>{ if(sx!==null&&Math.abs(e.clientX-sx)>60) step(e.clientX<sx?1:-1); sx=null; });
+  el.addEventListener('click',e=>{ const b=e.target.closest('[data-cv]'); if(!b){ if(e.target===el||e.target.classList.contains('cvv-im')) close(); return; } const a=b.dataset.cv;
+    if(a==='x') close(); if(a==='prev') step(-1); if(a==='next') step(1); if(a==='read'){ const x=list[k]; close(); onRead(x.c,x.p+1); } });
+  paint(); el.focus(); }
+/** Cover gallery markup, shared: issues grouped by series in reading order. */
+function crCoversHTML(q){ q=(q||'').trim().toLowerCase(); const all=crAllCovers(); const by=new Map();
+  all.forEach((x,i)=>{ x.i=i; const s=crSeries(x.c.s); if(q&&!((s?s.name:'')+' '+crName(x.c)).toLowerCase().includes(q)) return; if(!by.has(x.c.s)) by.set(x.c.s,[]); by.get(x.c.s).push(x); });
+  if(!by.size) return `<p class="desc">${all.length?'No covers match.':'No covers yet.'}</p>`;
+  return [...by].map(([sid,l])=>`<div class="cvg"><h3 class="cvg-h">${esc((crSeries(sid)||{}).name||'')}<small>${plural(l.length,'cover','covers')}</small></h3><div class="cvg-l">${l.map(x=>`<button class="cvg-it" data-cvi="${x.i}" title="${esc(crName(x.c))}${x.p?' · page '+(x.p+1):''}"><span style="aspect-ratio:1/${Math.min(1.8,Math.max(1.1,x.r))}"><img src="${esc(crImg(x.id,400))}" alt="" loading="lazy" referrerpolicy="no-referrer"></span><small>${esc(crNum(x.c)||crName(x.c))}${x.p?' · p. '+(x.p+1):''}</small></button>`).join('')}</div></div>`).join(''); }
 const crPagesText=ps=>ps.length===1?'page '+(ps[0]+1):'pages '+ps.map(p=>p+1).join(', ');
 const crNum=c=>c&&c.n?(/^\d/.test(c.n)?'#'+c.n:c.n):'';
 /** "Mighty Morphin #12" — the number only when the title doesn't already say it. */
@@ -3489,7 +3780,7 @@ function crPanelBoxes(d,W,H,bg,rtl){
 /** Comics the admin can see: hidden series and unfinished uploads come from getComicsAdmin. Lists are changed in place,
     so S.comics and S.cmAdmin.comics stay the same arrays. */
 async function cmAdminSync(){ if(!S.admin||S.cmSync) return; S.cmSync=true; try{ const r=await api('getComicsAdmin',S.admin);
-    S.comicSeries.splice(0,S.comicSeries.length,...r.series); S.comics.splice(0,S.comics.length,...r.comics); if(r.timeline) S.comicTimeline=r.timeline; if(r.tags) S.comicTags=r.tags; S.cmAdmin=true;
+    S.comicSeries.splice(0,S.comicSeries.length,...r.series); S.comics.splice(0,S.comics.length,...r.comics); if(r.timeline) S.comicTimeline=r.timeline; if(r.covers) S.comicCovers=r.covers; if(r.tags) S.comicTags=r.tags; S.cmAdmin=true;
     if(S.view==='comics'||S.view==='cseries') rerenderGrid(); }catch(e){} finally{ S.cmSync=false; } }
 function cmPublicOnly(){ const hid=new Set(S.comicSeries.filter(s=>s.hidden).map(s=>s.id));
   S.comicSeries.splice(0,S.comicSeries.length,...S.comicSeries.filter(s=>!s.hidden)); S.comics.splice(0,S.comics.length,...S.comics.filter(c=>!c.st&&!hid.has(c.s))); S.cmAdmin=false; }
@@ -3514,7 +3805,7 @@ function cmIssueTileHTML(c,opt){ const read=crRead().has(c.id), at=crAt(c.id), p
   return `<div class="cm-it${read?' read':''}"><button class="cm-ib" data-comic="${c.id}" aria-label="Read ${esc(crName(c))}">${cmCoverHTML(c)}
       ${read?`<span class="cm-done" title="Read">${ico('check')}</span>`:''}${pct?`<span class="cm-bar on"><i style="width:${pct}%"></i></span>`:''}</button>
     <div class="cm-tx">${sr?`<small>${esc(sr.name)}</small>`:''}<b>${c.n?`<span class="cm-n">${esc(crNum(c))}</span> `:''}${esc(c.t)}</b><span>${esc([c.y,c.p?plural(c.p,'page','pages'):''].filter(Boolean).join(' · '))}${pct?' · page '+(at+1):''}</span></div>
-    ${S.admin?`<button class="cm-ed" data-cmedit="${c.id}" aria-label="Edit ${esc(crName(c))}" title="Edit">${ico('edit')}</button>`:''}</div>`; }
+    ${S.admin?`<button class="cm-ed" data-cmedit="${c.id}" aria-label="Edit ${esc(crName(c))}" title="Edit">${ico('edit')}</button><button class="cm-ed cm-cv" data-cvpick="${c.id}" aria-label="Choose covers in ${esc(crName(c))}" title="Choose covers">${ico('grid')}</button>`:''}</div>`; }
 /** Issues this visitor is part-way through, newest first. */
 function cmGoing(){ const read=crRead(); return (S.comics||[]).filter(c=>!c.st&&crAt(c.id)>0&&!read.has(c.id)&&crSeries(c.s)); }
 
@@ -3529,7 +3820,7 @@ function comicsHTML(){ const all=cmSeriesSorted(), l=all.filter(cmMatch), going=
     <p class="lede">Power Rangers comics in reading order, so you know where to start and how the stories connect. Open any issue to read it here; the site remembers where you stopped.</p>
     <div class="hero-actions"><span class="count">${all.length?plural(all.length,'series','series')+' · '+plural(issues,'issue','issues'):'No comics yet'}</span>
       ${all.length?`<button class="btn sm" data-act="sharecomics">${ico('link')}Copy link</button>`:''}
-      ${S.admin?`<button class="btn sm primary" data-act="addcomics">${ico('plus')}Add comics</button><button class="btn sm" data-act="newcser">${ico('plus')}New series</button><button class="btn sm" data-act="editorder">${ico('edit')}Edit reading order</button>`:''}</div></div></div></section>`;
+      ${S.admin?`<button class="btn sm primary" data-act="addcomics">${ico('plus')}Add comics</button><button class="btn sm" data-act="newcser">${ico('plus')}New series</button><button class="btn sm" data-act="editorder">${ico('edit')}Edit reading order</button>`:''}${all.length?`<button class="btn sm" data-view-go="ccovers">${ico('grid')}Cover gallery</button>`:''}</div></div></div></section>`;
   if(!all.length) return hero+`<section class="blk"><div class="wrap"><div class="empty"><h3>No comics yet</h3><p>${S.admin?'Use <b>Add comics</b> and choose a folder of CBZ or CBR files: each folder becomes a series. Single files work too.':'Check back soon.'}</p>${S.admin?`<p><button class="btn primary" data-act="addcomics">${ico('plus')}Add comics</button></p>`:''}</div></div></section>`;
   const cont=going.length&&!S.q?`<div class="cm-sec"><h3 class="subh">Continue reading</h3><div class="cm-grid cm-igrid">${going.slice(0,6).map(c=>cmIssueTileHTML(c,{series:true})).join('')}</div></div>`:'';
   const eras=crReadingOrder(l);
@@ -3538,6 +3829,30 @@ function comicsHTML(){ const all=cmSeriesSorted(), l=all.filter(cmMatch), going=
   const T=S.q?[]:crTimeline();
   const tl=T.length?`<div class="cm-sec"><h3 class="subh">Reading order</h3><p class="desc">Left to right. Issues stacked in one step are read side by side.</p>${cmTimelineHTML(T)}</div>`:'';
   return hero+`<section class="blk" id="cardsSec"><div class="wrap">${cont}${tl}<div class="cm-sec">${cont||tl?`<h3 class="subh">${tl?'All series':'Reading order'}</h3>`:''}${body}</div>${cmCharsHTML()}</div></section>`; }
+/** Every cover in one place: first pages, chapter covers and cover galleries, by series in reading order. */
+function ccoversHTML(){ const n=crAllCovers().length;
+  return `<section class="hero rpg-hero cm-hero"><div class="wrap" style="grid-template-columns:1fr"><div><button class="btn sm cm-back" data-view-go="comics">${ico('left')}All comics</button>
+    <div class="eyebrow" style="margin-top:14px">Comics</div><h1>Cover gallery</h1><p class="lede">Every cover on the site in one place: the front of each issue, the chapter covers inside each volume and the cover galleries at the back. Open one to see it large, then use the arrows to flip through.</p>
+    <div class="hero-actions"><span class="count">${plural(n,'cover','covers')}</span><button class="btn sm" data-act="sharecovers">${ico('link')}Copy link</button></div>
+    ${S.admin?`<p class="xnote adm">${ico('lock')}<span>To add the covers inside a volume, use the grid button on an issue in its series, or pick a volume here: <select class="sel" data-cvsel><option value="">Choose a volume…</option>${cmSeriesSorted().map(sr=>`<optgroup label="${esc(sr.name)}">${crIssues(sr.id).map(c=>`<option value="${c.id}">${esc(crName(c))}</option>`).join('')}</optgroup>`).join('')}</select></span></p>`:''}</div></div></section>
+  <section class="blk" id="cardsSec"><div class="wrap">${crCoversHTML(S.q)}</div></section>`; }
+/** Admin: pick which pages of an issue are covers. Pages the panel detector reads as one picture are suggested (dashed). */
+async function openCoverPicker(c){ if(!c||!S.admin) return; let r;
+  try{ r=await crLoadPages(c,S.admin); }catch(e){ return toast('The pages could not load.'); }
+  const pages=crPages(r.pg).map(p=>p||{id:'',r:1.538}); const on=new Set((S.comicCovers||[]).filter(x=>x[0]===c.id).map(x=>x[1]));
+  const sc=document.createElement('div'); sc.id='scrim'; sc.className='scrim'; const ly=document.createElement('div'); ly.id='layer'; ly.className='drawer'; ly.setAttribute('role','dialog'); document.body.append(sc,ly);
+  ly.innerHTML=`<div class="dh"><div><b>Choose covers</b><small style="display:block;opacity:.7">${esc(crName(c))}</small></div><button class="btn sm" data-cvp="x" aria-label="Close">${ico('x')}</button></div>
+    <div class="db"><p class="desc">Tick the pages that are covers: chapter covers and the variant covers in the gallery at the back. The first page always counts. Dashed pages look like full-page art and may be covers. <span data-cvst></span></p>
+    <div class="cvp-l">${pages.map((p,i)=>`<button class="cvp-it${i===0?' on first':''}${on.has(i)?' on':''}" data-cvpg="${i}"><span><img src="${esc(crImg(p.id,300))}" alt="" loading="lazy" referrerpolicy="no-referrer"></span>Page ${i+1}</button>`).join('')}</div></div>
+    <div class="df"><button class="btn" data-cvp="x">Cancel</button><button class="btn primary" data-cvp="save">${ico('check')}Save covers</button></div>`;
+  const close=()=>{ sc.remove(); ly.remove(); }; sc.onclick=close;
+  ly.addEventListener('click',async e=>{ const g=e.target.closest('[data-cvpg]'); if(g){ const i=+g.dataset.cvpg; if(!i) return; on.has(i)?on.delete(i):on.add(i); g.classList.toggle('on',on.has(i)); return; }
+    const b=e.target.closest('[data-cvp]'); if(!b) return; if(b.dataset.cvp==='x') return close();
+    b.disabled=true; try{ const res=await adminCall('saveComicCovers',c.id,[...on]); S.comicCovers=(S.comicCovers||[]).filter(x=>x[0]!==c.id).concat(res); close(); rerenderGrid(); toast(plural(res.length+1,'cover','covers')+' in this issue'); }catch(err){ b.disabled=false; } });
+  // suggestions, a few pages at a time
+  const st=ly.querySelector('[data-cvst]'); let done=0;
+  for(let i=1;i<pages.length;i++){ if(!ly.isConnected) return; const l=await crPanels(pages[i],false); done++; if(st) st.textContent=done<pages.length-1?`Checking pages… ${done}/${pages.length-1}`:'';
+    if(l.length===1){ const el=ly.querySelector(`[data-cvpg="${i}"]`); if(el) el.classList.add('sug'); } } }
 /** The admin's reading order as a strip of steps, left to right; issues read together stack in one step. */
 function cmTimelineHTML(T){ const read=crRead();
   return `<div class="tl"><div class="tl-strip">${T.map((r,k)=>`<div class="tl-step"><span class="tl-n">${k+1}</span><div class="tl-stack">${r.map(c=>`<button class="tl-it${read.has(c.id)?' read':''}" data-comic="${c.id}" title="${esc(crName(c))}"><span class="tl-cov">${crCoverId(c)?`<img src="${esc(crCover(c,300))}" alt="" loading="lazy" referrerpolicy="no-referrer">`:''}</span><b>${esc(crName(c))}</b><small>${esc((crSeries(c.s)||{}).name||'')}</small></button>`).join('')}</div>${r.length>1?'<small class="tl-tog">Read together</small>':''}</div>`).join('')}</div></div>`; }
@@ -3638,6 +3953,8 @@ function cmClick(t){
   if(t.dataset.cser){ go('cseries',{cseries:t.dataset.cser}); return true; }
   if(t.dataset.comic){ openComic(t.dataset.comic,t.dataset.cpage?+t.dataset.cpage:undefined); return true; }
   if(t.dataset.act==='editorder'){ openTimelineEditor(); return true; }
+  if(t.dataset.cvi!==undefined){ crCoverViewer(crAllCovers(),+t.dataset.cvi,(c,p)=>openComic(c.id,p)); return true; }
+  if(t.dataset.cvpick){ openCoverPicker(crById(t.dataset.cvpick)); return true; }
   if(t.dataset.cmedit){ editComic(crById(t.dataset.cmedit)); return true; }
   if(t.dataset.cmdel){ const c=crById(t.dataset.cmdel); if(c) confirmBox('Remove this upload?','Its saved pages go to the Drive bin.','Remove',async()=>{ await adminCall('deleteComic',c.id); cmDrop(S.comics,c.id); rerenderGrid(); toast('Removed'); }); return true; }
   const a=t.dataset.act;
@@ -3645,6 +3962,7 @@ function cmClick(t){
   if(a==='addcomics1'){ openComicUpload(S.cser); return true; }
   if(a==='newcser'){ editSeries(); return true; }
   if(a==='editcser'){ editSeries(crSeries(S.cser)); return true; }
+  if(a==='sharecovers'){ copy(linkFor({t:'ccovers'}),'Link copied'); return true; }
   if(a==='sharecomics'){ copy(linkFor({t:'comics'}),'Link copied'); return true; }
   if(a==='sharecser'){ copy(linkFor({cs:S.cser}),'Series link copied'); return true; }
   if(a==='delcser'){ const s=crSeries(S.cser), n=cmAll(S.cser).length; if(s) confirmBox('Delete this series?',n?`Its ${plural(n,'issue','issues')} leave the site and their pages go to the Drive bin.`:'It leaves the site.','Delete',async()=>{ await adminCall('deleteComicSeries',s.id); cmDrop(S.comicSeries,s.id); cmAll(s.id).forEach(c=>cmDrop(S.comics,c.id)); toast('Series deleted'); go('comics'); }); return true; }
@@ -5581,7 +5899,7 @@ function confirmBox(title,msg,okLbl,fn){ const keep=$('#layer')?.innerHTML; cons
 /* ===================== boot ===================== */
 function applyData(d){
   S.cards=d.cards; S.collections=d.collections; S.deckList=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.settings=d.settings; if(typeof syncGame==='function') syncGame(); if(d.liked) S.liked=new Set(d.liked);
-  if(!(S.admin&&S.cmAdmin)){ S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.comicTimeline=d.comicTimeline||[]; S.comicTags=d.comicTags||[]; }
+  if(!(S.admin&&S.cmAdmin)){ S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.comicTimeline=d.comicTimeline||[]; S.comicTags=d.comicTags||[]; S.comicCovers=d.comicCovers||[]; }
   $('#siteTitle').textContent=d.settings.siteTitle||'The Morphin Archive'; $('#footTitle').textContent=$('#siteTitle').textContent;
   document.title=$('#siteTitle').textContent; applyAccent(d.settings.accent); refreshAdminUI();
 }
@@ -5623,7 +5941,7 @@ function finishBoot(){
   if(BOOT.type==='wiki'){ const q=new URLSearchParams(location.search); const r=q.get('a')?{a:q.get('a')}:q.get('wt')?{t:q.get('wt')}:q.get('wq')?{q:q.get('wq')}:{}; go('wiki',{wk:r}); try{ history.replaceState({wk:r},'',location.pathname+location.search); }catch(e){} }
   else if(BOOT.type==='game'){ go('explore'); openGame(grHost()); }
   else if(!linked){ go('explore'); splash(); }
-  else if(bc) go('cseries',{cseries:bc.s}); else if(BOOT.cseries&&crSeries(BOOT.cseries)) go('cseries',{cseries:BOOT.cseries}); else if(BOOT.type==='comics'||BOOT.comic||BOOT.cseries) go('comics'); else
+  else if(bc) go('cseries',{cseries:bc.s}); else if(BOOT.cseries&&crSeries(BOOT.cseries)) go('cseries',{cseries:BOOT.cseries}); else if(BOOT.type==='ccovers') go('ccovers'); else if(BOOT.type==='comics'||BOOT.comic||BOOT.cseries) go('comics'); else
   if(BOOT.exp && expById(BOOT.exp)) go('expansion',{exp:BOOT.exp}); else if(BOOT.type==='expansions') go('expansions'); else if(BOOT.deck && deckById(BOOT.deck)) go('deck',{deck:BOOT.deck}); else if(BOOT.collection && collById(BOOT.collection)) go('collection',{collection:BOOT.collection}); else if(BOOT.type && TYPES.some(t=>t.id===BOOT.type)) go('type',{type:BOOT.type}); else if(BOOT.type==='scenarios'||BOOT.type==='campaigns') go(BOOT.type); else if(BOOT.type==='rules'||BOOT.file&&(fileById(BOOT.file)||{}).area==='rules') go('rules'); else if(BOOT.type==='rpg'||BOOT.file) go('rpg'); else if(BOOT.type==='builder') go('builder'); else render();
   if(BOOT.file && S.files.some(f=>f.id===BOOT.file)) openFile(BOOT.file);
   if(BOOT.card && S.cards.some(c=>c.id===BOOT.card)) openCard(BOOT.card, S.cards);

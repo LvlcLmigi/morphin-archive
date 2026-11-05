@@ -587,6 +587,132 @@ textarea.inp{min-height:76px;resize:vertical}
 .cr.pmode .cr-stage{cursor:default}
 .cr.pmode .cr-tag{z-index:3}
 @media (prefers-reduced-motion:reduce){ .cr.pmode .cr-view,.cr-pmask{transition:none} }
+
+/* cover gallery */
+.cvg{margin:0 0 26px}
+.cvg-h{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;font-size:17px}.cvg-h small{font-weight:400;opacity:.65;font-size:13px}
+.cvg-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:14px}
+.cvg-it{display:flex;flex-direction:column;gap:5px;background:none;border:0;padding:0;color:inherit;cursor:zoom-in;font:inherit;text-align:left}
+.cvg-it span{display:block;border-radius:7px;overflow:hidden;background:#8882;box-shadow:0 4px 14px rgba(0,0,0,.2);transition:transform .15s}
+.cvg-it:hover span{transform:translateY(-3px)}
+.cvg-it img{width:100%;height:100%;object-fit:cover;display:block}
+.cvg-it small{font-size:12px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cvv{position:fixed;inset:0;z-index:95;background:rgba(6,7,10,.97);color:#eceef3;display:flex;flex-direction:column;outline:none}
+.cvv-top{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:max(10px,env(safe-area-inset-top,0px)) 14px 10px}
+.cvv-top small{display:block;opacity:.65;font-size:12px}.cvv-top b{font-size:15px}
+.cvv-acts{display:flex;gap:8px;align-items:center;font-size:13px}.cvv-acts span{opacity:.6}
+.cvv-b{display:inline-flex;gap:6px;align-items:center;background:#1b1d25;border:1px solid #2c2f3a;color:inherit;border-radius:9px;padding:7px 11px;font:600 13px system-ui,sans-serif;cursor:pointer}
+.cvv-b .i{width:16px;height:16px}
+.cvv-im{flex:1;min-height:0;position:relative;display:grid;place-items:center;padding:0 56px 18px}
+.cvv-im img{grid-area:1/1;max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;box-shadow:0 18px 50px rgba(0,0,0,.6)}
+.cvv-im img.hi{opacity:0;transition:opacity .2s}.cvv-im img.hi.on{opacity:1}
+.cvv-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;border-radius:10px;background:#ffffff14;color:#fff;cursor:pointer;display:grid;place-items:center}
+.cvv-nav .i{width:22px;height:22px}.cvv-nav.l{left:8px}.cvv-nav.r{right:8px}.cvv-nav:disabled{opacity:.2;cursor:default}
+@media (max-width:600px){ .cvv-im{padding:0 6px 12px} .cvv-nav{display:none} .cvv-b{padding:6px 9px} }
+.cvp-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
+.cvp-it{position:relative;display:flex;flex-direction:column;gap:4px;background:none;border:0;padding:0;color:inherit;cursor:pointer;font:600 12px system-ui,sans-serif}
+.cvp-it span{display:block;aspect-ratio:2/3;border-radius:6px;overflow:hidden;outline:3px solid transparent;outline-offset:2px;background:#8882}
+.cvp-it img{width:100%;height:100%;object-fit:cover;display:block}
+.cvp-it.on span{outline-color:var(--accent,#e8b931)}
+.cvp-it.on::after{content:'✓';position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:var(--accent,#e8b931);color:#111;display:grid;place-items:center;font-size:13px}
+.cvp-it.sug:not(.on) span{outline:2px dashed #8889}
+.cvp-it.first{cursor:default;opacity:.8}
+/* character tags */
+.cr-chars[hidden],.cr-tf[hidden]{display:none}
+.cr-tag{position:absolute;z-index:3;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:2px solid transparent;background:none;padding:0;cursor:help;transition:border-color .15s,background-color .15s;-webkit-tap-highlight-color:transparent}
+.cr-pg:hover .cr-tag,.cr.tagall .cr-tag,.cr.tagging .cr-tag{border-color:rgba(255,255,255,.6);background:rgba(0,0,0,.14)}
+.cr-tag:hover,.cr-tag.show{border-color:#e8b931!important}
+.cr-tag span{position:absolute;left:50%;top:100%;transform:translate(-50%,6px);white-space:nowrap;background:rgba(10,11,14,.93);color:#fff;font:600 12.5px/1.2 system-ui,-apple-system,sans-serif;padding:5px 9px;border-radius:7px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.cr-tag:hover span,.cr-tag.show span,.cr.tagall .cr-tag span{opacity:1}
+.cr-tag.pending{border-color:#e8b931;background:rgba(232,185,49,.28);pointer-events:none}
+.cr.tagging .cr-stage{cursor:crosshair}
+.cr.tagging .cr-tag{cursor:pointer}
+.cr-b.on{background:#e8b931;color:#111}
+.cr-tf{position:absolute;z-index:9;width:270px;max-width:calc(100% - 16px)}
+.cr-tff{display:grid;gap:8px;background:#16181f;border:1px solid #2c2f3a;border-radius:12px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.6);color:#e9ebf0}
+.cr-tff small{color:#9aa0ad;margin-top:-6px}
+.cr-tff input{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid #3a3e4b;background:#0d0e12;color:#fff;width:100%;box-sizing:border-box}
+.cr-tfb{display:flex;gap:6px;flex-wrap:wrap}
+.cr-tfb .pri{background:#e8b931;color:#111}
+.cr-cl{flex:1;min-height:0;overflow:auto;padding:4px 16px max(20px,env(safe-area-inset-bottom,0px))}
+.cr-chl{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.cr-chl li{display:flex;gap:12px;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid #23252e}
+.cr-chl span{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.cr-pgc{font:600 12px system-ui,sans-serif;min-width:30px;padding:4px 7px;border-radius:6px;border:1px solid #3a3e4b;background:#1b1d25;color:#e9ebf0;cursor:pointer}
+.cr-pgc:hover{border-color:#e8b931}
+.cr-empty{color:#9aa0ad}
+.cr-chf{margin-top:14px}
+/* panel by panel */
+.cr.pmode .cr-view{transition:transform .38s cubic-bezier(.25,.8,.3,1)}
+.cr.pmode.drag .cr-view{transition:none}
+.cr-pmask{position:absolute;z-index:2;pointer-events:none;border-radius:2px;box-shadow:0 0 0 100vmax rgba(8,9,12,.94);transition:left .38s cubic-bezier(.25,.8,.3,1),top .38s cubic-bezier(.25,.8,.3,1),width .38s cubic-bezier(.25,.8,.3,1),height .38s cubic-bezier(.25,.8,.3,1)}
+.cr:not(.pmode) .cr-pmask{display:none}
+.cr.pmode .cr-stage{cursor:default}
+.cr.pmode .cr-tag{z-index:3}
+@media (prefers-reduced-motion:reduce){ .cr.pmode .cr-view,.cr-pmask{transition:none} }
+
+/* cover gallery */
+.cvg{margin:0 0 26px}
+.cvg-h{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;font-size:17px}.cvg-h small{font-weight:400;opacity:.65;font-size:13px}
+.cvg-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:14px}
+.cvg-it{display:flex;flex-direction:column;gap:5px;background:none;border:0;padding:0;color:inherit;cursor:zoom-in;font:inherit;text-align:left}
+.cvg-it span{display:block;border-radius:7px;overflow:hidden;background:#8882;box-shadow:0 4px 14px rgba(0,0,0,.2);transition:transform .15s}
+.cvg-it:hover span{transform:translateY(-3px)}
+.cvg-it img{width:100%;height:100%;object-fit:cover;display:block}
+.cvg-it small{font-size:12px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cvv{position:fixed;inset:0;z-index:95;background:rgba(6,7,10,.97);color:#eceef3;display:flex;flex-direction:column;outline:none}
+.cvv-top{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:max(10px,env(safe-area-inset-top,0px)) 14px 10px}
+.cvv-top small{display:block;opacity:.65;font-size:12px}.cvv-top b{font-size:15px}
+.cvv-acts{display:flex;gap:8px;align-items:center;font-size:13px}.cvv-acts span{opacity:.6}
+.cvv-b{display:inline-flex;gap:6px;align-items:center;background:#1b1d25;border:1px solid #2c2f3a;color:inherit;border-radius:9px;padding:7px 11px;font:600 13px system-ui,sans-serif;cursor:pointer}
+.cvv-b .i{width:16px;height:16px}
+.cvv-im{flex:1;min-height:0;position:relative;display:grid;place-items:center;padding:0 56px 18px}
+.cvv-im img{grid-area:1/1;max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;box-shadow:0 18px 50px rgba(0,0,0,.6)}
+.cvv-im img.hi{opacity:0;transition:opacity .2s}.cvv-im img.hi.on{opacity:1}
+.cvv-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;border-radius:10px;background:#ffffff14;color:#fff;cursor:pointer;display:grid;place-items:center}
+.cvv-nav .i{width:22px;height:22px}.cvv-nav.l{left:8px}.cvv-nav.r{right:8px}.cvv-nav:disabled{opacity:.2;cursor:default}
+@media (max-width:600px){ .cvv-im{padding:0 6px 12px} .cvv-nav{display:none} .cvv-b{padding:6px 9px} }
+.cvp-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
+.cvp-it{position:relative;display:flex;flex-direction:column;gap:4px;background:none;border:0;padding:0;color:inherit;cursor:pointer;font:600 12px system-ui,sans-serif}
+.cvp-it span{display:block;aspect-ratio:2/3;border-radius:6px;overflow:hidden;outline:3px solid transparent;outline-offset:2px;background:#8882}
+.cvp-it img{width:100%;height:100%;object-fit:cover;display:block}
+.cvp-it.on span{outline-color:var(--accent,#e8b931)}
+.cvp-it.on::after{content:'✓';position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:var(--accent,#e8b931);color:#111;display:grid;place-items:center;font-size:13px}
+.cvp-it.sug:not(.on) span{outline:2px dashed #8889}
+.cvp-it.first{cursor:default;opacity:.8}
+/* character tags */
+.cr-chars[hidden],.cr-tf[hidden]{display:none}
+.cr-tag{position:absolute;z-index:3;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:2px solid transparent;background:none;padding:0;cursor:help;transition:border-color .15s,background-color .15s;-webkit-tap-highlight-color:transparent}
+.cr-pg:hover .cr-tag,.cr.tagall .cr-tag,.cr.tagging .cr-tag{border-color:rgba(255,255,255,.6);background:rgba(0,0,0,.14)}
+.cr-tag:hover,.cr-tag.show{border-color:#e8b931!important}
+.cr-tag span{position:absolute;left:50%;top:100%;transform:translate(-50%,6px);white-space:nowrap;background:rgba(10,11,14,.93);color:#fff;font:600 12.5px/1.2 system-ui,-apple-system,sans-serif;padding:5px 9px;border-radius:7px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.cr-tag:hover span,.cr-tag.show span,.cr.tagall .cr-tag span{opacity:1}
+.cr-tag.pending{border-color:#e8b931;background:rgba(232,185,49,.28);pointer-events:none}
+.cr.tagging .cr-stage{cursor:crosshair}
+.cr.tagging .cr-tag{cursor:pointer}
+.cr-b.on{background:#e8b931;color:#111}
+.cr-tf{position:absolute;z-index:9;width:270px;max-width:calc(100% - 16px)}
+.cr-tff{display:grid;gap:8px;background:#16181f;border:1px solid #2c2f3a;border-radius:12px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.6);color:#e9ebf0}
+.cr-tff small{color:#9aa0ad;margin-top:-6px}
+.cr-tff input{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid #3a3e4b;background:#0d0e12;color:#fff;width:100%;box-sizing:border-box}
+.cr-tfb{display:flex;gap:6px;flex-wrap:wrap}
+.cr-tfb .pri{background:#e8b931;color:#111}
+.cr-cl{flex:1;min-height:0;overflow:auto;padding:4px 16px max(20px,env(safe-area-inset-bottom,0px))}
+.cr-chl{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.cr-chl li{display:flex;gap:12px;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid #23252e}
+.cr-chl span{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.cr-pgc{font:600 12px system-ui,sans-serif;min-width:30px;padding:4px 7px;border-radius:6px;border:1px solid #3a3e4b;background:#1b1d25;color:#e9ebf0;cursor:pointer}
+.cr-pgc:hover{border-color:#e8b931}
+.cr-empty{color:#9aa0ad}
+.cr-chf{margin-top:14px}
+/* panel by panel */
+.cr.pmode .cr-view{transition:transform .38s cubic-bezier(.25,.8,.3,1)}
+.cr.pmode.drag .cr-view{transition:none}
+.cr-pmask{position:absolute;z-index:2;pointer-events:none;border-radius:2px;box-shadow:0 0 0 100vmax rgba(8,9,12,.94);transition:left .38s cubic-bezier(.25,.8,.3,1),top .38s cubic-bezier(.25,.8,.3,1),width .38s cubic-bezier(.25,.8,.3,1),height .38s cubic-bezier(.25,.8,.3,1)}
+.cr:not(.pmode) .cr-pmask{display:none}
+.cr.pmode .cr-stage{cursor:default}
+.cr.pmode .cr-tag{z-index:3}
+@media (prefers-reduced-motion:reduce){ .cr.pmode .cr-view,.cr-pmask{transition:none} }
 /* character tags */
 .cr-chars[hidden],.cr-tf[hidden]{display:none}
 .cr-tag{position:absolute;z-index:3;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:2px solid transparent;background:none;padding:0;cursor:help;transition:border-color .15s,background-color .15s;-webkit-tap-highlight-color:transparent}
@@ -660,6 +786,20 @@ body.sp-on{overflow:hidden}
 @media (max-width:640px){ .sp-slice{padding:0 18px;gap:12px}.sp-tx{max-width:82%}.sp-tx span{font-size:12.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.sp-pics{width:70%}.sp-go{font-size:26px} }
 @media (prefers-reduced-motion:reduce){ .sp-slice{transition:none} }
 /* ---- end of start page ---- */
+
+body.nogame [data-go-sec="game"]{display:none!important}
+body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
+body.nosec-comics [data-go-sec="comics"],body.nosec-comics .nav [data-sec="comics"],body.nosec-comics .mobnav [data-sec="comics"]{display:none!important}
+body.nosec-rpg [data-go-sec="rpg"],body.nosec-rpg .nav [data-sec="rpg"],body.nosec-rpg .mobnav [data-sec="rpg"]{display:none!important}
+body.nosec-wiki [data-go-sec="wiki"],body.nosec-wiki .nav [data-sec="wiki"],body.nosec-wiki .mobnav [data-sec="wiki"]{display:none!important}
+body.nosec-game [data-go-sec="game"],body.nosec-game .nav [data-sec="game"],body.nosec-game .mobnav [data-sec="game"]{display:none!important}
+
+body.nogame [data-go-sec="game"]{display:none!important}
+body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
+body.nosec-comics [data-go-sec="comics"],body.nosec-comics .nav [data-sec="comics"],body.nosec-comics .mobnav [data-sec="comics"]{display:none!important}
+body.nosec-rpg [data-go-sec="rpg"],body.nosec-rpg .nav [data-sec="rpg"],body.nosec-rpg .mobnav [data-sec="rpg"]{display:none!important}
+body.nosec-wiki [data-go-sec="wiki"],body.nosec-wiki .nav [data-sec="wiki"],body.nosec-wiki .mobnav [data-sec="wiki"]{display:none!important}
+body.nosec-game [data-go-sec="game"],body.nosec-game .nav [data-sec="game"],body.nosec-game .mobnav [data-sec="game"]{display:none!important}
 
 body.nogame [data-go-sec="game"]{display:none!important}
 body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
@@ -1028,6 +1168,7 @@ function render(){
   if(S.sub&&S.sub.type==='exps') return renderExps(m);
   if(S.sub&&S.sub.type==='exp') return renderExp(m,expById(S.sub.id));
   if(S.sub&&S.sub.type==='comics') return renderComicsM(m);
+  if(S.sub&&S.sub.type==='covers'){ m.innerHTML=`<section class="screen"><div class="rpg-head"><button class="back" data-back style="margin:-4px 0 10px">${ico('left')}Comics</button><small>Comics</small><h1>Cover gallery</h1><p>Every cover on the site: issue fronts, chapter covers and cover galleries. Tap one to see it large and swipe through.</p></div>${crCoversHTML(S.q)}</section>`; return; }
   if(S.sub&&S.sub.type==='wiki') return renderWikiM(m,S.sub.id);
   if(S.sub&&S.sub.type==='cser') return renderCserM(m,crSeries(S.sub.id));
   if(S.tab==='cards') return renderCards(m);
@@ -1249,6 +1390,33 @@ function crTagNames(){ const out=new Map(); const add=n=>{ const k=crKey(n); if(
   (S.comicTags||[]).forEach(t=>add(t[2])); (S.cards||[]).forEach(c=>add(c.character));
   try{ if(typeof WK!=='undefined'&&WK.idx) WK.idx.articles.filter(a=>/character|ranger|villain|monster/.test(a.type)).forEach(a=>add(a.title)); }catch(e){}
   return [...out.values()].sort(crNat); }
+/** Every cover to show in the gallery, issues in reading order: each issue's first page, then the covers marked inside it.
+    [{c, p (page from 0), id, r}] */
+function crAllCovers(){ const marked=new Map(); (S.comicCovers||[]).forEach(([cid,p,img])=>{ if(!marked.has(cid)) marked.set(cid,[]); marked.get(cid).push([p,img]); });
+  const rank=crRankFn(); const out=[];
+  (S.comics||[]).filter(c=>!c.st&&crSeries(c.s)).sort(rank).forEach(c=>{ if(crCoverId(c)) out.push({c,p:0,id:crCoverId(c),r:crCoverR(c)});
+    (marked.get(c.id)||[]).sort((a,b)=>a[0]-b[0]).forEach(([p,img])=>{ const k=String(img).indexOf('~'); out.push({c,p,id:k<0?img:img.slice(0,k),r:k<0?1.538:+img.slice(k+1)||1.538}); }); });
+  return out; }
+/** A full-screen viewer for one cover in a list, with arrows; onRead(c, page) opens the comic there. */
+function crCoverViewer(list,k,onRead){ const el=document.createElement('div'); el.className='cvv'; el.tabIndex=-1; document.body.appendChild(el); document.body.style.overflow='hidden';
+  const paint=()=>{ const x=list[k]; const sr=crSeries(x.c.s);
+    el.innerHTML=`<div class="cvv-top"><div><small>${esc(sr?sr.name:'')}</small><b>${esc(crName(x.c))}${x.p?` · page ${x.p+1}`:''}</b></div><div class="cvv-acts"><span>${k+1} / ${list.length}</span><button class="cvv-b" data-cv="read">${ico('book')}Read from here</button><button class="cvv-b" data-cv="x" aria-label="Close">${ico('x')}</button></div></div>
+      <div class="cvv-im"><img src="${esc(crImg(x.id,400))}" alt="" referrerpolicy="no-referrer"><img class="hi" src="${esc(crImg(x.id,1600))}" alt="${esc(crName(x.c))} cover" referrerpolicy="no-referrer" onload="this.classList.add('on')"></div>
+      <button class="cvv-nav l" data-cv="prev" aria-label="Previous cover" ${k?'':'disabled'}>${ico('left')}</button><button class="cvv-nav r" data-cv="next" aria-label="Next cover" ${k<list.length-1?'':'disabled'}>${ico('right')}</button>`;
+    [list[k+1],list[k-1]].forEach(n=>{ if(n) crWarm(crImg(n.id,1600)); }); };
+  const close=()=>{ document.removeEventListener('keydown',key,true); el.remove(); document.body.style.overflow=''; };
+  const step=d=>{ const n=k+d; if(n<0||n>=list.length) return; k=n; paint(); };
+  const key=e=>{ if(e.key==='Escape'){ e.preventDefault(); e.stopPropagation(); close(); } else if(e.key==='ArrowRight'){ e.preventDefault(); step(1); } else if(e.key==='ArrowLeft'){ e.preventDefault(); step(-1); } };
+  document.addEventListener('keydown',key,true);
+  let sx=null; el.addEventListener('pointerdown',e=>{ sx=e.clientX; }); el.addEventListener('pointerup',e=>{ if(sx!==null&&Math.abs(e.clientX-sx)>60) step(e.clientX<sx?1:-1); sx=null; });
+  el.addEventListener('click',e=>{ const b=e.target.closest('[data-cv]'); if(!b){ if(e.target===el||e.target.classList.contains('cvv-im')) close(); return; } const a=b.dataset.cv;
+    if(a==='x') close(); if(a==='prev') step(-1); if(a==='next') step(1); if(a==='read'){ const x=list[k]; close(); onRead(x.c,x.p+1); } });
+  paint(); el.focus(); }
+/** Cover gallery markup, shared: issues grouped by series in reading order. */
+function crCoversHTML(q){ q=(q||'').trim().toLowerCase(); const all=crAllCovers(); const by=new Map();
+  all.forEach((x,i)=>{ x.i=i; const s=crSeries(x.c.s); if(q&&!((s?s.name:'')+' '+crName(x.c)).toLowerCase().includes(q)) return; if(!by.has(x.c.s)) by.set(x.c.s,[]); by.get(x.c.s).push(x); });
+  if(!by.size) return `<p class="desc">${all.length?'No covers match.':'No covers yet.'}</p>`;
+  return [...by].map(([sid,l])=>`<div class="cvg"><h3 class="cvg-h">${esc((crSeries(sid)||{}).name||'')}<small>${plural(l.length,'cover','covers')}</small></h3><div class="cvg-l">${l.map(x=>`<button class="cvg-it" data-cvi="${x.i}" title="${esc(crName(x.c))}${x.p?' · page '+(x.p+1):''}"><span style="aspect-ratio:1/${Math.min(1.8,Math.max(1.1,x.r))}"><img src="${esc(crImg(x.id,400))}" alt="" loading="lazy" referrerpolicy="no-referrer"></span><small>${esc(crNum(x.c)||crName(x.c))}${x.p?' · p. '+(x.p+1):''}</small></button>`).join('')}</div></div>`).join(''); }
 const crPagesText=ps=>ps.length===1?'page '+(ps[0]+1):'pages '+ps.map(p=>p+1).join(', ');
 const crNum=c=>c&&c.n?(/^\d/.test(c.n)?'#'+c.n:c.n):'';
 /** "Mighty Morphin #12" — the number only when the title doesn't already say it. */
@@ -2103,7 +2271,7 @@ function renderComicsM(m){ const q=S.q.trim().toLowerCase(), all=cmSortedM();
   const hay=s=>[s.name,s.publisher,s.years,s.description,...crIssues(s.id).map(c=>c.t+' '+c.n)].join(' ').toLowerCase();
   const l=all.filter(s=>!q||q.split(/\s+/).every(t=>hay(s).includes(t))), read=crRead();
   const going=(S.comics||[]).filter(c=>!c.st&&crAt(c.id)>0&&!read.has(c.id)&&crSeries(c.s));
-  m.innerHTML=`<section class="screen"><div class="rpg-head"><button class="back" data-back style="margin:-4px 0 10px">${ico('left')}Cards</button><small>Read online</small><h1>Comics</h1><p>Power Rangers comics in reading order. Tap a series to start; swipe or tap the edges of a page to turn it.</p></div>
+  m.innerHTML=`<section class="screen"><div class="rpg-head"><button class="back" data-back style="margin:-4px 0 10px">${ico('left')}Cards</button><small>Read online</small><h1>Comics</h1><p>Power Rangers comics in reading order. Tap a series to start; swipe or tap the edges of a page to turn it.</p>${(S.comics||[]).length?'<div class="acts" style="margin-top:10px"><button class="btn" data-cvgal>Cover gallery</button></div>':''}</div>
     ${going.length&&!q?`<div class="bkg"><h2>Continue reading</h2><div class="cmrow">${going.slice(0,8).map(c=>cmIssueM(c,true)).join('')}</div></div>`:''}
     ${!q&&crTimeline().length?`<div class="bkg"><h2>Reading order</h2><p class="cmen">Issues on the same step are read side by side.</p>${crTimeline().map((r,k)=>`<div class="tlm"><span class="tlm-n">${k+1}</span><div class="cmrow">${r.map(c=>cmIssueM(c,true)).join('')}</div></div>`).join('')}</div><div class="bkg"><h2>All series</h2></div>`:''}
     ${crCharIndex().length?`<div class="bkg"><h2>Characters</h2><p class="cmen">Who appears where, from the tags on the pages.</p>${crCharIndex().filter(e=>!q||e.n.toLowerCase().includes(q)).map(e=>`<details class="tlch"><summary><b>${esc(e.n)}</b><small>${plural(e.list.length,'issue','issues')}</small></summary>${e.list.map(x=>`<div class="tlch-r"><span>${esc(crName(x.c))}</span><span>${x.pages.map(pp=>`<button class="tlch-p" data-comic="${x.c.id}" data-cpage="${pp+1}">${pp+1}</button>`).join('')}</span></div>`).join('')}</details>`).join('')}</div>`:''}
@@ -2159,6 +2327,8 @@ $('#main').addEventListener('click',e=>{
   if(t.dataset.exps!==undefined) return openSub('exps','');
   if(t.dataset.comicsm!==undefined) return openSub('comics','');
   if(t.dataset.cser) return openSub('cser',t.dataset.cser);
+  if(t.dataset.cvi!==undefined) return crCoverViewer(crAllCovers(),+t.dataset.cvi,(c,p)=>openComicM(c.id,p));
+  if(t.dataset.cvgal!==undefined) return openSub('covers','');
   if(t.dataset.comic) return openComicM(t.dataset.comic,t.dataset.cpage?+t.dataset.cpage:undefined);
   if(t.dataset.xown){ buzz(); ownToggle(t.dataset.xown); const y=window.scrollY; render(); window.scrollTo({top:y}); return toast(OWN.has(t.dataset.xown)?'Marked as owned':'Removed from your boxes'); }
   if(t.dataset.xgo) return openSub('exp',t.dataset.xgo);
@@ -2337,7 +2507,7 @@ function desktopLinks(){ const u=fullUrl(); const fb=$('#fullBtn'); fb.href=u; f
   if(desk&&Date.now()>snooze){ $('#dbar').hidden=false; $('#dbarGo').href=u; $('#dbarX').onclick=()=>{ store.set('gcg-desk-snooze',Date.now()+7*864e5); $('#dbar').hidden=true; }; } }
 
 /* ---------------- boot ---------------- */
-function applyData(d){ S.cards=d.cards||[]; S.collections=d.collections||[]; S.decks=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.comicTimeline=d.comicTimeline||[]; S.comicTags=d.comicTags||[]; S.settings=d.settings||{}; if(typeof syncGame==='function') syncGame(); if(d.liked) S.liked=new Set(d.liked);
+function applyData(d){ S.cards=d.cards||[]; S.collections=d.collections||[]; S.decks=d.decks||[]; S.files=d.files||[]; S.scenarios=d.scenarios||[]; S.expansions=d.expansions||[]; S.comicSeries=d.comicSeries||[]; S.comics=d.comics||[]; S.comicTimeline=d.comicTimeline||[]; S.comicTags=d.comicTags||[]; S.comicCovers=d.comicCovers||[]; S.settings=d.settings||{}; if(typeof syncGame==='function') syncGame(); if(d.liked) S.liked=new Set(d.liked);
   $('#siteTitle').textContent=S.settings.siteTitle||'The Morphin Archive'; document.title=$('#siteTitle').textContent; applyAccent(S.settings.accent); }
 window.addEventListener('resize',()=>{ placePill(); if(!$('#vw').hidden){ const pg=$('#pager'); pg.scrollLeft=V.i*pg.clientWidth; } if(!$('#dv').hidden){ const pg=$('#dpager'); pg.scrollLeft=D.i*pg.clientWidth; } });
 (async()=>{
@@ -2362,7 +2532,7 @@ window.addEventListener('resize',()=>{ placePill(); if(!$('#vw').hidden){ const 
   else if(!linked) splashM();
   else if(bc){ setTab('cards'); openSub('cser',bc.s); openComicM(bc.id,BOOT.page); }
   else if(BOOT.cseries&&crSeries(BOOT.cseries)){ setTab('cards'); openSub('cser',BOOT.cseries); }
-  else if(BOOT.type==='comics'){ setTab('cards'); openSub('comics',''); }
+  else if(BOOT.type==='comics'){ setTab('cards'); openSub('comics',''); } else if(BOOT.type==='ccovers'){ setTab('cards'); openSub('covers',''); }
   else if(BOOT.exp&&expById(BOOT.exp)){ setTab('cards'); openSub('exp',BOOT.exp); }
   else if(BOOT.type==='expansions'){ setTab('cards'); openSub('exps',''); }
   else if(BOOT.type==='scenarios'||BOOT.type==='campaigns'){ setTab('cards'); openSub('scenarios',''); }

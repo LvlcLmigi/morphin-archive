@@ -119,7 +119,7 @@ const API_ = {
   savePages: savePages, clearPages: clearPages, getPages: getPages, setRangerLinks: setRangerLinks,
   saveScenario: saveScenario, deleteScenario: deleteScenario, importScenarios: importScenarios,
   saveExpansion: saveExpansion, deleteExpansion: deleteExpansion, setExpansionItems: setExpansionItems, setItemExpansions: setItemExpansions, seedExpansions: seedExpansions,
-  getComic: getComic, getComicsAdmin: getComicsAdmin, saveComicTimeline: saveComicTimeline, addComicTag: addComicTag, updateComicTag: updateComicTag, deleteComicTag: deleteComicTag, saveComicSeries: saveComicSeries, deleteComicSeries: deleteComicSeries,
+  getComic: getComic, getComicsAdmin: getComicsAdmin, saveComicTimeline: saveComicTimeline, saveComicCovers: saveComicCovers, addComicTag: addComicTag, updateComicTag: updateComicTag, deleteComicTag: deleteComicTag, saveComicSeries: saveComicSeries, deleteComicSeries: deleteComicSeries,
   startComic: startComic, saveComicPages: saveComicPages, finishComic: finishComic, updateComic: updateComic, deleteComic: deleteComic
 };
 
@@ -178,7 +178,7 @@ function publicPayload_() {
   const expansions = readAll_('Expansions').sort(expOrder_).map(publicExpansion_);
   const cm = comicsPayload_();
   const out = {
-    cards, collections, decks, files, scenarios, expansions, comicSeries: cm.series, comics: cm.comics, comicTimeline: cm.timeline, comicTags: cm.tags,
+    cards, collections, decks, files, scenarios, expansions, comicSeries: cm.series, comics: cm.comics, comicTimeline: cm.timeline, comicTags: cm.tags, comicCovers: cm.covers,
     settings: {
       siteTitle: settings.siteTitle, tagline: settings.tagline, accent: settings.accent,
       allowSubmissions: settings.allowSubmissions === 'true', allowComments: settings.allowComments !== 'false', showGame: settings.showGame === 'true', hideSec: String(settings.hideSec || ''), hideSecAdmin: String(settings.hideSecAdmin || '')
@@ -683,12 +683,12 @@ function comicsPayload_() {
   const ok = {}; series.forEach(s => { ok[s.id] = true; });
   const comics = readAll_('Comics').filter(c => ok[c.seriesId] && c.status === 'ready');
   const live = {}; comics.forEach(c => { live[c.id] = true; });
-  return { series: series.map(publicSeries_), comics: comics.map(publicComic_), timeline: comicTimeline_(live), tags: comicTagIndex_(live) };
+  return { series: series.map(publicSeries_), comics: comics.map(publicComic_), timeline: comicTimeline_(live), tags: comicTagIndex_(live), covers: comicCovers_(live) };
 }
 /** Everything, for the admin: hidden series and unfinished uploads included. */
 function getComicsAdmin(passcode) {
   requireAdmin_(passcode);
-  return { series: readAll_('ComicSeries').sort(comicSeriesOrder_).map(publicSeries_), comics: readAll_('Comics').map(publicComic_), timeline: comicTimeline_(null), tags: comicTagIndex_(null) };
+  return { series: readAll_('ComicSeries').sort(comicSeriesOrder_).map(publicSeries_), comics: readAll_('Comics').map(publicComic_), timeline: comicTimeline_(null), tags: comicTagIndex_(null), covers: comicCovers_(null) };
 }
 /** One issue's pages and details. Issues in hidden series (and unfinished ones) need the admin passcode.
     Public issues are cached for 10 minutes (cleared when the issue changes). */
@@ -922,6 +922,24 @@ function deleteComicTag(id, passcode) {
   withLock_(() => deleteRow_('ComicTags', id));
   forgetComic_(t.comicId); bust_();
   return true;
+}
+
+/* ---- covers inside issues (chapter covers, cover galleries): {comicId: [[page from 0, "fileId~ratio"], ...]} in a setting ---- */
+function comicCoverMap_() { try { const o = JSON.parse(getSettingsMap_().comicCovers || '{}'); return o && typeof o === 'object' && !Array.isArray(o) ? o : {}; } catch (e) { return {}; } }
+/** Every marked cover as [comicId, page, "fileId~ratio"]. */
+function comicCovers_(live) { const m = comicCoverMap_(), out = [];
+  Object.keys(m).forEach(id => { if (live && !live[id]) return; (Array.isArray(m[id]) ? m[id] : []).forEach(x => { if (Array.isArray(x) && x[1]) out.push([id, +x[0] || 0, String(x[1])]); }); });
+  return out; }
+/** Sets which pages of an issue are covers: pages = [page from 0, ...]. The first page always counts as a cover on the site. */
+function saveComicCovers(comicId, pages, passcode) {
+  requireAdmin_(passcode);
+  const c = findRow_('Comics', comicId); if (!c) throw new Error('That comic is no longer on the site.');
+  const list = String(c.pageImages || '').split(',');
+  const picked = [...new Set((Array.isArray(pages) ? pages : []).map(n => Math.floor(+n)).filter(n => n > 0 && n < list.length && list[n]))].sort((a, b) => a - b);
+  withLock_(() => { const m = comicCoverMap_(); if (picked.length) m[comicId] = picked.map(n => [n, list[n]]); else delete m[comicId];
+    const text = JSON.stringify(m); if (text.length > 49000) throw new Error('There are too many covers to save.'); setSetting_('comicCovers', text); });
+  bust_();
+  return comicCovers_(null).filter(x => x[0] === comicId);
 }
 /* ============================== end of comics ============================== */
 
