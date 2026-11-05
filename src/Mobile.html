@@ -492,7 +492,7 @@ textarea.inp{min-height:76px;resize:vertical}
 .cr-stage.tall{place-items:start center;overflow-y:auto;touch-action:pan-y pinch-zoom;padding-block:56px 64px}
 .cr.drag .cr-view{transition:none}
 .cr.zoomed .cr-stage{overflow:hidden;touch-action:none;cursor:grab}
-.cr-view{display:flex;gap:0;flex:none;transform-origin:50% 50%;will-change:transform;transition:transform .18s ease-out}
+.cr-view{position:relative;display:flex;gap:0;flex:none;transform-origin:50% 50%;will-change:transform;transition:transform .18s ease-out}
 .cr.rtl .cr-view{flex-direction:row}
 .cr-pg{position:relative;flex:none;background:#1a1c23 center/cover no-repeat;box-shadow:0 12px 40px rgba(0,0,0,.55)}
 .cr-pg img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;opacity:0;transition:opacity .16s;pointer-events:none;-webkit-user-drag:none}
@@ -579,6 +579,39 @@ textarea.inp{min-height:76px;resize:vertical}
 .cr-pgc:hover{border-color:#e8b931}
 .cr-empty{color:#9aa0ad}
 .cr-chf{margin-top:14px}
+/* panel by panel */
+.cr.pmode .cr-view{transition:transform .38s cubic-bezier(.25,.8,.3,1)}
+.cr.pmode.drag .cr-view{transition:none}
+.cr-pmask{position:absolute;z-index:2;pointer-events:none;border-radius:2px;box-shadow:0 0 0 100vmax rgba(8,9,12,.94);transition:left .38s cubic-bezier(.25,.8,.3,1),top .38s cubic-bezier(.25,.8,.3,1),width .38s cubic-bezier(.25,.8,.3,1),height .38s cubic-bezier(.25,.8,.3,1)}
+.cr:not(.pmode) .cr-pmask{display:none}
+.cr.pmode .cr-stage{cursor:default}
+.cr.pmode .cr-tag{z-index:3}
+@media (prefers-reduced-motion:reduce){ .cr.pmode .cr-view,.cr-pmask{transition:none} }
+/* character tags */
+.cr-chars[hidden],.cr-tf[hidden]{display:none}
+.cr-tag{position:absolute;z-index:3;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:2px solid transparent;background:none;padding:0;cursor:help;transition:border-color .15s,background-color .15s;-webkit-tap-highlight-color:transparent}
+.cr-pg:hover .cr-tag,.cr.tagall .cr-tag,.cr.tagging .cr-tag{border-color:rgba(255,255,255,.6);background:rgba(0,0,0,.14)}
+.cr-tag:hover,.cr-tag.show{border-color:#e8b931!important}
+.cr-tag span{position:absolute;left:50%;top:100%;transform:translate(-50%,6px);white-space:nowrap;background:rgba(10,11,14,.93);color:#fff;font:600 12.5px/1.2 system-ui,-apple-system,sans-serif;padding:5px 9px;border-radius:7px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.cr-tag:hover span,.cr-tag.show span,.cr.tagall .cr-tag span{opacity:1}
+.cr-tag.pending{border-color:#e8b931;background:rgba(232,185,49,.28);pointer-events:none}
+.cr.tagging .cr-stage{cursor:crosshair}
+.cr.tagging .cr-tag{cursor:pointer}
+.cr-b.on{background:#e8b931;color:#111}
+.cr-tf{position:absolute;z-index:9;width:270px;max-width:calc(100% - 16px)}
+.cr-tff{display:grid;gap:8px;background:#16181f;border:1px solid #2c2f3a;border-radius:12px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.6);color:#e9ebf0}
+.cr-tff small{color:#9aa0ad;margin-top:-6px}
+.cr-tff input{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid #3a3e4b;background:#0d0e12;color:#fff;width:100%;box-sizing:border-box}
+.cr-tfb{display:flex;gap:6px;flex-wrap:wrap}
+.cr-tfb .pri{background:#e8b931;color:#111}
+.cr-cl{flex:1;min-height:0;overflow:auto;padding:4px 16px max(20px,env(safe-area-inset-bottom,0px))}
+.cr-chl{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.cr-chl li{display:flex;gap:12px;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid #23252e}
+.cr-chl span{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.cr-pgc{font:600 12px system-ui,sans-serif;min-width:30px;padding:4px 7px;border-radius:6px;border:1px solid #3a3e4b;background:#1b1d25;color:#e9ebf0;cursor:pointer}
+.cr-pgc:hover{border-color:#e8b931}
+.cr-empty{color:#9aa0ad}
+.cr-chf{margin-top:14px}
 /* character tags */
 .cr-chars[hidden],.cr-tf[hidden]{display:none}
 .cr-tag{position:absolute;z-index:3;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:2px solid transparent;background:none;padding:0;cursor:help;transition:border-color .15s,background-color .15s;-webkit-tap-highlight-color:transparent}
@@ -627,6 +660,13 @@ body.sp-on{overflow:hidden}
 @media (max-width:640px){ .sp-slice{padding:0 18px;gap:12px}.sp-tx{max-width:82%}.sp-tx span{font-size:12.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.sp-pics{width:70%}.sp-go{font-size:26px} }
 @media (prefers-reduced-motion:reduce){ .sp-slice{transition:none} }
 /* ---- end of start page ---- */
+
+body.nogame [data-go-sec="game"]{display:none!important}
+body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
+body.nosec-comics [data-go-sec="comics"],body.nosec-comics .nav [data-sec="comics"],body.nosec-comics .mobnav [data-sec="comics"]{display:none!important}
+body.nosec-rpg [data-go-sec="rpg"],body.nosec-rpg .nav [data-sec="rpg"],body.nosec-rpg .mobnav [data-sec="rpg"]{display:none!important}
+body.nosec-wiki [data-go-sec="wiki"],body.nosec-wiki .nav [data-sec="wiki"],body.nosec-wiki .mobnav [data-sec="wiki"]{display:none!important}
+body.nosec-game [data-go-sec="game"],body.nosec-game .nav [data-sec="game"],body.nosec-game .mobnav [data-sec="game"]{display:none!important}
 
 body.nogame [data-go-sec="game"]{display:none!important}
 body.nosec-hotg [data-go-sec="hotg"],body.nosec-hotg .nav [data-sec="hotg"],body.nosec-hotg .mobnav [data-sec="hotg"]{display:none!important}
@@ -1267,6 +1307,7 @@ function crMount(host,c0,opts={}){
       <div class="cr-tools">
         <button class="cr-b cr-tx" data-cr="chars" title="Characters tagged in this issue">${ico('eye')}<span>Characters</span></button>
         ${opts.pass?`<button class="cr-b cr-tx cr-tagb" data-cr="tagmode" title="Tag characters on the pages">${ico('plus')}<span>Tag</span></button>`:''}
+        <button class="cr-b cr-tx cr-pnb" data-cr="panels" title="Panel by panel (or double tap a panel)">${ico('grid-s')}<span>Panels</span></button>
         <button class="cr-b cr-tx" data-cr="pages" aria-label="All pages" title="All pages">${ico('grid')}<span>Pages</span></button>
         <button class="cr-b cr-tx" data-cr="two" title="One page or two side by side"><i class="cr-ic2"></i><span class="cr-twl"></span></button>
         <button class="cr-b cr-tx" data-cr="fit" title="Fit the whole page, or the page width"><span class="cr-fitl"></span></button>
@@ -1291,7 +1332,7 @@ function crMount(host,c0,opts={}){
   const root=host.querySelector('.cr'), stage=root.querySelector('.cr-stage'), view=root.querySelector('.cr-view'), msg=root.querySelector('.cr-msg'),
     rng=root.querySelector('.cr-rng'), pn=root.querySelector('.cr-pn'), of=root.querySelector('.cr-of'), grid=root.querySelector('.cr-grid'), gl=root.querySelector('.cr-gl'),
     end=root.querySelector('.cr-end'), note=root.querySelector('.cr-note'), chars=root.querySelector('.cr-chars'), tf=root.querySelector('.cr-tf');
-  const R={c:c0, pages:[], spreads:[], tags:[], tagMode:false, at:0, z:1, tx:0, ty:0, alive:true, hideT:0, noteT:0, saveT:0, rtl:false, key:0};
+  const R={pkey:0, c:c0, pages:[], spreads:[], tags:[], tagMode:false, panel:null, at:0, z:1, tx:0, ty:0, alive:true, hideT:0, noteT:0, saveT:0, rtl:false, key:0};
   const dpr=()=>Math.min(2.5,window.devicePixelRatio||1);
   const two=()=>set.two==='2'||(set.two==='auto'&&stage.clientWidth>=900&&stage.clientWidth>stage.clientHeight*1.15);
   const save=()=>store.set('cr-set',set);
@@ -1300,7 +1341,7 @@ function crMount(host,c0,opts={}){
     root.querySelector('.cr-fitl').textContent=set.fit==='width'?'Fit width':'Fit page';
     root.querySelector('.cr-dirl').textContent=R.rtl?'Right to left':'Left to right';
     root.classList.toggle('rtl',R.rtl); root.classList.toggle('fitw',set.fit==='width'); root.classList.toggle('tagall',!!set.tags); root.classList.toggle('tagging',R.tagMode);
-    const tb=root.querySelector('.cr-tagb'); if(tb) tb.classList.toggle('on',R.tagMode); }
+    const tb=root.querySelector('.cr-tagb'); if(tb) tb.classList.toggle('on',R.tagMode); root.classList.toggle('pmode',!!R.panel); root.querySelector('.cr-pnb').classList.toggle('on',!!R.panel); }
   const say=(t,spin=true,extra='')=>{ msg.hidden=false; msg.innerHTML=`<div>${spin?'<div class="cr-spin"></div>':''}<p>${t}</p>${extra}</div>`; };
 
   /** Pages paired into spreads: the cover alone, then two at a time; a wide (already double) page always stands alone. */
@@ -1313,15 +1354,15 @@ function crMount(host,c0,opts={}){
   /** Sizes the spread to the screen (or the screen width) and shows its pages, sharpest picture last. */
   function show(keepZoom){ if(!R.spreads.length) return; const s=R.spreads[R.at], W=stage.clientWidth, H=stage.clientHeight;
     const sum=s.reduce((a,i)=>a+1/R.pages[i].r,0); const pad=W<600?0:16;
-    let h=set.fit==='width'?Math.min(W-pad*2,1500)/sum:Math.min(H-pad*2,(W-pad*2)/sum); h=Math.max(80,h);
+    const fit=R.panel?'screen':set.fit; let h=fit==='width'?Math.min(W-pad*2,1500)/sum:Math.min(H-pad*2,(W-pad*2)/sum); h=Math.max(80,h);
     if(!keepZoom){ R.z=1; R.tx=0; R.ty=0; }
     const order=R.rtl?[...s].reverse():s;
     const key=++R.key;
     view.innerHTML=order.map(i=>{ const p=R.pages[i], w=Math.round(h/p.r); const low=CR_WARM.has(crImg(p.id,400))?crImg(p.id,400):'';
       return `<div class="cr-pg" data-i="${i}" style="width:${w}px;height:${Math.round(h)}px;${low?`background-image:url('${low}')`:''}"></div>`; }).join('');
     view.style.width=Math.round(sum*h)+'px'; view.style.height=Math.round(h)+'px';
-    stage.classList.toggle('tall',set.fit==='width'&&h>H); if(!keepZoom) stage.scrollTop=0;
-    paintTags(); sharpen(key); apply(); paintCount(); preload(); remember(); }
+    stage.classList.toggle('tall',fit==='width'&&h>H); if(!keepZoom) stage.scrollTop=0;
+    paintTags(); sharpen(key); apply(); paintCount(); preload(); remember(); if(R.panel&&s.includes(R.panel.i)) focusPanel(); }
   function sharpen(key){ const need=bucket(Math.max(...[...view.children].map(el=>el.clientWidth))*dpr()*R.z);
     view.querySelectorAll('.cr-pg').forEach(el=>{ const p=R.pages[+el.dataset.i]; const url=crImg(p.id,need); const cur=el.querySelector('img');
       if(cur&&cur.dataset.w>=need) return;
@@ -1338,9 +1379,9 @@ function crMount(host,c0,opts={}){
       if(R.at===R.spreads.length-1) crMarkRead(R.c.id); },400); }
   function go(k){ if(!R.spreads.length) return; if(!end.hidden){ end.hidden=true; if(k>=R.spreads.length) return; }
     if(k>=R.spreads.length){ return showEnd(); } k=Math.max(0,Math.min(R.spreads.length-1,k)); if(k===R.at&&view.children.length) return; R.at=k; show(); }
-  const next=()=>{ if(set.fit==='width'&&R.z===1&&stage.scrollTop+stage.clientHeight<stage.scrollHeight-8){ stage.scrollBy({top:stage.clientHeight*.85,behavior:'smooth'}); return; } go(R.at+1); };
-  const prev=()=>{ if(!end.hidden){ end.hidden=true; return; } go(R.at-1); };
-  const gotoPage=p=>go(spreadOf(Math.max(0,Math.min(R.pages.length-1,p))));
+  const next=()=>{ if(R.panel) return nextPanel(); if(set.fit==='width'&&R.z===1&&stage.scrollTop+stage.clientHeight<stage.scrollHeight-8){ stage.scrollBy({top:stage.clientHeight*.85,behavior:'smooth'}); return; } go(R.at+1); };
+  const prev=()=>{ if(!end.hidden){ end.hidden=true; return; } if(R.panel) return prevPanel(); go(R.at-1); };
+  const gotoPage=p=>{ if(R.panel) return toPanel(Math.max(0,Math.min(R.pages.length-1,p)),0); go(spreadOf(Math.max(0,Math.min(R.pages.length-1,p)))); };
 
   /* ---- character tags: hover a spot to see who it is; the admin taps a page in Tag mode to add one ---- */
   function paintTags(){ view.querySelectorAll('.cr-pg').forEach(el=>{ el.querySelectorAll('.cr-tag').forEach(x=>x.remove()); const i=+el.dataset.i;
@@ -1371,7 +1412,7 @@ function crMount(host,c0,opts={}){
   function tagTap(el,x,y){ const t=R.tags.find(z=>z.id===el.dataset.tag); if(!t) return;
     if(R.tagMode) return tagForm(t,x,y);
     const on=!el.classList.contains('show'); view.querySelectorAll('.cr-tag.show').forEach(z=>z.classList.remove('show')); el.classList.toggle('show',on); }
-  function setTagMode(on){ R.tagMode=on; closeTf(); paintTools();
+  function setTagMode(on){ if(on&&R.panel) exitPanels(); R.tagMode=on; closeTf(); paintTools();
     if(on){ note.innerHTML='<span>Tag mode: tap a character on the page to name them. Tap a tag to rename or delete it. Turn pages with the arrows.</span><button class="cr-b cr-tx" data-cr="tagmode">Done</button>'; note.hidden=false; clearTimeout(R.noteT); }
     else note.hidden=true; }
   function paintChars(){ const box=root.querySelector('.cr-cl'); if(chars.hidden||!box) return; const by=new Map();
@@ -1381,10 +1422,38 @@ function crMount(host,c0,opts={}){
       :`<p class="cr-empty">No characters are tagged in this issue yet.${opts.pass?' Use <b>Tag</b> to add them.':''}</p>`)
       +`<p class="cr-chf"><button class="cr-b cr-tx" data-cr="tagvis">${set.tags?'Hide':'Show'} name labels on the pages</button></p>`; }
 
+  /* ---- panel by panel: the view zooms onto one panel at a time; turning moves to the next panel, then the next page ---- */
+  let pmask=null;
+  /** Zooms the view onto the current panel and darkens the rest of the page around it. */
+  function focusPanel(){ const P=R.panel; if(!P) return; const el=view.querySelector(`.cr-pg[data-i="${P.i}"]`); const b=P.list[P.k]; if(!el||!b) return;
+    const pw=el.offsetWidth, ph=el.offsetHeight, x=el.offsetLeft+b[0]*pw, y=el.offsetTop+b[1]*ph, w=b[2]*pw, h=b[3]*ph;
+    const W=stage.clientWidth, H=stage.clientHeight, m=W<600?10:28;
+    const z=Math.max(1,Math.min(6,(W-m*2)/w,(H-m*2)/h)); const vw=view.offsetWidth, vh=view.offsetHeight;
+    R.z=z; R.tx=-(x+w/2-vw/2)*z; R.ty=-(y+h/2-vh/2)*z; apply();
+    if(!pmask||!view.contains(pmask)){ pmask=document.createElement('i'); pmask.className='cr-pmask'; view.appendChild(pmask); }
+    Object.assign(pmask.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
+    pn.textContent=`Page ${P.i+1} · panel ${P.k+1} of ${P.list.length}`; clearTimeout(R.zT); R.zT=setTimeout(()=>sharpen(R.key),220); }
+  /** Opens page i in panel mode at panel k (−1 = the last panel). */
+  async function toPanel(i,k,at){ if(i<0||i>=R.pages.length) return; const want=++R.pkey;
+    const list=await crPanels(R.pages[i],R.rtl); if(want!==R.pkey||!R.alive) return;
+    if(typeof at==='function') k=at(list);
+    R.panel={i,k:k<0?list.length-1:Math.min(k,list.length-1),list}; paintTools();
+    const sp=spreadOf(i); if(sp!==R.at){ R.at=sp; show(); } else { if(!view.contains(pmask)) pmask=null; focusPanel(); } showUi(); }
+  function nextPanel(){ const P=R.panel; if(P.k+1<P.list.length){ P.k++; return focusPanel(); } if(P.i+1<R.pages.length) return toPanel(P.i+1,0); exitPanels(); showEnd(); }
+  function prevPanel(){ const P=R.panel; if(P.k>0){ P.k--; return focusPanel(); } if(P.i>0) return toPanel(P.i-1,-1); }
+  function exitPanels(){ if(!R.panel) return; R.pkey++; R.panel=null; if(pmask){ pmask.remove(); pmask=null; } R.z=1; apply(); paintTools(); show(true); }
+  /** Double tap: the panel under the finger (screen point x, y), if the page has more than one; null otherwise. */
+  async function panelAt(x,y){ const hit=document.elementFromPoint(x,y), pg=hit&&hit.closest?hit.closest('.cr-pg'):null; if(!pg||!view.contains(pg)) return false;
+    const i=+pg.dataset.i, b=pg.getBoundingClientRect(), fx=(x-b.left)/b.width, fy=(y-b.top)/b.height;
+    const list=await crPanels(R.pages[i],R.rtl); if(list.length<2) return false;
+    let k=list.findIndex(p=>fx>=p[0]&&fx<=p[0]+p[2]&&fy>=p[1]&&fy<=p[1]+p[3]);
+    if(k<0){ let best=1e9; list.forEach((p,j)=>{ const dx=Math.max(p[0]-fx,0,fx-p[0]-p[2]), dy=Math.max(p[1]-fy,0,fy-p[1]-p[3]), dd=dx*dx+dy*dy; if(dd<best){ best=dd; k=j; } }); }
+    await toPanel(i,k); return true; }
+
   /* ---- zoom and pan ---- */
   function clamp(){ const W=stage.clientWidth, H=stage.clientHeight, cw=view.offsetWidth*R.z, ch=view.offsetHeight*R.z;
     const mx=Math.max(0,(cw-W)/2+8), my=Math.max(0,(ch-H)/2+8); R.tx=Math.max(-mx,Math.min(mx,R.tx)); R.ty=Math.max(-my,Math.min(my,R.ty)); }
-  function apply(){ if(R.z<=1.01){ R.z=1; R.tx=0; R.ty=0; } else clamp(); view.style.transform=R.z===1?'':`translate(${R.tx}px,${R.ty}px) scale(${R.z})`; root.classList.toggle('zoomed',R.z>1); }
+  function apply(){ if(R.panel){ view.style.transform=`translate(${R.tx}px,${R.ty}px) scale(${R.z})`; root.classList.toggle('zoomed',R.z>1); return; } if(R.z<=1.01){ R.z=1; R.tx=0; R.ty=0; } else clamp(); view.style.transform=R.z===1?'':`translate(${R.tx}px,${R.ty}px) scale(${R.z})`; root.classList.toggle('zoomed',R.z>1); }
   /** Zoom to z keeping the point (x, y) on screen where it is. */
   function zoomAt(z,x,y){ const r=stage.getBoundingClientRect(); const cx=x-(r.left+r.width/2), cy=y-(r.top+r.height/2);
     z=Math.max(1,Math.min(5,z)); R.tx=cx-(cx-R.tx)*(z/R.z); R.ty=cy-(cy-R.ty)*(z/R.z); R.z=z; apply(); clearTimeout(R.zT); R.zT=setTimeout(()=>sharpen(R.key),180); }
@@ -1397,14 +1466,14 @@ function crMount(host,c0,opts={}){
   stage.addEventListener('pointermove',e=>{ if(!P.has(e.pointerId)||!g) return; P.set(e.pointerId,{x:e.clientX,y:e.clientY});
     if(g.pinch&&P.size===2){ root.classList.add('drag'); const [a,b]=[...P.values()]; const d=Math.hypot(a.x-b.x,a.y-b.y); if(g.d>10) zoomAt(g.z*d/g.d,g.mx,g.my); return; }
     const dx=e.clientX-g.x, dy=e.clientY-g.y; if(Math.abs(dx)+Math.abs(dy)>8){ g.moved=true; root.classList.add('drag'); }
-    if(R.z>1&&g.moved){ R.tx=g.tx+dx; R.ty=g.ty+dy; apply(); }
+    if(R.z>1&&g.moved&&!R.panel){ R.tx=g.tx+dx; R.ty=g.ty+dy; apply(); }
     else if(g.moved&&e.pointerType!=='mouse'&&Math.abs(dx)>Math.abs(dy)) view.style.transform=`translateX(${dx*.35}px)`; });
   const up=e=>{ if(!P.has(e.pointerId)) return; P.delete(e.pointerId); root.classList.remove('drag'); if(!g) return;
     if(g.pinch){ if(!P.size) g=null; return; }
     const dx=e.clientX-g.x, dy=e.clientY-g.y, dt=Date.now()-g.t, was=g; g=null;
-    if(R.z===1) view.style.transform='';
+    if(R.z===1&&!R.panel) view.style.transform='';
     if(e.type==='pointercancel') return;
-    if(was.moved){ if(R.z===1&&Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.2&&dt<900) ((dx<0)!==R.rtl?next:prev)(); return; }
+    if(was.moved){ if((R.z===1||R.panel)&&Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.2&&dt<900) ((dx<0)!==R.rtl?next:prev)(); return; }
     const hit=document.elementFromPoint(e.clientX,e.clientY), tg=hit&&hit.closest?hit.closest('.cr-tag[data-tag]'):null;
     if(tg&&view.contains(tg)) return tagTap(tg,e.clientX,e.clientY);
     if(R.tagMode){ const pg=hit&&hit.closest?hit.closest('.cr-pg'):null; if(!pg||!view.contains(pg)) return;
@@ -1412,12 +1481,12 @@ function crMount(host,c0,opts={}){
     tap(e.clientX,e.clientY,e.pointerType); };
   stage.addEventListener('pointerup',up); stage.addEventListener('pointercancel',up);
   /** Edges turn the page; the middle shows or hides the bars, and a double tap there zooms. */
-  function tap(x,y,type){ const r=stage.getBoundingClientRect(), fx=(x-r.left)/r.width; const edge=R.z===1?(fx<.28?'l':fx>.72?'r':''):'';
+  function tap(x,y,type){ const r=stage.getBoundingClientRect(), fx=(x-r.left)/r.width; const edge=R.z===1||R.panel?(fx<.28?'l':fx>.72?'r':''):'';
     if(edge){ clearTimeout(tapT); lastTap=0; ((edge==='r')!==R.rtl?next:prev)(); return; }
     const now=Date.now();
-    if(now-lastTap<320){ clearTimeout(tapT); lastTap=0; if(R.z>1){ R.z=1; apply(); } else zoomAt(2.5,x,y); return; }
+    if(now-lastTap<320){ clearTimeout(tapT); lastTap=0; if(R.panel){ exitPanels(); return; } if(R.z>1){ R.z=1; apply(); return; } panelAt(x,y).then(ok=>{ if(!ok) zoomAt(2.5,x,y); }); return; }
     lastTap=now; clearTimeout(tapT); tapT=setTimeout(()=>{ lastTap=0; toggleUi(); },type==='mouse'?260:300); }
-  stage.addEventListener('wheel',e=>{ if(e.ctrlKey||R.z>1){ e.preventDefault(); if(e.ctrlKey) zoomAt(R.z*Math.exp(-e.deltaY*.01),e.clientX,e.clientY); else { R.tx-=e.deltaX; R.ty-=e.deltaY; apply(); } } },{passive:false});
+  stage.addEventListener('wheel',e=>{ if(R.panel){ if(e.ctrlKey){ e.preventDefault(); exitPanels(); } return; } if(e.ctrlKey||R.z>1){ e.preventDefault(); if(e.ctrlKey) zoomAt(R.z*Math.exp(-e.deltaY*.01),e.clientX,e.clientY); else { R.tx-=e.deltaX; R.ty-=e.deltaY; apply(); } } },{passive:false});
 
   /* ---- bars ---- */
   const fine=()=>!!(window.matchMedia&&matchMedia('(pointer:fine)').matches);
@@ -1435,7 +1504,7 @@ function crMount(host,c0,opts={}){
       ${tnx?`<button class="cr-nx" data-cr="nextissue" data-id="${tnx.id}">${crCoverId(tnx)?`<img src="${esc(crCover(tnx,400))}" alt="" referrerpolicy="no-referrer">`:''}<span><small>Next in the reading order</small><b>${esc(crName(tnx))}</b></span>${ico('right')}</button>`:''}
       <div class="cr-endb"><button class="cr-b cr-tx" data-cr="again">Read it again</button><button class="cr-b cr-tx" data-cr="close">${opts.closeLabel||'Back to the series'}</button></div></div>`;
     end.hidden=false; showUi(); end.dataset.next=nx?nx.id:''; }
-  async function load(c,page){ R.c=c; end.hidden=true; grid.hidden=true; chars.hidden=true; R.tags=[]; view.innerHTML=''; R.pages=[]; R.spreads=[];
+  async function load(c,page){ if(R.panel){ R.pkey++; R.panel=null; pmask=null; R.z=1; } R.c=c; end.hidden=true; grid.hidden=true; chars.hidden=true; R.tags=[]; view.innerHTML=''; R.pages=[]; R.spreads=[];
     const sr=crSeries(c.s); root.querySelector('.cr-se').textContent=sr?sr.name:''; root.querySelector('.cr-ti').textContent=crName(c);
     R.rtl=!!store.get('cr-rtl-'+c.s,false); paintTools(); say('Opening the comic…');
     try{ const r=await crLoadPages(c,opts.pass); if(!R.alive||R.c!==c) return;
@@ -1464,6 +1533,7 @@ function crMount(host,c0,opts={}){
     if(a==='start'){ note.hidden=true; return go(0); }
     if(a==='again'){ end.hidden=true; R.at=-1; return go(0); }
     if(a==='retry'){ delete CR_CACHE[R.c.id]; return load(R.c); }
+    if(a==='panels'){ grid.hidden=true; chars.hidden=true; if(R.panel) return exitPanels(); if(R.tagMode) setTagMode(false); return toPanel((R.spreads[R.at]||[0])[0],0); }
     if(a==='chars'){ grid.hidden=true; chars.hidden=!chars.hidden; return paintChars(); }
     if(a==='tagvis'){ set.tags=!set.tags; save(); paintTools(); return paintChars(); }
     if(a==='tagmode'){ chars.hidden=true; grid.hidden=true; return setTagMode(!R.tagMode); }
@@ -1473,13 +1543,13 @@ function crMount(host,c0,opts={}){
   /** Keys: arrows / Page Up / Page Down / Space turn pages, Home / End, + and − zoom, 0 resets, F full screen, Escape closes. */
   const key=e=>{ if(e.target&&e.target.matches&&e.target.matches('input:not([type=range]),textarea,select')) return false;
     const k=e.key, fwd=R.rtl?'ArrowLeft':'ArrowRight', back=R.rtl?'ArrowRight':'ArrowLeft';
-    if(k==='Escape'){ if(!tf.hidden){ closeTf(); return true; } if(!chars.hidden){ chars.hidden=true; return true; } if(R.tagMode){ setTagMode(false); return true; } if(!grid.hidden){ grid.hidden=true; return true; } if(R.z>1){ R.z=1; apply(); return true; } if(!end.hidden){ end.hidden=true; return true; } if(root.classList.contains('fs')){ root.classList.remove('fs'); return true; } opts.onClose&&opts.onClose(); return true; }
-    if(R.z>1&&(k==='ArrowLeft'||k==='ArrowRight'||k==='ArrowUp'||k==='ArrowDown')){ const d=60; if(k==='ArrowLeft') R.tx+=d; if(k==='ArrowRight') R.tx-=d; if(k==='ArrowUp') R.ty+=d; if(k==='ArrowDown') R.ty-=d; apply(); return true; }
+    if(k==='Escape'){ if(!tf.hidden){ closeTf(); return true; } if(!chars.hidden){ chars.hidden=true; return true; } if(R.tagMode){ setTagMode(false); return true; } if(R.panel){ exitPanels(); return true; } if(!grid.hidden){ grid.hidden=true; return true; } if(R.z>1){ R.z=1; apply(); return true; } if(!end.hidden){ end.hidden=true; return true; } if(root.classList.contains('fs')){ root.classList.remove('fs'); return true; } opts.onClose&&opts.onClose(); return true; }
+    if(R.z>1&&!R.panel&&(k==='ArrowLeft'||k==='ArrowRight'||k==='ArrowUp'||k==='ArrowDown')){ const d=60; if(k==='ArrowLeft') R.tx+=d; if(k==='ArrowRight') R.tx-=d; if(k==='ArrowUp') R.ty+=d; if(k==='ArrowDown') R.ty-=d; apply(); return true; }
     if(k===fwd||k==='PageDown'||(k===' '&&!e.shiftKey)){ next(); return true; } if(k===back||k==='PageUp'||(k===' '&&e.shiftKey)){ prev(); return true; }
     if(k==='Home'){ go(0); return true; } if(k==='End'){ go(R.spreads.length-1); return true; }
     if(k==='+'||k==='='){ const r=stage.getBoundingClientRect(); zoomAt(R.z*1.4,r.left+r.width/2,r.top+r.height/2); return true; }
     if(k==='-'){ const r=stage.getBoundingClientRect(); zoomAt(R.z/1.4,r.left+r.width/2,r.top+r.height/2); return true; }
-    if(k==='0'){ R.z=1; apply(); return true; } if(k==='f'||k==='F'){ full(); return true; } return false; };
+    if(k==='0'){ if(R.panel) exitPanels(); else { R.z=1; apply(); } return true; } if(k==='p'||k==='P'){ R.panel?exitPanels():toPanel((R.spreads[R.at]||[0])[0],0); return true; } if(k==='f'||k==='F'){ full(); return true; } return false; };
   const onKey=e=>{ if(!R.alive||!root.isConnected) return; if(key(e)){ e.preventDefault(); e.stopPropagation(); showUi(); } };
   document.addEventListener('keydown',onKey,true);
   let rT=0; const ro=window.ResizeObserver?new ResizeObserver(()=>{ clearTimeout(rT); rT=setTimeout(()=>{ if(!R.alive) return; const was=R.spreads.length; paintTools(); const s2=makeSpreads(); if(s2.length!==was) relayout(); else show(true); },120); }):null; ro&&ro.observe(stage);
@@ -1487,6 +1557,91 @@ function crMount(host,c0,opts={}){
   return { root, destroy(){ R.alive=false; clearTimeout(R.hideT); clearTimeout(R.saveT); clearTimeout(R.noteT); clearTimeout(tapT); document.removeEventListener('keydown',onKey,true); ro&&ro.disconnect();
       const s=R.spreads[R.at]; if(s&&end.hidden) crSaveAt(R.c.id,s[0]); host.innerHTML=''; }, get comic(){ return R.c; } };
 }
+/* ===================== Panel detection: finds the panels on a comic page ===================== */
+/* The page is drawn small on a canvas and split into ink (art, borders, lettering) and gutter (the page colour between
+   panels: white, or the colour around the page's edge). The gutter is widened a little so thin links between panels
+   (a balloon tail, a sound effect) break, then each connected patch of ink is a panel candidate. Small patches (page
+   numbers, captions in the margin) are dropped, patches inside others are merged, and the rest are put in reading
+   order: rows top to bottom, then left to right (right to left for manga). A page with no clear gutters, a splash
+   page or art printed to every edge, comes back as one panel: the whole page. Results are [[x, y, w, h], …] as fractions. */
+const CR_PN={};
+function crPanels(p,rtl){ const key=p.id+(rtl?':r':''); if(CR_PN[key]) return CR_PN[key];
+  return CR_PN[key]=new Promise(res=>{ const im=new Image(); im.crossOrigin='anonymous'; im.decoding='async';
+    im.onload=()=>{ let r; try{ r=crDetectPanels(im,rtl); }catch(e){ r=null; } res(r&&r.length?r:[[0,0,1,1]]); }; im.onerror=()=>res([[0,0,1,1]]);
+    im.src=(window.CR_PANEL_URL||crImg)(p.id,720); }); }
+function crDetectPanels(im,rtl){
+  const W=Math.min(720,im.naturalWidth||720), H=Math.max(1,Math.round((im.naturalHeight||1100)*W/(im.naturalWidth||720)));
+  const cv=document.createElement('canvas'); cv.width=W; cv.height=H; const cx=cv.getContext('2d',{willReadFrequently:true}); cx.drawImage(im,0,0,W,H);
+  const d=cx.getImageData(0,0,W,H).data;
+  const ring=[]; const take=(x,y)=>{ const i=(y*W+x)*4; ring.push([d[i],d[i+1],d[i+2]]); };
+  for(let x=1;x<W-1;x++){ take(x,1); take(x,H-2); } for(let y=1;y<H-1;y++){ take(1,y); take(W-2,y); }
+  const med=k=>{ const a=ring.map(c=>c[k]).sort((p,q)=>p-q); return a[a.length>>1]; }; const bg=[med(0),med(1),med(2)];
+  const close=(c,b)=>Math.max(Math.abs(c[0]-b[0]),Math.abs(c[1]-b[1]),Math.abs(c[2]-b[2]))<40;
+  const cands=[[255,255,255],[0,0,0]]; if(ring.filter(c=>close(c,bg)).length/ring.length>=.4&&!cands.some(c=>close(c,bg))) cands.unshift(bg);
+    const cover=r=>r.reduce((t,b)=>t+b[2]*b[3],0);
+  let best=null; for(const c of cands) for(const f of [crPanelBoxes,crPanelCuts]){ const r=f(d,W,H,c,rtl); if(r.length<2||cover(r)<.5) continue;
+    if(!best||r.length>best.length) best=r; }
+  if(!best) return best;
+  // drop a box that sits mostly inside a bigger one (a figure or balloon cut out of its own panel)
+  const inter=(a,b)=>Math.max(0,Math.min(a[0]+a[2],b[0]+b[2])-Math.max(a[0],b[0]))*Math.max(0,Math.min(a[1]+a[3],b[1]+b[3])-Math.max(a[1],b[1]));
+  best=best.filter((a,i)=>!best.some((b,j)=>j!==i&&b[2]*b[3]>a[2]*a[3]&&inter(a,b)>a[2]*a[3]*.6));
+  return best.length>1?best:null; }
+/** Recursive X-Y cut: splits along rows, then columns, that are nearly all gutter colour, inside each piece in turn. */
+function crPanelCuts(d,W,H,bg,rtl,box){
+  // ink, then two copies where a pixel counts as ink only if the next few pixels down (for row cuts) or across (for
+  // column cuts) are ink too, so a gutter that steps up or down by a pixel or two along its length still reads as one line
+  const N=W*H, ink=new Uint8Array(N); for(let i=0;i<N;i++){ const j=i*4; ink[i]=Math.max(Math.abs(d[j]-bg[0]),Math.abs(d[j+1]-bg[1]),Math.abs(d[j+2]-bg[2]))>55?1:0; }
+  const B=4, SH=new Int32Array((W+1)*(H+1)), SV=new Int32Array((W+1)*(H+1));
+  for(let y=0;y<H;y++){ let rh=0, rv=0; for(let x=0;x<W;x++){ let h=1, v=1; for(let k=0;k<B;k++){ if(y+k<H&&!ink[(y+k)*W+x]) h=0; if(x+k<W&&!ink[y*W+x+k]) v=0; }
+      rh+=h; rv+=v; SH[(y+1)*(W+1)+x+1]=SH[y*(W+1)+x+1]+rh; SV[(y+1)*(W+1)+x+1]=SV[y*(W+1)+x+1]+rv; } }
+  const sumT=(T,x0,y0,x1,y1)=>T[y1*(W+1)+x1]-T[y0*(W+1)+x1]-T[y1*(W+1)+x0]+T[y0*(W+1)+x0];
+  const S=SH, sum=(x0,y0,x1,y1)=>sumT(SH,x0,y0,x1,y1);
+  const gapMin=1, tol=.1, minW=W*.08, minH=H*.05;
+  function trim(b){ let [x0,y0,x1,y1]=b; const ri=y=>sum(x0,y,x1,y+1)>(x1-x0)*tol, ci=x=>sum(x,y0,x+1,y1)>(y1-y0)*tol;
+    while(y0<y1&&!ri(y0)) y0++; while(y1>y0&&!ri(y1-1)) y1--; while(x0<x1&&!ci(x0)) x0++; while(x1>x0&&!ci(x1-1)) x1--; return [x0,y0,x1,y1]; }
+  function gaps(b,horiz){ const [x0,y0,x1,y1]=b; const n=horiz?y1-y0:x1-x0, len=horiz?x1-x0:y1-y0; const cs=[]; let run=0;
+    for(let k=0;k<n;k++){ const v=horiz?sumT(SH,x0,y0+k,x1,y0+k+1):sumT(SV,x0+k,y0,x0+k+1,y1); if(v<=len*tol) run++; else { if(run>=gapMin&&k-run>0) cs.push((horiz?y0:x0)+k-Math.ceil(run/2)); run=0; } } return cs; }
+  function cut(b,depth){ b=trim(b); const [x0,y0,x1,y1]=b; if(x1-x0<minW||y1-y0<minH) return []; if(depth>8) return [b];
+    for(const horiz of [true,false]){ const cs=gaps(b,horiz); if(!cs.length) continue; const ed=[horiz?y0:x0,...cs,horiz?y1:x1]; let parts=[];
+      for(let k=0;k<ed.length-1;k++) parts.push(horiz?[x0,ed[k],x1,ed[k+1]]:[ed[k],y0,ed[k+1],y1]); if(!horiz&&rtl) parts.reverse();
+      const out=parts.flatMap(q=>cut(q,depth+1)); if(out.length>1) return out; }
+    return [b]; }
+  const l=cut(box||[0,0,W,H],0).filter(([x0,y0,x1,y1])=>(x1-x0)*(y1-y0)>W*H*.015); const pad=Math.round(W*.006);
+  return l.map(([x0,y0,x1,y1])=>{ x0=Math.max(0,x0-pad); y0=Math.max(0,y0-pad); x1=Math.min(W,x1+pad); y1=Math.min(H,y1+pad); return [x0/W,y0/H,(x1-x0)/W,(y1-y0)/H]; }); }
+function crPanelBoxes(d,W,H,bg,rtl){
+  const N=W*H, ink=new Uint8Array(N);
+  for(let i=0;i<N;i++){ const j=i*4; ink[i]=Math.max(Math.abs(d[j]-bg[0]),Math.abs(d[j+1]-bg[1]),Math.abs(d[j+2]-bg[2]))>40?1:0; }
+  // widen the gutters: a pixel stays ink only if every pixel within r of it is ink (erosion, done as two 1-D passes)
+  const r=3, a=new Uint8Array(N), e=new Uint8Array(N);
+  for(let y=0;y<H;y++){ let run=0; for(let x=0;x<W;x++){ run=ink[y*W+x]?run+1:0; } }
+  for(let y=0;y<H;y++) for(let x=0;x<W;x++){ let ok=1; for(let k=-r;k<=r&&ok;k++){ const xx=x+k; if(xx>=0&&xx<W&&!ink[y*W+xx]) ok=0; } a[y*W+x]=ok; }
+  for(let y=0;y<H;y++) for(let x=0;x<W;x++){ let ok=1; for(let k=-r;k<=r&&ok;k++){ const yy=y+k; if(yy>=0&&yy<H&&!a[yy*W+x]) ok=0; } e[y*W+x]=ok; }
+  // connected patches of ink, with their bounding boxes
+  const lab=new Int32Array(N), boxes=[], st=new Int32Array(N);
+  for(let i=0;i<N;i++){ if(!e[i]||lab[i]) continue; const id=boxes.length+1; let sp=0, x0=W, y0=H, x1=0, y1=0, n=0; st[sp++]=i; lab[i]=id;
+    while(sp){ const p=st[--sp], x=p%W, y=(p/W)|0; n++; if(x<x0)x0=x; if(x>x1)x1=x; if(y<y0)y0=y; if(y>y1)y1=y;
+      if(x>0&&e[p-1]&&!lab[p-1]){ lab[p-1]=id; st[sp++]=p-1; } if(x<W-1&&e[p+1]&&!lab[p+1]){ lab[p+1]=id; st[sp++]=p+1; }
+      if(y>0&&e[p-W]&&!lab[p-W]){ lab[p-W]=id; st[sp++]=p-W; } if(y<H-1&&e[p+W]&&!lab[p+W]){ lab[p+W]=id; st[sp++]=p+W; } }
+    boxes.push({x0:x0-r,y0:y0-r,x1:x1+r+1,y1:y1+r+1,n}); }
+  const area=b=>(b.x1-b.x0)*(b.y1-b.y0);
+  let l=boxes.filter(b=>area(b)>N*.015&&b.x1-b.x0>W*.08&&b.y1-b.y0>H*.05&&b.n>area(b)*.45);
+  // merge boxes that mostly overlap (a figure breaking out of its panel, a balloon over a border)
+  const ov=(p,q)=>Math.max(0,Math.min(p.x1,q.x1)-Math.max(p.x0,q.x0))*Math.max(0,Math.min(p.y1,q.y1)-Math.max(p.y0,q.y0));
+  for(let again=true;again;){ again=false;
+    for(let i=0;i<l.length&&!again;i++) for(let j=i+1;j<l.length&&!again;j++){ const o=ov(l[i],l[j]); if(o>Math.min(area(l[i]),area(l[j]))*.35){
+      l[i]={x0:Math.min(l[i].x0,l[j].x0),y0:Math.min(l[i].y0,l[j].y0),x1:Math.max(l[i].x1,l[j].x1),y1:Math.max(l[i].y1,l[j].y1),n:l[i].n+l[j].n}; l.splice(j,1); again=true; } } }
+  // a box can still hold several panels joined by art that crosses the gutter: cut it along its own gutters
+  const pad0=Math.round(W*.006);
+  l=l.flatMap(b=>{ const sub=crPanelCuts(d,W,H,bg,rtl,[Math.max(0,b.x0),Math.max(0,b.y0),Math.min(W,b.x1),Math.min(H,b.y1)]);
+    return sub.length>1?sub.map(([x,y,w,h])=>({x0:Math.round(x*W)+pad0,y0:Math.round(y*H)+pad0,x1:Math.round((x+w)*W)-pad0,y1:Math.round((y+h)*H)-pad0,n:1})):[b]; });
+  if(l.length<2) return [];
+  // reading order: rows (boxes whose middles fall inside the row's first box's height), then across
+  l.sort((p,q)=>p.y0-q.y0); const rows=[];
+  l.forEach(b=>{ const m=(b.y0+b.y1)/2; const row=rows.find(rw=>m>rw.y0&&m<rw.y1&&b.y0<rw.y1-(rw.y1-rw.y0)*.3); if(row){ row.list.push(b); row.y1=Math.max(row.y1,b.y1); } else rows.push({y0:b.y0,y1:b.y1,list:[b]}); });
+  const out=[]; rows.forEach(rw=>{ rw.list.sort((p,q)=>rtl?q.x1-p.x1:p.x0-q.x0); out.push(...rw.list); });
+  const pad=Math.round(W*.006);
+  return out.map(b=>{ const x0=Math.max(0,b.x0-pad), y0=Math.max(0,b.y0-pad), x1=Math.min(W,b.x1+pad), y1=Math.min(H,b.y1+pad); return [x0/W,y0/H,(x1-x0)/W,(y1-y0)/H]; }); }
+/* ===================== end of panel detection ===================== */
 /* ===================== end of comic reader ===================== */
 
 /* ===================== Sections: the start page and the game launcher (shared by the full and phone sites) ===================== */
