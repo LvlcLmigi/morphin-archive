@@ -39,6 +39,7 @@ function setup() {
   ensureSheet_(ss, 'ComicSeries', CSER_COLS);
   ensureSheet_(ss, 'Comics', COMIC_COLS);
   ensureSheet_(ss, 'ComicTags', CTAG_COLS);
+  ensureSheet_(ss, 'Analytics', STAT_COLS);
   comicTextCols_(ss);
   const first = ss.getSheetByName('Sheet1'); if (first && ss.getSheets().length > 1) ss.deleteSheet(first);
 
@@ -119,7 +120,7 @@ const API_ = {
   savePages: savePages, clearPages: clearPages, getPages: getPages, setRangerLinks: setRangerLinks,
   saveScenario: saveScenario, deleteScenario: deleteScenario, importScenarios: importScenarios,
   saveExpansion: saveExpansion, deleteExpansion: deleteExpansion, setExpansionItems: setExpansionItems, setItemExpansions: setItemExpansions, seedExpansions: seedExpansions,
-  getComic: getComic, getComicsAdmin: getComicsAdmin, saveComicTimeline: saveComicTimeline, saveComicCovers: saveComicCovers, addComicTag: addComicTag, updateComicTag: updateComicTag, deleteComicTag: deleteComicTag, saveComicSeries: saveComicSeries, deleteComicSeries: deleteComicSeries,
+  getComic: getComic, getComicsAdmin: getComicsAdmin, saveComicTimeline: saveComicTimeline, track: track, getStats: getStats, saveComicCovers: saveComicCovers, addComicTag: addComicTag, updateComicTag: updateComicTag, deleteComicTag: deleteComicTag, saveComicSeries: saveComicSeries, deleteComicSeries: deleteComicSeries,
   startComic: startComic, saveComicPages: saveComicPages, finishComic: finishComic, updateComic: updateComic, deleteComic: deleteComic
 };
 
@@ -943,6 +944,47 @@ function saveComicCovers(comicId, pages, passcode) {
 }
 /* ============================== end of comics ============================== */
 
+/* ============================== Analytics ==============================
+   Anonymous visit counting. The site sends small batches of events: a page or section opened, a comic, card, deck, wiki
+   page or book opened. Each row: time, an anonymous visitor id (random, made in the visitor's browser), the event,
+   a label, phone/computer, and the site that sent them (referrer host). No names, addresses or IPs are kept.
+   The admin's own visits aren't counted. */
+const STAT_COLS = ['time', 'visitor', 'kind', 'what', 'label', 'device', 'ref'];
+const STAT_KINDS = { page: 1, comic: 1, card: 1, deck: 1, wiki: 1, file: 1, cover: 1, game: 1 };
+function track(events) {
+  if (!Array.isArray(events) || !events.length) return true;
+  const now = new Date().toISOString();
+  const rows = events.slice(0, 25).filter(e => e && STAT_KINDS[e.k]).map(e => [now, clean_(e.v, 20), e.k, clean_(e.w, 80), clean_(e.l, 120),
+    e.d === 'phone' ? 'phone' : 'computer', clean_(e.r, 80)]);
+  if (!rows.length) return true;
+  const sh = sheet_('Analytics'); if (!sh) return true;
+  const l = LockService.getScriptLock(); if (!l.tryLock(10000)) return true;
+  try { sh.getRange(sh.getLastRow() + 1, 1, rows.length, STAT_COLS.length).setValues(rows); } finally { l.releaseLock(); }
+  return true;
+}
+/** Totals for the admin's Stats tab, over the last `days` days. */
+function getStats(days, passcode) {
+  requireAdmin_(passcode);
+  days = Math.max(1, Math.min(365, Math.round(+days || 30)));
+  const since = Date.now() - days * 864e5;
+  const sh = sheet_('Analytics'); const v = sh.getLastRow() > 1 ? sh.getRange(2, 1, sh.getLastRow() - 1, STAT_COLS.length).getValues() : [];
+  const tz = Session.getScriptTimeZone();
+  const day = {}, dayV = {}, vis = {}, dev = {}, ref = {}, top = {}, lbl = {};
+  let n = 0;
+  v.forEach(r => { const t = r[0] instanceof Date ? r[0] : new Date(r[0]); if (!(t >= since)) return; n++;
+    const d = Utilities.formatDate(t, tz, 'yyyy-MM-dd'), id = String(r[1]), k = String(r[2]), w = String(r[3]);
+    day[d] = (day[d] || 0) + 1; (dayV[d] = dayV[d] || {})[id] = 1; vis[id] = 1;
+    if (k === 'page') { dev[r[5]] = (dev[r[5]] || 0) + 1; if (r[6]) ref[r[6]] = (ref[r[6]] || 0) + 1; }
+    const key = k + '|' + w; top[key] = (top[key] || 0) + 1; if (r[4]) lbl[key] = String(r[4]); });
+  const list = o => Object.keys(o).map(k => [k, o[k]]).sort((a, b) => b[1] - a[1]);
+  const byKind = k => list(top).filter(x => x[0].indexOf(k + '|') === 0).slice(0, 25).map(x => ({ w: x[0].slice(k.length + 1), l: lbl[x[0]] || x[0].slice(k.length + 1), n: x[1] }));
+  const daysOut = []; for (let i = days - 1; i >= 0; i--) { const d = Utilities.formatDate(new Date(Date.now() - i * 864e5), tz, 'yyyy-MM-dd'); daysOut.push([d, day[d] || 0, Object.keys(dayV[d] || {}).length]); }
+  return { days, events: n, visitors: Object.keys(vis).length, perDay: daysOut, devices: list(dev), referrers: list(ref).slice(0, 15),
+    pages: byKind('page'), comics: byKind('comic'), cards: byKind('card'), decks: byKind('deck'), wiki: byKind('wiki'), files: byKind('file'), covers: byKind('cover') };
+}
+/* ============================== end of analytics ============================== */
+
+
 function clearCache() { bust_(); Logger.log('Gallery cache cleared.'); }
 
 function getComments(cardId) {
@@ -1324,7 +1366,7 @@ function saveImage_(dataUrl, title) {
 /** Adds new sheets/columns after an update, without re-running setup(). Runs at most every 6 hours. */
 function migrate_() {
   const cache = CacheService.getScriptCache();
-  if (cache.get('schema-v15')) return;
+  if (cache.get('schema-v16')) return;
   const id = PropertiesService.getScriptProperties().getProperty('SHEET_ID'); if (!id) return;
   const ss = SpreadsheetApp.openById(id);
   ensureSheet_(ss, 'Cards', CARD_COLS);
@@ -1336,11 +1378,12 @@ function migrate_() {
   ensureSheet_(ss, 'ComicSeries', CSER_COLS);
   ensureSheet_(ss, 'Comics', COMIC_COLS);
   ensureSheet_(ss, 'ComicTags', CTAG_COLS);
+  ensureSheet_(ss, 'Analytics', STAT_COLS);
   comicTextCols_(ss);
   migrateDecks_();
   const s = getSettingsMap_();
   if (s.tagline === 'Custom Heroes of the Grid Ranger cards') setSetting_('tagline', 'Heroes of the Grid Ranger cards — official and homebrew');
-  cache.put('schema-v15', '1', 21600);
+  cache.put('schema-v16', '1', 21600);
   bust_();
 }
 

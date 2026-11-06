@@ -2267,6 +2267,15 @@ body.nogame [data-go-sec="game"]{display:none!important}
 .wk-pg{min-width:28px;text-align:center;padding:2px 7px;border-radius:6px;border:1px solid var(--line,#8885);text-decoration:none;color:inherit;font-weight:600;font-size:12.5px}
 .wk-pg:hover{border-color:var(--accent)}
 .sectog{border-collapse:collapse;margin-top:8px;width:100%;max-width:440px}.sectog th,.sectog td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line,#8883)}.sectog th{font-size:12px;font-weight:600;opacity:.75}.sectog td:not(:first-child),.sectog th:not(:first-child){text-align:center}.sectog i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:middle}
+.st-h{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.st-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.st-kpi div{border:1px solid var(--line);border-radius:12px;padding:12px}.st-kpi b{display:block;font-size:24px}.st-kpi span{color:var(--muted);font-size:13px}
+.st-box{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:12px;min-width:0}.st-box h4{margin:0 0 8px;font-size:14px}
+.st-ch{display:flex;align-items:flex-end;gap:2px;height:140px}.st-ch i{flex:1;background:color-mix(in srgb,var(--accent) 35%,transparent);border-radius:3px 3px 0 0;position:relative;display:flex;align-items:flex-end;min-width:2px}.st-ch u{display:block;width:100%;background:var(--accent);border-radius:3px 3px 0 0}
+.st-ax{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}.sw{display:inline-block;width:10px;height:10px;border-radius:2px;background:color-mix(in srgb,var(--accent) 35%,transparent);margin:0 4px 0 10px;vertical-align:-1px}.sw.v{background:var(--accent)}
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}.st-grid .st-box{margin:0}
+.st-l{margin:0;padding:0;list-style:none;font-size:13.5px}.st-l li{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px solid var(--line)}.st-l span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.st-bar{display:grid;grid-template-columns:80px 1fr 40px;gap:8px;align-items:center;font-size:13.5px;margin:4px 0}.st-bar i{height:10px;border-radius:5px;background:var(--accent)}.st-bar b{text-align:right}
+@media (max-width:700px){ .st-kpi{grid-template-columns:repeat(2,1fr)} }
 </style>
 <script>
 /* Phones that open the site inside a zoomed-out frame (a masked domain forward) lay the page out
@@ -5910,7 +5919,7 @@ function unlock(){
 }
 function openAdmin(){
   layer(`<div class="drawer" role="dialog" aria-modal="true" aria-labelledby="adh"><div class="dh"><h3 id="adh">Admin</h3><span class="sp"></span><button class="tbtn" data-close aria-label="Close">${ico('x')}</button></div>
-   <div class="tabs2" role="tablist"><button role="tab" aria-selected="true" data-tab="queue">Review queue</button><button role="tab" aria-selected="false" data-tab="settings">Site settings</button><button role="tab" aria-selected="false" data-tab="colls">Collections</button><button role="tab" aria-selected="false" data-tab="import">Import</button></div>
+   <div class="tabs2" role="tablist"><button role="tab" aria-selected="true" data-tab="queue">Review queue</button><button role="tab" aria-selected="false" data-tab="stats">Stats</button><button role="tab" aria-selected="false" data-tab="settings">Site settings</button><button role="tab" aria-selected="false" data-tab="colls">Collections</button><button role="tab" aria-selected="false" data-tab="import">Import</button></div>
    <div class="db" id="adBody"></div>
    <div class="df"><button class="btn" id="signOut">Sign out</button></div></div>`);
   $('#signOut').onclick=()=>{ S.admin=null; sess.set('gcg-pass',null); cmPublicOnly(); closeLayer(); refreshAdminUI(); render(); toast('Signed out'); };
@@ -5918,6 +5927,18 @@ function openAdmin(){
 }
 async function adminTab(tab){
   const b=$('#adBody');
+  if(tab==='stats'){ const days=+(sess.get('gcg-stdays')||30); b.innerHTML='<p class="desc">Loading visits…</p>';
+    let r; try{ r=await adminCall('getStats',days); }catch(e){ b.innerHTML='<p class="desc">The stats could not load.</p>'; return; } if(!$('#adBody')||b!==$('#adBody')) return;
+    const max=Math.max(1,...r.perDay.map(x=>x[1])), fmt=d=>{ const t=new Date(d+'T12:00'); return t.toLocaleDateString(undefined,{month:'short',day:'numeric'}); };
+    const tbl=(t,l,none)=>`<div class="st-box"><h4>${t}</h4>${l.length?`<ol class="st-l">${l.slice(0,12).map(x=>`<li><span>${esc(x.l||x[0])}</span><b>${x.n!=null?x.n:x[1]}</b></li>`).join('')}</ol>`:`<p class="desc">${none||'Nothing yet.'}</p>`}</div>`;
+    const pv=r.perDay.reduce((a,x)=>a+x[1],0), dev=r.devices.reduce((a,x)=>a+x[1],0)||1;
+    b.innerHTML=`<div class="st-h"><select class="sel" id="stDays">${[7,30,90,365].map(d=>`<option value="${d}" ${d===days?'selected':''}>Last ${d===365?'year':d+' days'}</option>`).join('')}</select><span class="desc">Your own visits while signed in aren't counted. Raw rows are in the <b>Analytics</b> tab of your Google Sheet.</span></div>
+      <div class="st-kpi"><div><b>${r.visitors}</b><span>visitors</span></div><div><b>${r.events}</b><span>things opened</span></div><div><b>${r.comics.reduce((a,x)=>a+x.n,0)}</b><span>comics opened</span></div><div><b>${r.cards.reduce((a,x)=>a+x.n,0)}</b><span>cards viewed</span></div></div>
+      <div class="st-box"><h4>Activity per day</h4><div class="st-ch">${r.perDay.map(x=>`<i title="${fmt(x[0])}: ${x[1]} opened, ${x[2]} visitor${x[2]===1?'':'s'}" style="height:${Math.max(2,x[1]/max*100)}%"><u style="height:${x[1]?x[2]/x[1]*100:0}%"></u></i>`).join('')}</div><div class="st-ax"><span>${fmt(r.perDay[0][0])}</span><span><i class="sw"></i>things opened <i class="sw v"></i>visitors</span><span>${fmt(r.perDay[r.perDay.length-1][0])}</span></div></div>
+      <div class="st-grid">${tbl('Top pages',r.pages)}${tbl('Comics opened',r.comics)}${tbl('Cards viewed',r.cards)}${tbl('Decks opened',r.decks)}${tbl('Wiki pages',r.wiki)}${tbl('Books opened',r.files)}${tbl('Covers viewed',r.covers)}
+        <div class="st-box"><h4>Devices</h4>${r.devices.length?r.devices.map(x=>`<div class="st-bar"><span>${x[0]==='phone'?'Phones':'Computers'}</span><i style="width:${x[1]/dev*100}%"></i><b>${Math.round(x[1]/dev*100)}%</b></div>`).join(''):'<p class="desc">Nothing yet.</p>'}
+        <h4 style="margin-top:14px">Came from</h4>${r.referrers.length?`<ol class="st-l">${r.referrers.map(x=>`<li><span>${esc(x[0])}</span><b>${x[1]}</b></li>`).join('')}</ol>`:'<p class="desc">No other sites yet (typed in or bookmarked).</p>'}</div></div>`;
+    $('#stDays').onchange=e=>{ sess.set('gcg-stdays',e.target.value); adminTab('stats'); }; }
   if(tab==='settings'){ const s=S.settings;
     b.innerHTML=`<div class="fl"><label for="stT">Site title</label><input class="inp" id="stT" value="${esc(s.siteTitle||'')}"></div>
     <div class="fl"><label for="stG">Tagline</label><input class="inp" id="stG" value="${esc(s.tagline||'')}"></div>
@@ -6423,6 +6444,38 @@ function finishBoot(){
   }
   finishBoot();
 })();
+
+/* ===================== Analytics: anonymous visit counting (shared by the full and phone sites) ===================== */
+const TRK={q:[],t:0,last:''};
+const trkVisitor=()=>{ try{ let v=localStorage.getItem('gcg-vid'); if(!v){ v=Math.random().toString(36).slice(2,12); localStorage.setItem('gcg-vid',v); } return v; }catch(e){ return 'anon'; } };
+const trkDevice=()=>window.matchMedia&&matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<760?'phone':'computer';
+const trkRef=(()=>{ try{ const h=document.referrer?new URL(document.referrer).hostname:''; return h&&h!==location.hostname?h:''; }catch(e){ return ''; } })();
+/** Counts one event: k = page | comic | card | deck | wiki | file | cover | game, w = id, l = a readable label. The admin isn't counted. */
+function trk(k,w,l){ try{ if(typeof IS_LIVE!=='undefined'&&!IS_LIVE) return; if(typeof S!=='undefined'&&S&&S.admin) return;
+    const key=k+'|'+w; if(key===TRK.last) return; TRK.last=key;
+    TRK.q.push({k,w:String(w||''),l:String(l||'').slice(0,120),v:trkVisitor(),d:trkDevice(),r:k==='page'&&TRK.q.length+TRK.sent<1?trkRef:''}); TRK.sent=(TRK.sent||0);
+    clearTimeout(TRK.t); TRK.t=setTimeout(trkFlush,4000); }catch(e){} }
+function trkFlush(){ if(!TRK.q.length) return; const ev=TRK.q.splice(0,25); TRK.sent=(TRK.sent||0)+ev.length;
+  const url=(typeof BOOT!=='undefined'&&BOOT.exec)||''; if(!url) return; const body=JSON.stringify({fn:'track',args:[ev]});
+  try{ if(navigator.sendBeacon&&navigator.sendBeacon(url,new Blob([body],{type:'text/plain'}))) return; }catch(e){}
+  try{ fetch(url,{method:'POST',body,keepalive:true,mode:'no-cors',headers:{'Content-Type':'text/plain'}}); }catch(e){} }
+addEventListener('pagehide',trkFlush); document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden') trkFlush(); });
+/** Wraps a global function so calling it also counts an event (fn returns [k, w, l] or null). */
+function trkWrap(name,fn){ const o=window[name]; if(typeof o!=='function') return; window[name]=function(){ try{ const e=fn.apply(null,arguments); if(e) trk(e[0],e[1],e[2]); }catch(_){} return o.apply(this,arguments); }; }
+/* ===================== end of analytics ===================== */
+
+/* what the full site counts */
+const trkLabel=(v,o)=>{ o=o||{}; if(v==='type') return (typeOf(o.type||'ranger')||{}).name||v; if(v==='cseries'){ const s=crSeries(o.cseries); return s?s.name:''; }
+  if(v==='deck'){ const d=deckById(o.deck); return d?d.name:''; } if(v==='expansion'){ const e=expById(o.exp); return e?e.name:''; } if(v==='collection'){ const c=collById(o.collection); return c?c.name:''; } return ''; };
+trkWrap('go',(v,o)=>{ o=o||{}; const id=v+(v==='type'?':'+(o.type||''):v==='cseries'?':'+o.cseries:v==='deck'?':'+o.deck:v==='expansion'?':'+o.exp:v==='collection'?':'+o.collection:'');
+  if(v==='deck'){ const d=deckById(o.deck); if(d) trk('deck',d.id,d.name); } const nb=document.querySelector(`.nav [data-view="${v}"]`); return ['page',id,trkLabel(v,o)||(nb&&nb.textContent.trim())||v]; });
+trkWrap('openCard',id=>{ const c=S.cards.find(x=>x.id===id); return c?['card',c.id,cardName(c)]:null; });
+trkWrap('openComic',id=>{ const c=crById(id); return c?['comic',c.id,crName(c)]:null; });
+trkWrap('openFile',id=>{ const f=fileById(id); return f?['file',f.id,f.title]:null; });
+trkWrap('wkNav',r=>r&&r.a?['wiki',r.a,(typeof WK!=='undefined'&&WK.by&&WK.by[r.a]||{}).title||r.a]:null);
+trkWrap('pickSection',s=>s==='game'?['game','grid-run','Grid Run']:null);
+trkWrap('crCoverViewer',(l,k)=>l&&l[k]?['cover',l[k].c.id+':'+l[k].p,crName(l[k].c)+(l[k].p?' p.'+(l[k].p+1):'')]:null);
+/* ===================== end of analytics (site) ===================== */
 </script>
 <!--DEMO-->
 </body>
